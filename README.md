@@ -6,6 +6,7 @@ The mod is fully customisable to your liking, like turning off certain features.
 
 # What is configurable?
   
+• How many characters a player label will have  
 • Whether the currently focused player should have a label too  
 • Whether enemies should have a label  
 • The label of a player that is dead  
