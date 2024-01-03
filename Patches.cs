@@ -145,9 +145,6 @@ public static class SpawnRandomDaytimeEnemyPatch
 		
 		if (!ConfigUtil.ShowLabelOnEnemies.Value || ReferenceEquals(__result, null))
 		{
-			LoggerUtil.LogError(ConfigUtil.ShowLabelOnEnemies.Value + "  (Should be true)");
-			LoggerUtil.LogError("Result is null");
-			
 			return;
 		}
 
