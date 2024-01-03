@@ -56,7 +56,7 @@ public static class ConfigUtil
 		config = configFile;
 	}
 
-	internal static void ReadConfig()
+	public static void ReadConfig()
 	{
 		// GENERAL
 		EnableLogger         = config.Bind("0. General", "enableLogger", true, "Should the plugin log to the console");
@@ -94,11 +94,11 @@ public static class ConfigUtil
 		TargetLabelColour       = config.Bind("2. Colours", "targetLabelColour", Color.green, "The colour of the label of the currently viewed player");
 		OtherLabelColour        = config.Bind("2. Colours", "otherLabelColour", Color.white, "The default colour of a label");
 		DeadLabelColour         = config.Bind("2. Colours", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
-		RadarBoosterLabelColour = config.Bind("2. Colours", "radarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster");
-		EnemyLabelColour        = config.Bind("2. Colours", "enemyLabelColour", new Color(0.53333336f, 0, 0.13333334F), "The colour of a label of an enemy");
+		RadarBoosterLabelColour = config.Bind("2. Colours", "radarBoosterLabelColour", Color.blue, "The colour of a label of a radar booster");
+		EnemyLabelColour        = config.Bind("2. Colours", "enemyLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of a label of an enemy");
 		DeadEnemyLabelColour    = config.Bind("2. Colours", "deadEnemyLabelColour", Color.red, "The colour of a label of an enemy that is dead");
 
-
+		
 		// ADVANCED
 		StringFormat = config.Bind("3. Advanced", "labelFormat", "{0}", "The string that will be shown above a player dot\n{0} = Name\n{1} = playerIndex");
 	}

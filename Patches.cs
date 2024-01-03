@@ -1,6 +1,5 @@
 ﻿using GameNetcodeStuff;
 using HarmonyLib;
-using PlayerMapName.Components;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -12,7 +11,7 @@ public static class ManualCameraRendererAwakePatch
 {
 	public static void Postfix(ManualCameraRenderer __instance)
 	{
-		//LoggerUtil.LogInfo("ManualCameraRendererAwakePatch patch run");
+		LoggerUtil.LogInfo("ManualCameraRendererAwakePatch patch run");
 		NetworkManager networkManager = __instance.NetworkManager;
 		if (networkManager == null || !networkManager.IsListening)
 			return;
@@ -26,7 +25,7 @@ public static class ManualCameraRendererRemoveTargetFromRadarPatch
 {
 	public static void Postfix(ManualCameraRenderer __instance, Transform removeTransform)
 	{
-		//LoggerUtil.LogInfo("ManualCameraRendererRemoveTargetFromRadarPatch patch run");
+		LoggerUtil.LogInfo("ManualCameraRendererRemoveTargetFromRadarPatch patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
@@ -36,7 +35,7 @@ public static class ManualCameraRendererAddTransformAsTargetToRadarPatch
 {
 	public static void Postfix(ManualCameraRenderer __instance, Transform newTargetTransform, string targetName, bool isNonPlayer)
 	{
-		//LoggerUtil.LogInfo("ManualCameraRendererAddTransformAsTargetToRadarPatch patch run");
+		LoggerUtil.LogInfo("ManualCameraRendererAddTransformAsTargetToRadarPatch patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
@@ -46,7 +45,7 @@ public static class ManualCameraRendererSwitchRadarTargetServerRpcPatch
 {
 	public static void Postfix(ManualCameraRenderer __instance, int targetIndex)
 	{
-		//LoggerUtil.LogInfo("ManualCameraRendererSwitchRadarTargetServerRpcPatch patch run");
+		LoggerUtil.LogInfo("ManualCameraRendererSwitchRadarTargetServerRpcPatch patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
@@ -56,7 +55,7 @@ public static class ManualCameraRendererSwitchRadarTargetClientRpcPatch
 {
 	public static void Postfix(ManualCameraRenderer __instance, int switchToIndex)
 	{
-		//LoggerUtil.LogInfo("ManualCameraRendererSwitchRadarTargetClientRpcPatch patch run");
+		LoggerUtil.LogInfo("ManualCameraRendererSwitchRadarTargetClientRpcPatch patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
@@ -66,7 +65,7 @@ public static class SendNewPlayerValuesClientRpcPatch
 {
 	public static void Postfix(PlayerControllerB __instance, ref ulong[] playerSteamIds)
 	{
-		//LoggerUtil.LogInfo("SendNewPlayerValuesClientRpcPatch patch run");
+		LoggerUtil.LogInfo("SendNewPlayerValuesClientRpcPatch patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
@@ -76,7 +75,7 @@ public static class SendNewPlayerValuesServerRpcPatch
 {
 	public static void Postfix(PlayerControllerB __instance, ulong newPlayerSteamId)
 	{
-		//LoggerUtil.LogInfo("SendNewPlayerValuesServerRpcPatch patch run");
+		LoggerUtil.LogInfo("SendNewPlayerValuesServerRpcPatch patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
@@ -86,7 +85,7 @@ public static class SpawnDeadBodyPatch
 {
 	public static void Postfix(PlayerControllerB __instance)
 	{
-		//LoggerUtil.LogInfo("SpawnDeadBodyPatch patch run");
+		LoggerUtil.LogInfo("SpawnDeadBodyPatch patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
@@ -96,7 +95,7 @@ public static class KillPlayerServerRpcPatch
 {
 	public static void Postfix(PlayerControllerB __instance)
 	{
-		//LoggerUtil.LogInfo("KillPlayerServerRpcPatch patch run");
+		LoggerUtil.LogInfo("KillPlayerServerRpcPatch patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
@@ -106,7 +105,7 @@ public static class KillPlayerClientRpcPatch
 {
 	public static void Postfix(PlayerControllerB __instance)
 	{
-		//LoggerUtil.LogInfo("KillPlayerClientRpcPatch patch run");
+		LoggerUtil.LogInfo("KillPlayerClientRpcPatch patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
@@ -116,6 +115,8 @@ public static class SpawnEnemyGameObjectPatch
 {
 	public static void Postfix(ref NetworkObjectReference __result)
 	{
+		LoggerUtil.LogInfo("SpawnEnemyGameObjectPatch patch run");
+		
 		if (!ConfigUtil.ShowLabelOnEnemies.Value)
 		{
 			return;
@@ -140,8 +141,13 @@ public static class SpawnRandomDaytimeEnemyPatch
 {
 	public static void Postfix(ref GameObject __result)
 	{
-		if (!ConfigUtil.ShowLabelOnEnemies.Value || __result == null)
+		LoggerUtil.LogInfo("SpawnRandomDaytimeEnemyPatch patch run");
+		
+		if (!ConfigUtil.ShowLabelOnEnemies.Value || ReferenceEquals(__result, null))
 		{
+			LoggerUtil.LogError(ConfigUtil.ShowLabelOnEnemies.Value + "  (Should be true)");
+			LoggerUtil.LogError("Result is null");
+			
 			return;
 		}
 
@@ -156,7 +162,9 @@ public static class SpawnRandomOutsideEnemyPatch
 {
 	public static void Postfix(ref GameObject __result)
 	{
-		if (!ConfigUtil.ShowLabelOnEnemies.Value || __result == null)
+		LoggerUtil.LogInfo("SpawnRandomOutsideEnemyPatch patch run");
+		
+		if (!ConfigUtil.ShowLabelOnEnemies.Value || ReferenceEquals(__result, null))
 		{
 			return;
 		}
@@ -172,12 +180,26 @@ public static class KillEnemyPatch
 {
 	public static void Postfix(EnemyAI __instance, bool destroy = false)
 	{
+		LoggerUtil.LogInfo("KillEnemyPatch patch run");
+		
 		if (destroy || !ConfigUtil.ShowLabelOnEnemies.Value || __instance == null)
 		{
 			return;
 		}
 
-		TMP_Text mapLabel = __instance.GetComponentInChildren<MapLabelLayerEnforcer>().GetComponent<TMP_Text>();
+		Transform mapDot = MapLabelUtil.GetMapDot(__instance.transform);
+
+		if (ReferenceEquals(mapDot, null))
+		{
+			return;
+		}
+		
+		TMP_Text mapLabel = mapDot.GetComponentInChildren<TMP_Text>();
+		
+		if (ReferenceEquals(mapLabel, null)) // This enemy does not have a label, it was most likely skipped as a result of ConfigUtil.HideLabelOnCertainEnemies
+		{
+			return;
+		}
 
 		if (!ConfigUtil.ShowLabelOnDeadEnemies.Value)
 		{

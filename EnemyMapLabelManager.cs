@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace PlayerMapName
@@ -15,7 +14,9 @@ namespace PlayerMapName
 				return;
 			}
 			
-			Transform mapDot = GetMapDot(enemyAI.transform);
+			// The MapDot for enemies are inconsisently named and are not in the same position for all enemies
+			// So we check all children to find an object that contains 'MapDot' in the name
+			Transform mapDot = MapLabelUtil.GetMapDot(enemyAI.transform);
 
 			if (ReferenceEquals(mapDot, null))
 			{
@@ -27,40 +28,6 @@ namespace PlayerMapName
 
 			label.color = ConfigUtil.EnemyLabelColour.Value;
 			label.text  = enemyLabel;
-		}
-
-		/// <summary>
-		/// A breadth-first search for a child that has 'MapDot' in its name
-		/// </summary>
-		private static Transform GetMapDot(Transform parent)
-		{
-			// The MapDot for enemies are inconsisently named and are not in the same position for all enemies
-			// So we check all children to find an object that contains 'MapDot' in the name
-			
-			// A breadth-first queue to search through all the children before looking at their children
-			Queue<Transform> queue = new Queue<Transform>();
-
-			foreach (Transform child in parent)
-			{
-				queue.Enqueue(child);
-			}
-
-			while (queue.Count > 0)
-			{
-				Transform current = queue.Dequeue();
-
-				if (current.gameObject.name.Contains(MapLabelUtil.MAP_DOT_NAME))
-				{
-					return current;
-				}
-
-				foreach (Transform child in current)
-				{
-					queue.Enqueue(child);
-				}
-			}
-
-			return null;
 		}
 
 		private static string GetEnemyLabel(EnemyAI enemyAI, out bool showLabel)

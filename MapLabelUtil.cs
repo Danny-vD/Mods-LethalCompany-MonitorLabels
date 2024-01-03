@@ -1,4 +1,4 @@
-﻿using PlayerMapName.Components;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -24,8 +24,8 @@ public static class MapLabelUtil
 		labelObject.transform.SetLocalPositionAndRotation(labelPosition, labelRotation);
 		labelObject.transform.localScale = labelScale;
 
-		labelObject.AddComponent<MapLabelLayerEnforcer>().Initialize(parent.layer);
 		labelObject.layer = parent.layer; // 14 == MapRadar
+		labelObject.tag   = parent.tag;
 
 		labelObject.AddComponent<ForceNorthRotation>();
 
@@ -38,5 +38,36 @@ public static class MapLabelUtil
 		labelComponent.overflowMode       = TextOverflowModes.Overflow;
 
 		return labelComponent;
+	}
+	
+	/// <summary>
+	/// A breadth-first search for a child that has 'MapDot' in its name
+	/// </summary>
+	public static Transform GetMapDot(Transform parent)
+	{
+		// A breadth-first queue to search through all the children before looking at their children
+		Queue<Transform> queue = new Queue<Transform>();
+
+		foreach (Transform child in parent)
+		{
+			queue.Enqueue(child);
+		}
+
+		while (queue.Count > 0)
+		{
+			Transform current = queue.Dequeue();
+
+			if (current.gameObject.name.Contains(MapLabelUtil.MAP_DOT_NAME))
+			{
+				return current;
+			}
+
+			foreach (Transform child in current)
+			{
+				queue.Enqueue(child);
+			}
+		}
+
+		return null;
 	}
 }
