@@ -6,7 +6,7 @@ namespace PlayerMapName
 {
 	public static class EnemyMapLabelManager
 	{
-		public static void AddLabelToEnemy(EnemyAI enemyAI)
+		internal static void AddLabelToEnemy(EnemyAI enemyAI)
 		{
 			string enemyLabel = GetEnemyLabel(enemyAI, out bool showLabel);
 

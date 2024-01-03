@@ -56,7 +56,7 @@ namespace PlayerMapName
 			}
 		}
 
-		public static void AddTargetLabel(GameObject target, int index, string targetName)
+		internal static void AddTargetLabel(GameObject target, int index, string targetName)
 		{
 			LoggerUtil.LogInfo($"Adding index {index}");
 

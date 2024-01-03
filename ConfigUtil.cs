@@ -15,8 +15,8 @@ public static class ConfigUtil
 	public static ConfigEntry<bool> HideDeadLabels;
 
 	// ENEMIES
-	public static ConfigEntry<bool> ShowLabelOnEnemies;     // RoundManager.SpawnEnemyGameObject(Vector3 spawnPosition, float yRot, int enemyNumber, EnemyType enemyType = null)
-	public static ConfigEntry<bool> ShowLabelOnDeadEnemies; // EnemyAI.KillEnemy(bool destroy = false)
+	public static ConfigEntry<bool> ShowLabelOnEnemies;
+	public static ConfigEntry<bool> ShowLabelOnDeadEnemies;
 	public static ConfigEntry<bool> HideLabelOnCertainEnemies;
 
 	//     ENEMY LABELS
@@ -51,12 +51,12 @@ public static class ConfigUtil
 
 	private static ConfigFile config;
 
-	public static void Initialize(ConfigFile configFile)
+	internal static void Initialize(ConfigFile configFile)
 	{
 		config = configFile;
 	}
 
-	public static void ReadConfig()
+	internal static void ReadConfig()
 	{
 		// GENERAL
 		EnableLogger         = config.Bind("0. General", "enableLogger", true, "Should the plugin log to the console");
