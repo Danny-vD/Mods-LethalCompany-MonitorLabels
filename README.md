@@ -12,3 +12,6 @@ The mod is fully customisable to your liking, like turning off certain features.
 • The label of a player that is dead  
 • All enemy labels can have a custom label  
 • All colours  
+
+# Examples
+![Enemy Labels Example](/Examples/EnemyLabels.png)
