@@ -22,11 +22,13 @@ It also exposes an API for other mods to add their own labels (in case they add 
 
 # For Developers
 ### Custom Labels
-`MonitorLabels.AIMapLabelManager.CustomAINames` is a `Dictionary<Type, string>` where you can add your own types to, to give them custom labels.  
-`MonitorLabels.AIMapLabelManager.TryAddNewAI(Type, String)` and `MonitorLabels.AIMapLabelManager.RemoveAI(Type)` are helper functions for this purpose.
+`MonitorLabels.AIMapLabelManager.CustomAINames` is a `Dictionary<Type, CustomAILabelData>` where you can add your own types to, to give them custom labels.  
+`MonitorLabels.AIMapLabelManager.TryAddNewAI(Type, CustomAILabelData)` and `MonitorLabels.AIMapLabelManager.RemoveAI(Type)` are helper functions for this purpose.  
+
+The `CustomAILabelData.ShowLabel` boolean is used if you want to hide the label of that AI.
 
 #### Example
-`MonitorLabels.AIMapLabelManager.TryAddNewAI(typeof(MyAI), "MyLabel");`
+`MonitorLabels.AIMapLabelManager.TryAddNewAI(typeof(MyAI), new CustomAILabelData("MyLabel"));`
 
 ### Configuration
 The Configuration files can be publicly accessed from the `MonitorLabels.ConfigUtil` class if for whatever reason you want to modify something.  
