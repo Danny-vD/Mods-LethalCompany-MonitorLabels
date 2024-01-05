@@ -21,8 +21,8 @@ It also exposes an API for other mods to add their own labels (in case they add 
 [![Enemy labels example](/Examples/EnemyLabels.png)](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels)
 
 # For Developers
-`MonitorLabels.EnemyMapLabelManager.CustomAINames` is a `Dictionary<Type, string>` where you can add your own types to, to give them custom labels.  
-`MonitorLabels.EnemyMapLabelManager.AddNewAI(Type, String)` and `MonitorLabels.EnemyMapLabelManager.RemoveAI(Type)` function the same as adding to the dictionary manually.
+`MonitorLabels.AIMapLabelManager.CustomAINames` is a `Dictionary<Type, string>` where you can add your own types to, to give them custom labels.  
+`MonitorLabels.AIMapLabelManager.AddNewAI(Type, String)` and `MonitorLabels.AIMapLabelManager.RemoveAI(Type)` function the same as adding to the dictionary manually.
 
 The Configuration files can be publicly accessed from the `MonitorLabels.ConfigUtil` class if for whatever reason you want to modify something.  
 
