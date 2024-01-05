@@ -14,4 +14,4 @@ The mod is fully customisable to your liking, like turning off certain features.
 • All colours  
 
 # Examples
-![Enemy Labels Example](/Examples/EnemyLabels.png)
+[![Enemy Labels Example](/Examples/EnemyLabels.png)](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels)
