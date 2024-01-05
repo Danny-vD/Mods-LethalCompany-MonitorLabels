@@ -121,7 +121,7 @@ namespace MonitorLabels
 		public static void Postfix(EnemyAI __instance)
 		{
 			LoggerUtil.LogInfo($"{nameof(EnemyAI)} ({nameof(EnemyAI.Start)}) patch run");
-			AIMapLabelManager.AddLabelToEnemy(__instance);
+			AIMapLabelManager.AddLabelToAI(__instance);
 		}
 	}
 

@@ -27,7 +27,7 @@ namespace MonitorLabels
 
 			Harmony harmonyInstance = new Harmony(GUID);
 			LoggerUtil.LogInfo("Attempting to patch with Harmony!");
-			
+
 			try
 			{
 				harmonyInstance.PatchAll();
@@ -69,7 +69,7 @@ namespace MonitorLabels
 
 			// Alive players
 			GameObject labelParent = null; // target.transform.Find("Misc")?.Find(MapLabelUtil.MAP_DOT_NAME)?.gameObject;
-			
+
 			PlayerControllerB playerController = target.GetComponent<PlayerControllerB>();
 
 			if (playerController != null && playerController.isPlayerDead)

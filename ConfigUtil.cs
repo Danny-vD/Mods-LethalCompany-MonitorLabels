@@ -94,7 +94,7 @@ public static class ConfigUtil
 		TargetLabelColour       = config.Bind("2. Colours", "targetLabelColour", Color.green, "The colour of the label of the currently viewed player");
 		OtherLabelColour        = config.Bind("2. Colours", "otherLabelColour", Color.white, "The default colour of a label");
 		DeadLabelColour         = config.Bind("2. Colours", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
-		RadarBoosterLabelColour = config.Bind("2. Colours", "radarBoosterLabelColour", Color.blue, "The colour of a label of a radar booster");
+		RadarBoosterLabelColour = config.Bind("2. Colours", "radarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster");
 		EnemyLabelColour        = config.Bind("2. Colours", "enemyLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of a label of an enemy");
 		DeadEnemyLabelColour    = config.Bind("2. Colours", "deadEnemyLabelColour", Color.red, "The colour of a label of an enemy that is dead");
 
