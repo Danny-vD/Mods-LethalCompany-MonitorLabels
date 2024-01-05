@@ -1,4 +1,4 @@
-namespace PlayerMapName
+namespace MonitorLabels
 {
     public static class PluginInfo
     {

@@ -1,7 +1,7 @@
 ﻿using BepInEx.Configuration;
 using BepInEx.Logging;
 
-namespace PlayerMapName;
+namespace MonitorLabels;
 
 internal static class LoggerUtil
 {

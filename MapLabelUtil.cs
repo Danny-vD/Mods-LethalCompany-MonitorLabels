@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace PlayerMapName;
+namespace MonitorLabels;
 
 public static class MapLabelUtil
 {

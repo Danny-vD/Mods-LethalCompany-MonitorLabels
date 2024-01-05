@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PlayerMapName
+namespace MonitorLabels
 {
 	public class ForceNorthRotation : MonoBehaviour
 	{

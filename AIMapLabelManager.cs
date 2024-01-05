@@ -1,12 +1,28 @@
-﻿using TMPro;
+﻿using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-namespace PlayerMapName
+namespace MonitorLabels
 {
-	public static class EnemyMapLabelManager
+	public static class AIMapLabelManager
 	{
+		public static readonly Dictionary<Type, string> CustomAINames = new Dictionary<Type, string>();
+
+		public static void AddNewAI(Type type, string label)
+		{
+			CustomAINames.Add(type, label);
+		}
+
+		public static void RemoveAI(Type type)
+		{
+			CustomAINames.Remove(type);
+		}
+
 		internal static void AddLabelToEnemy(EnemyAI enemyAI)
 		{
+			AddNewAI(typeof(DocileLocustBeesAI), "myLabel");
+			
 			string enemyLabel = GetEnemyLabel(enemyAI, out bool showLabel);
 
 			if (!showLabel)
@@ -23,9 +39,9 @@ namespace PlayerMapName
 				LoggerUtil.LogError($"Child {MapLabelUtil.MAP_DOT_NAME} cannot be found for enemy: {enemyAI.gameObject.name}");
 				return;
 			}
-			
+
 			TMP_Text label = MapLabelUtil.AddLabelObject(mapDot.gameObject);
-			
+
 			label.color = ConfigUtil.EnemyLabelColour.Value;
 			label.text  = enemyLabel;
 		}
@@ -49,7 +65,7 @@ namespace PlayerMapName
 					return ConfigUtil.CrawlerLabel.Value;
 
 				case DocileLocustBeesAI:
-					if (ConfigUtil.HideLabelOnCertainEnemies.Value)
+					if (true) //ConfigUtil.HideLabelOnCertainEnemies.Value) // NOTE: DocileLocustBees do not have a mapdot
 					{
 						showLabel = false;
 					}
@@ -106,9 +122,22 @@ namespace PlayerMapName
 					return ConfigUtil.CoilHeadLabel.Value;
 
 				default:
-					string label = ConfigUtil.UnknownLabel.Value;
-					return label.Equals(string.Empty) ? enemyAI.gameObject.name : label;
+					return GetUnknownEnemyLabel(enemyAI);
 			}
+		}
+
+		private static string GetUnknownEnemyLabel(EnemyAI enemyAI)
+		{
+			foreach (KeyValuePair<Type, string> pair in CustomAINames)
+			{
+				if (pair.Key.IsInstanceOfType(enemyAI))
+				{
+					return pair.Value;
+				}
+			}
+			
+			string label = ConfigUtil.UnknownLabel.Value;
+			return label.Equals(string.Empty) ? enemyAI.gameObject.name : label;
 		}
 	}
 }

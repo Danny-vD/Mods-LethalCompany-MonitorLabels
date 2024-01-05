@@ -5,13 +5,15 @@ using HarmonyLib;
 using TMPro;
 using UnityEngine;
 
-namespace PlayerMapName
+namespace MonitorLabels
 {
-	[BepInPlugin(GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
+	[BepInPlugin(GUID, PLUGIN_NAME, PLUGIN_VERSION)]
 	[BepInProcess("Lethal Company.exe")]
 	public class MonitorLabelsPlugin : BaseUnityPlugin
 	{
 		public const string GUID = "DannyVD.mods.LethalCompany.MonitorLabels";
+		public const string PLUGIN_NAME = "MonitorLabels";
+		public const string PLUGIN_VERSION = "1.0.0";
 
 		private void Awake()
 		{

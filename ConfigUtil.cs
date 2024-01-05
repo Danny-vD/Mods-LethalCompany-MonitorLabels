@@ -1,7 +1,7 @@
 ﻿using BepInEx.Configuration;
 using UnityEngine;
 
-namespace PlayerMapName;
+namespace MonitorLabels;
 
 public static class ConfigUtil
 {
