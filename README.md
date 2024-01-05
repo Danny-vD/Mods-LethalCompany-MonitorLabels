@@ -23,7 +23,7 @@ It also exposes an API for other mods to add their own labels (in case they add 
 # For Developers
 ### Custom Labels
 `MonitorLabels.AIMapLabelManager.CustomAINames` is a `Dictionary<Type, string>` where you can add your own types to, to give them custom labels.  
-`MonitorLabels.AIMapLabelManager.TryAddNewAI(Type, String)` and `MonitorLabels.AIMapLabelManager.RemoveAI(Type)` function the same as adding to the dictionary manually.
+`MonitorLabels.AIMapLabelManager.TryAddNewAI(Type, String)` and `MonitorLabels.AIMapLabelManager.RemoveAI(Type)` are helper functions for this purpose.
 
 #### Example
 `MonitorLabels.AIMapLabelManager.TryAddNewAI(typeof(MyAI), "MyLabel");`
