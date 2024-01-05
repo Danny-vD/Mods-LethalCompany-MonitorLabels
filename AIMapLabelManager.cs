@@ -9,9 +9,9 @@ namespace MonitorLabels
 	{
 		public static readonly Dictionary<Type, string> CustomAINames = new Dictionary<Type, string>();
 
-		public static void AddNewAI(Type type, string label)
+		public static bool TryAddNewAI(Type type, string label)
 		{
-			CustomAINames.Add(type, label);
+			return CustomAINames.TryAdd(type, label);
 		}
 
 		public static void RemoveAI(Type type)
@@ -21,8 +21,6 @@ namespace MonitorLabels
 
 		internal static void AddLabelToEnemy(EnemyAI enemyAI)
 		{
-			AddNewAI(typeof(DocileLocustBeesAI), "myLabel");
-			
 			string enemyLabel = GetEnemyLabel(enemyAI, out bool showLabel);
 
 			if (!showLabel)
