@@ -1,4 +1,4 @@
-﻿# What does this mod do?
+# What does this mod do?
 
 This mod adds a label to the icons on the monitor for players, radar boosters and enemies
 
