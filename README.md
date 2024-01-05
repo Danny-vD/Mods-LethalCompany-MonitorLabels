@@ -20,6 +20,8 @@ It also exposes an API for other mods to add their own labels (in case they add 
 
 [![Enemy labels example](/Examples/EnemyLabels.png)](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels)
 
+[![Radar booster labels example](/Examples/RadarBoosterLabels.png)](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels)
+
 # For Developers
 ### Custom Labels
 `MonitorLabels.AIMapLabelManager.CustomAINames` is a `Dictionary<Type, CustomAILabelData>` where you can add your own types to, to give them custom labels.  
