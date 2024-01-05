@@ -68,7 +68,7 @@ public static class ConfigUtil
 		HideDeadLabels       = config.Bind("0. General", "hideDeadLabels", false, "Don't show the labels of dead players");
 
 		// ENEMIES
-		ShowLabelOnEnemies        = config.Bind("1. Enemies", "showLabelOnEnemies", false, "Should enemies have labels?");
+		ShowLabelOnEnemies        = config.Bind("1. Enemies", "showLabelOnEnemies", true, "Should enemies have labels?");
 		ShowLabelOnDeadEnemies    = config.Bind("1. Enemies", "showLabelOnDeadEnemies", true, "Should the label stay on a dead enemy?");
 		HideLabelOnCertainEnemies = config.Bind("1. Enemies", "hideLabelOnSomeEnemies", false, "Don't show a label for the following enemies:\nBirds\nBees\nWorm");
 

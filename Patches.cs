@@ -110,65 +110,74 @@ public static class KillPlayerClientRpcPatch
 	}
 }
 
-[HarmonyPatch(typeof(RoundManager), "SpawnEnemyGameObject")]
-public static class SpawnEnemyGameObjectPatch
+//[HarmonyPatch(typeof(RoundManager), "SpawnEnemyGameObject")]
+//public static class SpawnEnemyGameObjectPatch
+//{
+//	public static void Postfix(ref NetworkObjectReference __result)
+//	{
+//		LoggerUtil.LogError("SpawnEnemyGameObjectPatch patch run");
+//		
+//		if (!ConfigUtil.ShowLabelOnEnemies.Value)
+//		{
+//			return;
+//		}
+//
+//		NetworkObject networkObject = __result; // Implicit conversion
+//
+//		if (networkObject == null)
+//		{
+//			LoggerUtil.LogError("Network object cannot be found for this enemy");
+//			return;
+//		}
+//
+//		EnemyAI enemyAI = networkObject.GetComponentInParent<EnemyAI>();
+//
+//		EnemyMapLabelManager.AddLabelToEnemy(enemyAI);
+//	}
+//}
+//
+//[HarmonyPatch(typeof(RoundManager), "SpawnRandomDaytimeEnemy")]
+//public static class SpawnRandomDaytimeEnemyPatch
+//{
+//	public static void Postfix(ref GameObject __result)
+//	{
+//		LoggerUtil.LogInfo("SpawnRandomDaytimeEnemyPatch patch run");
+//		
+//		if (!ConfigUtil.ShowLabelOnEnemies.Value || ReferenceEquals(__result, null))
+//		{
+//			return;
+//		}
+//
+//		EnemyAI enemyAI = __result.GetComponentInParent<EnemyAI>();
+//
+//		EnemyMapLabelManager.AddLabelToEnemy(enemyAI);
+//	}
+//}
+//
+//[HarmonyPatch(typeof(RoundManager), "SpawnRandomOutsideEnemy")]
+//public static class SpawnRandomOutsideEnemyPatch
+//{
+//	public static void Postfix(ref GameObject __result)
+//	{
+//		LoggerUtil.LogInfo("SpawnRandomOutsideEnemyPatch patch run");
+//		
+//		if (!ConfigUtil.ShowLabelOnEnemies.Value || ReferenceEquals(__result, null))
+//		{
+//			return;
+//		}
+//
+//		EnemyAI enemyAI = __result.GetComponentInParent<EnemyAI>();
+//
+//		EnemyMapLabelManager.AddLabelToEnemy(enemyAI);
+//	}
+//}
+
+[HarmonyPatch(typeof(EnemyAI), "Start")]
+public static class EnemyAIStartPatch
 {
-	public static void Postfix(ref NetworkObjectReference __result)
+	public static void Postfix(EnemyAI __instance)
 	{
-		LoggerUtil.LogInfo("SpawnEnemyGameObjectPatch patch run");
-		
-		if (!ConfigUtil.ShowLabelOnEnemies.Value)
-		{
-			return;
-		}
-
-		NetworkObject networkObject = __result; // Implicit conversion
-
-		if (networkObject == null)
-		{
-			LoggerUtil.LogError("Network object cannot be found for this enemy");
-			return;
-		}
-
-		EnemyAI enemyAI = networkObject.GetComponentInParent<EnemyAI>();
-
-		EnemyMapLabelManager.AddLabelToEnemy(enemyAI);
-	}
-}
-
-[HarmonyPatch(typeof(RoundManager), "SpawnRandomDaytimeEnemy")]
-public static class SpawnRandomDaytimeEnemyPatch
-{
-	public static void Postfix(ref GameObject __result)
-	{
-		LoggerUtil.LogInfo("SpawnRandomDaytimeEnemyPatch patch run");
-		
-		if (!ConfigUtil.ShowLabelOnEnemies.Value || ReferenceEquals(__result, null))
-		{
-			return;
-		}
-
-		EnemyAI enemyAI = __result.GetComponentInParent<EnemyAI>();
-
-		EnemyMapLabelManager.AddLabelToEnemy(enemyAI);
-	}
-}
-
-[HarmonyPatch(typeof(RoundManager), "SpawnRandomOutsideEnemy")]
-public static class SpawnRandomOutsideEnemyPatch
-{
-	public static void Postfix(ref GameObject __result)
-	{
-		LoggerUtil.LogInfo("SpawnRandomOutsideEnemyPatch patch run");
-		
-		if (!ConfigUtil.ShowLabelOnEnemies.Value || ReferenceEquals(__result, null))
-		{
-			return;
-		}
-
-		EnemyAI enemyAI = __result.GetComponentInParent<EnemyAI>();
-
-		EnemyMapLabelManager.AddLabelToEnemy(enemyAI);
+		EnemyMapLabelManager.AddLabelToEnemy(__instance);
 	}
 }
 

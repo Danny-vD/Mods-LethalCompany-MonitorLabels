@@ -9,7 +9,7 @@ namespace PlayerMapName
 		public void LateUpdate()
 		{
 			// Lock to north
-			gameObject.transform.rotation = FacingNorthRotation;
+			transform.rotation = FacingNorthRotation;
 		}
 	}
 }
