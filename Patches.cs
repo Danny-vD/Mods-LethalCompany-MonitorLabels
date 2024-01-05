@@ -6,188 +6,132 @@ using UnityEngine;
 
 namespace PlayerMapName;
 
-[HarmonyPatch(typeof(ManualCameraRenderer), "Awake")]
+[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.Awake))]
 public static class ManualCameraRendererAwakePatch
 {
 	public static void Postfix(ManualCameraRenderer __instance)
 	{
-		LoggerUtil.LogInfo("ManualCameraRendererAwakePatch patch run");
+		LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)} ({nameof(ManualCameraRenderer.Awake)}) patch run");
+
 		NetworkManager networkManager = __instance.NetworkManager;
+
 		if (networkManager == null || !networkManager.IsListening)
+		{
 			return;
+		}
 
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
 
-[HarmonyPatch(typeof(ManualCameraRenderer), "RemoveTargetFromRadar")]
+[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.RemoveTargetFromRadar))]
 public static class ManualCameraRendererRemoveTargetFromRadarPatch
 {
-	public static void Postfix(ManualCameraRenderer __instance, Transform removeTransform)
+	public static void Postfix()
 	{
-		LoggerUtil.LogInfo("ManualCameraRendererRemoveTargetFromRadarPatch patch run");
+		LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)} ({nameof(ManualCameraRenderer.RemoveTargetFromRadar)}) patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
 
-[HarmonyPatch(typeof(ManualCameraRenderer), "AddTransformAsTargetToRadar")]
+[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.AddTransformAsTargetToRadar))]
 public static class ManualCameraRendererAddTransformAsTargetToRadarPatch
 {
-	public static void Postfix(ManualCameraRenderer __instance, Transform newTargetTransform, string targetName, bool isNonPlayer)
+	public static void Postfix()
 	{
-		LoggerUtil.LogInfo("ManualCameraRendererAddTransformAsTargetToRadarPatch patch run");
+		LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)} ({nameof(ManualCameraRenderer.AddTransformAsTargetToRadar)}) patch run");
+		
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
 
-[HarmonyPatch(typeof(ManualCameraRenderer), "SwitchRadarTargetServerRpc")]
+[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.SwitchRadarTargetServerRpc))]
 public static class ManualCameraRendererSwitchRadarTargetServerRpcPatch
 {
-	public static void Postfix(ManualCameraRenderer __instance, int targetIndex)
+	public static void Postfix()
 	{
-		LoggerUtil.LogInfo("ManualCameraRendererSwitchRadarTargetServerRpcPatch patch run");
+		LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)} ({nameof(ManualCameraRenderer.SwitchRadarTargetServerRpc)}) patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
 
-[HarmonyPatch(typeof(ManualCameraRenderer), "SwitchRadarTargetClientRpc")]
+[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.SwitchRadarTargetClientRpc))]
 public static class ManualCameraRendererSwitchRadarTargetClientRpcPatch
 {
-	public static void Postfix(ManualCameraRenderer __instance, int switchToIndex)
+	public static void Postfix()
 	{
-		LoggerUtil.LogInfo("ManualCameraRendererSwitchRadarTargetClientRpcPatch patch run");
+		LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)} ({nameof(ManualCameraRenderer.SwitchRadarTargetClientRpc)}) patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
 
-[HarmonyPatch(typeof(PlayerControllerB), "SendNewPlayerValuesClientRpc")]
+[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SendNewPlayerValuesClientRpc))]
 public static class SendNewPlayerValuesClientRpcPatch
 {
-	public static void Postfix(PlayerControllerB __instance, ref ulong[] playerSteamIds)
+	public static void Postfix(PlayerControllerB __instance)
 	{
-		LoggerUtil.LogInfo("SendNewPlayerValuesClientRpcPatch patch run");
+		LoggerUtil.LogInfo($"{nameof(PlayerControllerB)} ({nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)}) patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
 
-[HarmonyPatch(typeof(PlayerControllerB), "SendNewPlayerValuesServerRpc")]
+[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SendNewPlayerValuesServerRpc))]
 public static class SendNewPlayerValuesServerRpcPatch
 {
-	public static void Postfix(PlayerControllerB __instance, ulong newPlayerSteamId)
+	public static void Postfix(PlayerControllerB __instance)
 	{
-		LoggerUtil.LogInfo("SendNewPlayerValuesServerRpcPatch patch run");
+		LoggerUtil.LogInfo($"{nameof(PlayerControllerB)} ({nameof(PlayerControllerB.SendNewPlayerValuesServerRpc)}) patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
 
-[HarmonyPatch(typeof(PlayerControllerB), "SpawnDeadBody")]
+[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SpawnDeadBody))]
 public static class SpawnDeadBodyPatch
 {
 	public static void Postfix(PlayerControllerB __instance)
 	{
-		LoggerUtil.LogInfo("SpawnDeadBodyPatch patch run");
+		LoggerUtil.LogInfo($"{nameof(PlayerControllerB)} ({nameof(PlayerControllerB.SpawnDeadBody)}) patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
 
-[HarmonyPatch(typeof(PlayerControllerB), "KillPlayerServerRpc")]
+[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.KillPlayerServerRpc))]
 public static class KillPlayerServerRpcPatch
 {
 	public static void Postfix(PlayerControllerB __instance)
 	{
-		LoggerUtil.LogInfo("KillPlayerServerRpcPatch patch run");
+		LoggerUtil.LogInfo($"{nameof(PlayerControllerB)} ({nameof(PlayerControllerB.KillPlayerServerRpc)}) patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
 
-[HarmonyPatch(typeof(PlayerControllerB), "KillPlayerClientRpc")]
+[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.KillPlayerClientRpc))]
 public static class KillPlayerClientRpcPatch
 {
 	public static void Postfix(PlayerControllerB __instance)
 	{
-		LoggerUtil.LogInfo("KillPlayerClientRpcPatch patch run");
+		LoggerUtil.LogInfo($"{nameof(PlayerControllerB)} ({nameof(PlayerControllerB.KillPlayerClientRpc)}) patch run");
 		MonitorLabelsPlugin.UpdateLabels();
 	}
 }
 
-//[HarmonyPatch(typeof(RoundManager), "SpawnEnemyGameObject")]
-//public static class SpawnEnemyGameObjectPatch
-//{
-//	public static void Postfix(ref NetworkObjectReference __result)
-//	{
-//		LoggerUtil.LogError("SpawnEnemyGameObjectPatch patch run");
-//		
-//		if (!ConfigUtil.ShowLabelOnEnemies.Value)
-//		{
-//			return;
-//		}
-//
-//		NetworkObject networkObject = __result; // Implicit conversion
-//
-//		if (networkObject == null)
-//		{
-//			LoggerUtil.LogError("Network object cannot be found for this enemy");
-//			return;
-//		}
-//
-//		EnemyAI enemyAI = networkObject.GetComponentInParent<EnemyAI>();
-//
-//		EnemyMapLabelManager.AddLabelToEnemy(enemyAI);
-//	}
-//}
-//
-//[HarmonyPatch(typeof(RoundManager), "SpawnRandomDaytimeEnemy")]
-//public static class SpawnRandomDaytimeEnemyPatch
-//{
-//	public static void Postfix(ref GameObject __result)
-//	{
-//		LoggerUtil.LogInfo("SpawnRandomDaytimeEnemyPatch patch run");
-//		
-//		if (!ConfigUtil.ShowLabelOnEnemies.Value || ReferenceEquals(__result, null))
-//		{
-//			return;
-//		}
-//
-//		EnemyAI enemyAI = __result.GetComponentInParent<EnemyAI>();
-//
-//		EnemyMapLabelManager.AddLabelToEnemy(enemyAI);
-//	}
-//}
-//
-//[HarmonyPatch(typeof(RoundManager), "SpawnRandomOutsideEnemy")]
-//public static class SpawnRandomOutsideEnemyPatch
-//{
-//	public static void Postfix(ref GameObject __result)
-//	{
-//		LoggerUtil.LogInfo("SpawnRandomOutsideEnemyPatch patch run");
-//		
-//		if (!ConfigUtil.ShowLabelOnEnemies.Value || ReferenceEquals(__result, null))
-//		{
-//			return;
-//		}
-//
-//		EnemyAI enemyAI = __result.GetComponentInParent<EnemyAI>();
-//
-//		EnemyMapLabelManager.AddLabelToEnemy(enemyAI);
-//	}
-//}
-
-[HarmonyPatch(typeof(EnemyAI), "Start")]
+[HarmonyPatch(typeof(EnemyAI), nameof(EnemyAI.Start))]
 public static class EnemyAIStartPatch
 {
 	public static void Postfix(EnemyAI __instance)
 	{
+		LoggerUtil.LogInfo($"{nameof(EnemyAI)} ({nameof(EnemyAI.Start)}) patch run");
 		EnemyMapLabelManager.AddLabelToEnemy(__instance);
 	}
 }
 
-[HarmonyPatch(typeof(EnemyAI), "KillEnemy")]
+[HarmonyPatch(typeof(EnemyAI), nameof(EnemyAI.KillEnemy))]
 public static class KillEnemyPatch
 {
 	public static void Postfix(EnemyAI __instance, bool destroy = false)
 	{
-		LoggerUtil.LogInfo("KillEnemyPatch patch run");
-		
+		LoggerUtil.LogInfo($"{nameof(EnemyAI)} ({nameof(EnemyAI.KillEnemy)}) patch run");
+
 		if (destroy || !ConfigUtil.ShowLabelOnEnemies.Value || __instance == null)
 		{
 			return;
@@ -199,9 +143,9 @@ public static class KillEnemyPatch
 		{
 			return;
 		}
-		
+
 		TMP_Text mapLabel = mapDot.GetComponentInChildren<TMP_Text>();
-		
+
 		if (ReferenceEquals(mapLabel, null)) // This enemy does not have a label, it was most likely skipped as a result of ConfigUtil.HideLabelOnCertainEnemies
 		{
 			return;
