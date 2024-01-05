@@ -1,6 +1,6 @@
 # What does this mod do?
   
-This mod adds a label to the icons on the terminal for players, radar boosters and enemies
+This mod adds a label to the icons on the monitor for players, radar boosters and enemies
 
 The mod is fully customisable to your liking, like turning off certain features.
 
