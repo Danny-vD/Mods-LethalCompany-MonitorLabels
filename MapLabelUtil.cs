@@ -21,8 +21,9 @@ public static class MapLabelUtil
 		GameObject labelObject = new GameObject(LABEL_OBJECT_NAME);
 		labelObject.transform.SetParent(parent.transform, false);
 
-		labelObject.transform.SetLocalPositionAndRotation(labelPosition, labelRotation);
-		labelObject.transform.localScale = labelScale;
+		labelObject.transform.localPosition = labelPosition;
+		labelObject.transform.rotation      = labelRotation;
+		labelObject.transform.localScale    = labelScale;
 
 		labelObject.layer = parent.layer; // 14 == MapRadar
 		labelObject.tag   = parent.tag;
@@ -39,7 +40,7 @@ public static class MapLabelUtil
 
 		return labelComponent;
 	}
-	
+
 	/// <summary>
 	/// A breadth-first search for a child that has 'MapDot' in its name
 	/// </summary>
