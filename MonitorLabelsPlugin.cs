@@ -13,7 +13,7 @@ namespace MonitorLabels
 	{
 		public const string GUID = "DannyVD.mods.LethalCompany.MonitorLabels";
 		public const string PLUGIN_NAME = "MonitorLabels";
-		public const string PLUGIN_VERSION = "1.0.0";
+		public const string PLUGIN_VERSION = "1.1.0";
 
 		private void Awake()
 		{
@@ -58,10 +58,8 @@ namespace MonitorLabels
 			}
 		}
 
-		internal static void AddTargetLabel(GameObject target, int index, string targetName)
+		internal static void AddTargetLabel(GameObject target, int index, string targetName) // TODO: Fix the absolute mess that is this function and make radar booster label optional
 		{
-			LoggerUtil.LogInfo($"Adding index {index}");
-
 			bool isCurrentTarget = StartOfRound.Instance.mapScreen.targetTransformIndex == index;
 			bool isDead = false;
 
@@ -74,7 +72,7 @@ namespace MonitorLabels
 
 			if (playerController != null && playerController.isPlayerDead)
 			{
-				LoggerUtil.LogInfo("Dead");
+				LoggerUtil.LogInfo($"{target.gameObject.name} is dead");
 
 				if (playerController.redirectToEnemy != null)
 				{
@@ -109,7 +107,7 @@ namespace MonitorLabels
 
 			if (labelParent == null)
 			{
-				LoggerUtil.LogWarning("No parent findable");
+				LoggerUtil.LogWarning("No parent findable for this radar target");
 				return;
 			}
 
@@ -175,7 +173,7 @@ namespace MonitorLabels
 			int length = Mathf.Min(targetName.Length, ConfigUtil.MaximumNameLength.Value);
 			targetName = targetName.Substring(0, length);
 
-			return string.Format(ConfigUtil.StringFormat.Value, targetName, index);
+			return string.Format(ConfigUtil.PlayerLabelStringFormat.Value, targetName, index);
 		}
 	}
 }

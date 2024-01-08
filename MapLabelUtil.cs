@@ -58,7 +58,7 @@ public static class MapLabelUtil
 		{
 			Transform current = queue.Dequeue();
 
-			if (current.gameObject.name.Contains(MapLabelUtil.MAP_DOT_NAME))
+			if (current.gameObject.name.Contains(MAP_DOT_NAME))
 			{
 				return current;
 			}
@@ -70,5 +70,21 @@ public static class MapLabelUtil
 		}
 
 		return null;
+	}
+
+	public static TMP_Text GetRadarLabel(Transform radarParent)
+	{
+		return radarParent.GetComponentInChildren<TMP_Text>();
+	}
+
+	/// <summary>
+	/// <para>Returns the same string without the (clone) part</para>
+	/// <para>It does this by removing anything after the first '('</para>
+	/// </summary>
+	public static string RemoveCloneFromString(string name)
+	{
+		int removeStartIndex = name.IndexOf('(');
+
+		return removeStartIndex == -1 ? name : name[..removeStartIndex];
 	}
 }

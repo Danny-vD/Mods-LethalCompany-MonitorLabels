@@ -3,13 +3,13 @@ using BepInEx.Logging;
 
 namespace MonitorLabels;
 
-internal static class LoggerUtil
+public static class LoggerUtil //TODO: Add log levels to the config so people can choose what messages they see (flag?)
 {
 	private static ManualLogSource logger;
 
 	private static ConfigEntry<bool> configEnableLogger;
 
-	internal static bool IsLoggerEnabled => configEnableLogger.Value;
+	public static bool IsLoggerEnabled => configEnableLogger.Value;
 
 	internal static void Initialize(ConfigEntry<bool> enableLoggerEntry, ManualLogSource logSource)
 	{

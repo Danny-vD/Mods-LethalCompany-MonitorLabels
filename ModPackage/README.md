@@ -1,6 +1,6 @@
 # What does this mod do?
 
-This mod adds a label to the icons on the monitor for players, radar boosters and enemies
+This mod adds a label to the icons on the monitor for players, radar boosters, enemies and scrap!
 
 The mod is fully customisable to your liking, like turning off certain features.
 
@@ -11,6 +11,7 @@ It also exposes an API for other mods to add their own labels (in case they add 
 • How many characters a player label will have  
 • Whether the currently focused player should have a label too  
 • Whether enemies should have a label  
+• Whether scrap should have a label
 • The label of a player that is dead  
 • All enemy labels can have a custom label  
 • All colours

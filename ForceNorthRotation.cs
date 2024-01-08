@@ -4,7 +4,7 @@ namespace MonitorLabels
 {
 	public class ForceNorthRotation : MonoBehaviour
 	{
-		public static Quaternion FacingNorthRotation = Quaternion.Euler(90, -45, 0); 
+		public static Quaternion FacingNorthRotation = Quaternion.Euler(90, -45, 0);
 		
 		public void LateUpdate()
 		{

@@ -1,6 +1,6 @@
 {
     "name": "MonitorLabels",
-    "version_number": "1.0.0",
+    "version_number": "1.1.0",
     "website_url": "https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels",
     "description": "Adds a label to the icons on the monitor for players, radar boosters and enemies",
     "dependencies": [

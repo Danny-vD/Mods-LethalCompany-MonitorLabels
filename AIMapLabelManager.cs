@@ -14,7 +14,7 @@ namespace MonitorLabels
 		{
 			return CustomAINames.TryAdd(type, labelData);
 		}
-		
+
 		public static bool TryAddNewAI(Type type, string label, bool showLabel = true)
 		{
 			return CustomAINames.TryAdd(type, new CustomAILabelData(label, showLabel));
@@ -27,7 +27,7 @@ namespace MonitorLabels
 
 		internal static void AddLabelToAI(EnemyAI enemyAI)
 		{
-			string enemyLabel = GetAILabel(enemyAI, out bool showLabel);
+			string aiLabel = GetAILabel(enemyAI, out bool showLabel);
 
 			if (!showLabel)
 			{
@@ -47,7 +47,7 @@ namespace MonitorLabels
 			TMP_Text label = MapLabelUtil.AddLabelObject(mapDot.gameObject);
 
 			label.color = ConfigUtil.EnemyLabelColour.Value;
-			label.text  = enemyLabel;
+			label.text  = aiLabel;
 		}
 
 		private static string GetAILabel(EnemyAI enemyAI, out bool showLabel)
@@ -58,70 +58,73 @@ namespace MonitorLabels
 			{
 				case BaboonBirdAI:
 					return ConfigUtil.BaboonHawkLabel.Value;
-				
+
 				case BlobAI:
 					return ConfigUtil.BlobLabel.Value;
-				
+
 				case CentipedeAI:
 					return ConfigUtil.CentipedeLabel.Value;
-				
+
 				case CrawlerAI:
 					return ConfigUtil.CrawlerLabel.Value;
-				
+
 				case DocileLocustBeesAI:
 					if (true) //ConfigUtil.HideLabelOnCertainEnemies.Value) // NOTE: DocileLocustBees do not have a mapdot
 					{
 						showLabel = false;
 					}
-				
+
 					return "Bees";
-				
+
 				case DoublewingAI:
 					if (ConfigUtil.HideLabelOnCertainEnemies.Value)
 					{
 						showLabel = false;
 					}
-				
+
 					return ConfigUtil.ManticoilLabel.Value;
-				
+
 				case DressGirlAI:
 					return "Girl";
-				
+
 				case FlowermanAI:
 					return ConfigUtil.BrackenLabel.Value;
-				
+
 				case ForestGiantAI:
 					return ConfigUtil.ForestGiantLabel.Value;
-				
+
 				case HoarderBugAI:
 					return ConfigUtil.HoarderBugLabel.Value;
-				
+
 				case JesterAI:
 					return ConfigUtil.JesterLabel.Value;
-				
+
 				case LassoManAI:
 					return "Lasso";
-				
+
+				case MaskedPlayerEnemy:
+					return ConfigUtil.MaskedLabel.Value;
+
 				case MouthDogAI:
 					return ConfigUtil.DogLabel.Value;
-				
+
 				case NutcrackerEnemyAI:
 					return ConfigUtil.NutCrackerLabel.Value;
-				
+
 				case PufferAI:
 					return ConfigUtil.SporeLizardLabel.Value;
-				
+
 				case SandSpiderAI:
 					return ConfigUtil.SpiderLabel.Value;
-				
+
 				case SandWormAI:
 					if (ConfigUtil.HideLabelOnCertainEnemies.Value)
 					{
 						showLabel = false;
 					}
-				
+
 					return ConfigUtil.SandWormLabel.Value;
-				
+
 				case SpringManAI:
 					return ConfigUtil.CoilHeadLabel.Value;
 
@@ -142,9 +145,9 @@ namespace MonitorLabels
 			}
 
 			showLabel = true;
-			
+
 			string label = ConfigUtil.UnknownLabel.Value;
-			return label.Equals(string.Empty) ? enemyAI.gameObject.name : label;
+			return label.Equals(string.Empty) ? MapLabelUtil.RemoveCloneFromString(enemyAI.gameObject.name) : label;
 		}
 	}
 }
