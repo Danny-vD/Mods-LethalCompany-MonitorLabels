@@ -1,6 +1,6 @@
 ﻿namespace MonitorLabels.Structs;
 
-public struct CustomAILabelData
+public struct CustomAILabelData //TODO: rename to CustomLabelData (breaks backwards compatibility)
 {
 	public string Label;
 	public bool ShowLabel;

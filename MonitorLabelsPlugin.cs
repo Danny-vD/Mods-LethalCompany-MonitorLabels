@@ -136,13 +136,13 @@ namespace MonitorLabels
 					return GetPlayerNameString(targetName, index, true);
 				}
 
-				if (ConfigUtil.HideDeadLabels.Value)
+				if (ConfigUtil.HideDeadPlayerLabels.Value)
 				{
 					return string.Empty;
 				}
 			}
 
-			if (ConfigUtil.HideNormalLabels.Value)
+			if (ConfigUtil.HideNormalPlayerLabels.Value)
 			{
 				return string.Empty;
 			}

@@ -11,8 +11,8 @@ public static class ConfigUtil
 	public static ConfigEntry<int> MaximumNameLength;
 	public static ConfigEntry<bool> ShowLabelOnTarget;
 	public static ConfigEntry<string> CustomDeadName;
-	public static ConfigEntry<bool> HideNormalLabels;
-	public static ConfigEntry<bool> HideDeadLabels;
+	public static ConfigEntry<bool> HideNormalPlayerLabels;
+	public static ConfigEntry<bool> HideDeadPlayerLabels;
 	public static ConfigEntry<bool> HideRadarBoosterLabels;
 
 	// SCRAP
@@ -20,6 +20,7 @@ public static class ConfigUtil
 	public static ConfigEntry<bool> HideScrapLabelIfOnShip;
 	public static ConfigEntry<bool> HideScrapLabelIfCarried;
 	public static ConfigEntry<int> HighValueScrapThreshold;
+	public static ConfigEntry<bool> HideScrapLabelOnNutcracker;
 
 	// ENEMIES
 	public static ConfigEntry<bool> ShowLabelOnEnemies;
@@ -75,21 +76,22 @@ public static class ConfigUtil
 	public static void ReadConfig()
 	{
 		// GENERAL
-		EnableLogger         = config.Bind("0. General", "enableLogger", true, "Should the plugin log to the console");
-		ForceDeadPlayerLabel = config.Bind("0. General", "forceDeadPlayerLabel", true, "Should the label of a dead player always be visible?");
-		MaximumNameLength    = config.Bind("0. General", "maxNameLength", 5, "The maximum length of the name that will be shown on the terminal");
-		ShowLabelOnTarget    = config.Bind("0. General", "targetLabelEnabled", true, "Should the currently targeted player also show a label");
-		CustomDeadName       = config.Bind("0. General", "customDeadLabel", string.Empty, "A custom label to show if someone is dead, leave empty to use their name instead");
-		HideNormalLabels     = config.Bind("0. General", "hideNormalLabels", false, "Don't show any player labels except for 'forceDeadPlayerLabel'");
-		HideDeadLabels       = config.Bind("0. General", "hideDeadLabels", false, "Don't show the labels of dead players");
+		EnableLogger           = config.Bind("0. General", "enableLogger", true, "Should the plugin log to the console");
+		ForceDeadPlayerLabel   = config.Bind("0. General", "forceDeadPlayerLabel", true, "Should the label of a dead player always be visible?");
+		MaximumNameLength      = config.Bind("0. General", "maxNameLength", 5, "The maximum length of the name that will be shown on the terminal");
+		ShowLabelOnTarget      = config.Bind("0. General", "targetLabelEnabled", true, "Should the currently targeted player also show a label");
+		CustomDeadName         = config.Bind("0. General", "customDeadLabel", string.Empty, "A custom label to show if someone is dead, leave empty to use their name instead");
+		HideNormalPlayerLabels = config.Bind("0. General", "hideNormalLabels", false, "Don't show any player labels except for 'forceDeadPlayerLabel'");
+		HideDeadPlayerLabels   = config.Bind("0. General", "hideDeadLabels", false, "Don't show the labels of dead players");
 
 		HideRadarBoosterLabels = config.Bind("0. General", "hideRadarBoosterLabels", false, "Don't show the labels of radar boosters");
 
 		// SCRAP
-		ShowLabelOnScrap        = config.Bind("0.1 Scrap", "showLabelOnScrap", false, "Should scrap also have a label?");
-		HideScrapLabelIfOnShip  = config.Bind("0.1 Scrap", "hideScrapLabelOnShip", true, "Hide the label if the scrap is on the ship");
-		HideScrapLabelIfCarried = config.Bind("0.1 Scrap", "hideScrapLabelIfCarried", true, "Hide the label if the scrap is being carried");
-		HighValueScrapThreshold = config.Bind("0.1 Scrap", "highValueScrapThreshold", 80, "The threshold above which the scrap will be considered 'high-value'");
+		ShowLabelOnScrap           = config.Bind("0.1 Scrap", "showLabelOnScrap", false, "Should scrap also have a label?");
+		HideScrapLabelIfOnShip     = config.Bind("0.1 Scrap", "hideScrapLabelOnShip", true, "Hide the label if the scrap is on the ship");
+		HideScrapLabelIfCarried    = config.Bind("0.1 Scrap", "hideScrapLabelIfCarried", true, "Hide the label if the scrap is being carried");
+		HighValueScrapThreshold    = config.Bind("0.1 Scrap", "highValueScrapThreshold", 80, "The threshold above which the scrap will be considered 'high-value'");
+		HideScrapLabelOnNutcracker = config.Bind("0.1 Scrap", "hideScrapLabelOnNutcracker", true, "Hide the shotgun label if it is held by the nutcracker");
 
 		// ENEMIES
 		ShowLabelOnEnemies        = config.Bind("1. Enemies", "showLabelOnEnemies", true, "Should enemies have labels?");

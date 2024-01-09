@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MonitorLabels.ExtensionMethods;
 using MonitorLabels.Structs;
 using TMPro;
 using UnityEngine;
@@ -103,6 +104,7 @@ namespace MonitorLabels
 					return "Lasso";
 
 				case MaskedPlayerEnemy:
+					LoggerUtil.LogError("Spawned Masked enemy with label");
 					return ConfigUtil.MaskedLabel.Value;
 
 				case MouthDogAI:
@@ -147,7 +149,7 @@ namespace MonitorLabels
 			showLabel = true;
 
 			string label = ConfigUtil.UnknownLabel.Value;
-			return label.Equals(string.Empty) ? MapLabelUtil.RemoveCloneFromString(enemyAI.gameObject.name) : label;
+			return label.Equals(string.Empty) ? MapLabelUtil.RemoveCloneFromString(enemyAI.gameObject.name).InsertSpaceBeforeCapitals() : label;
 		}
 	}
 }
