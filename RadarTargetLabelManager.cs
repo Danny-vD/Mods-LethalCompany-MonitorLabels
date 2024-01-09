@@ -27,7 +27,7 @@ namespace MonitorLabels
 				}
 			}
 		}
-		
+
 		internal static void AddTargetLabel(TransformAndName transformAndName, int index, bool isCurrentTarget)
 		{
 			GameObject radarTarget = transformAndName.transform.gameObject;
@@ -54,6 +54,10 @@ namespace MonitorLabels
 						labelParent = MapLabelUtil.GetMapDot(playerControllerB.deadBody.transform);
 					}
 				}
+				else
+				{
+					labelParent = FindRadarDotOfPlayer(playerControllerB.transform);
+				}
 			}
 			else // No playerController, it is probably a radar booster
 			{
@@ -66,7 +70,7 @@ namespace MonitorLabels
 				return;
 			}
 
-			GameObject labelObject = MapLabelUtil.GetRadarLabel(labelParent, out TMP_Text labelComponent);
+			Transform labelObject = MapLabelUtil.GetRadarLabel(labelParent, out TMP_Text labelComponent);
 
 			if (labelComponent == null)
 			{

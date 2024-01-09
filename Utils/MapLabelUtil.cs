@@ -8,7 +8,7 @@ public static class MapLabelUtil
 {
 	public const string MAP_DOT_NAME = "MapDot";
 	public const string RADAR_BOOSTER_DOT_NAME = "RadarBoosterDot";
-	
+
 	public const string LABEL_OBJECT_NAME = "MapLabel";
 
 	private static readonly Vector3 labelPosition = new Vector3(0, 0.5f, 0);
@@ -35,7 +35,7 @@ public static class MapLabelUtil
 		// Prevent non-uniform scaling in the parent
 		Vector3 parentScale = parent.transform.localScale;
 		float highestScale = Mathf.Max(parentScale.x, parentScale.y, parentScale.z);
-		
+
 		parentScale.x               = highestScale;
 		parentScale.y               = highestScale;
 		parentScale.z               = highestScale;
@@ -91,13 +91,22 @@ public static class MapLabelUtil
 		return null;
 	}
 
-	public static GameObject GetRadarLabel(Transform radarParent, out TMP_Text label)
+	public static Transform GetRadarLabel(Transform radarParent, out TMP_Text label)
 	{
-		GameObject labelObject = radarParent.Find(LABEL_OBJECT_NAME).gameObject;
-		label = labelObject.GetComponent<TMP_Text>();
+		Transform labelObject = radarParent.Find(LABEL_OBJECT_NAME);
+
+		if (labelObject != null)
+		{
+			label = labelObject.GetComponent<TMP_Text>();
+		}
+		else
+		{
+			label = null;
+		}
+
 		return labelObject;
 	}
-	
+
 	public static Transform GetRadarBoosterLabel(Transform radarParent)
 	{
 		return radarParent.Find(RADAR_BOOSTER_DOT_NAME);
