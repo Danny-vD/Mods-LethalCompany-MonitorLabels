@@ -1,10 +1,7 @@
 ﻿using System;
 using BepInEx;
-using GameNetcodeStuff;
 using HarmonyLib;
 using MonitorLabels.Utils;
-using TMPro;
-using UnityEngine;
 
 namespace MonitorLabels
 {
@@ -14,7 +11,7 @@ namespace MonitorLabels
 	{
 		public const string GUID = "DannyVD.mods.LethalCompany.MonitorLabels";
 		public const string PLUGIN_NAME = "MonitorLabels";
-		public const string PLUGIN_VERSION = "1.1.0";
+		public const string PLUGIN_VERSION = "1.1.0"; //TODO: Consider making this 2.0.0
 
 		private void Awake()
 		{
