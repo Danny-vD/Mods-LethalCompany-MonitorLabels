@@ -63,7 +63,7 @@ namespace MonitorLabels
 			bool isCurrentTarget = StartOfRound.Instance.mapScreen.targetTransformIndex == index;
 			bool isDead = false;
 
-			Color labelColour = isCurrentTarget ? ConfigUtil.TargetLabelColour.Value : ConfigUtil.OtherLabelColour.Value;
+			Color labelColour = isCurrentTarget ? ConfigUtil.TargetLabelColour.Value : ConfigUtil.DefaultPlayerLabelColour.Value;
 
 			// Alive players
 			GameObject labelParent = null; // target.transform.Find("Misc")?.Find(MapLabelUtil.MAP_DOT_NAME)?.gameObject;

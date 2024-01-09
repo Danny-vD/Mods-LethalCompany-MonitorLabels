@@ -48,7 +48,7 @@ public static class ConfigUtil
 
 	// COLOURS // TODO: Create sub sections for players, radar booster, enemy and scrap
 	public static ConfigEntry<Color> TargetLabelColour;
-	public static ConfigEntry<Color> OtherLabelColour; // NOTE: Rename to DefaultPlayerLabelColour
+	public static ConfigEntry<Color> DefaultPlayerLabelColour;
 	public static ConfigEntry<Color> DeadLabelColour;
 
 	public static ConfigEntry<Color> RadarBoosterLabelColour;
@@ -118,9 +118,9 @@ public static class ConfigUtil
 		CoilHeadLabel    = config.Bind("1.2 Enemy Labels", "coilheadLabel", "Coil", "The label of the SpringMan enemy");
 
 		// COLOURS
-		TargetLabelColour = config.Bind("2. Colours", "targetLabelColour", Color.green, "The colour of the label of the currently viewed player");
-		OtherLabelColour  = config.Bind("2. Colours", "otherLabelColour", Color.white, "The default colour of a player label");
-		DeadLabelColour   = config.Bind("2. Colours", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
+		TargetLabelColour        = config.Bind("2. Colours", "targetLabelColour", Color.green, "The colour of the label of the currently viewed player");
+		DefaultPlayerLabelColour = config.Bind("2. Colours", "otherLabelColour", Color.white, "The default colour of a player label"); // NOTE: Rename to DefaultPlayerLabelColour
+		DeadLabelColour          = config.Bind("2. Colours", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
 
 		RadarBoosterLabelColour = config.Bind("2. Colours", "radarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster");
 
@@ -130,9 +130,9 @@ public static class ConfigUtil
 		ScrapLabelColour          = config.Bind("2. Colours", "scrapLabelColour", Color.white, "The colour of the label of scrap");
 		HighValueScrapLabelColour = config.Bind("2. Colours", "highValueScrapLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of a label of scrap that is worth more than the highValueScrapThreshold");
 		CarriedScrapLabelColour   = config.Bind("2. Colours", "carriedScrapLabelColour", Color.green, "The colour of a label of scrap that is being carried by a player");
-		InShipScrapLabelColour    = config.Bind("2. Colours", "inShipScrapLabelColour", Color.green, "The colour of a label of scrap that is stored in the ship");
+		InShipScrapLabelColour    = config.Bind("2. Colours", "inShipScrapLabelColour", Color.blue, "The colour of a label of scrap that is stored in the ship");
 
-		// ADVANCED //TODO: Make this section a high number to allow room for more (e.g. scrap is section 3) (this breaks backward compatibility)
+		// ADVANCED //TODO: Make this section a high number to allow room for more (e.g. scrap will be section 3) (this breaks backward compatibility)
 		PlayerLabelStringFormat = config.Bind("3. Advanced", "labelFormat", "{0}", "The string that will be shown on a player label\n{0} = Name\n{1} = playerIndex");
 		ScrapLabelStringFormat  = config.Bind("3. Advanced", "scrapLabelFormat", "{0} [{1}]", "The string that will be shown on a scrap label\n{0} = Name\n{1} = Value");
 	}

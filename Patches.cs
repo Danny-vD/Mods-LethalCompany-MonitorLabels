@@ -125,6 +125,16 @@ namespace MonitorLabels
 			AIMapLabelManager.AddLabelToAI(__instance);
 		}
 	}
+	
+	[HarmonyPatch(typeof(MaskedPlayerEnemy), nameof(MaskedPlayerEnemy.Start))] // MaskedPlayerEnemy does not call base.Start() so it has to be individually patched
+	public static class MaskedPlayerEnemyStartPatch
+	{
+		public static void Postfix(MaskedPlayerEnemy __instance)
+		{
+			LoggerUtil.LogInfo($"{nameof(MaskedPlayerEnemy)}.{nameof(MaskedPlayerEnemy.Start)} patch run");
+			AIMapLabelManager.AddLabelToAI(__instance);
+		}
+	}
 
 	[HarmonyPatch(typeof(EnemyAI), nameof(EnemyAI.KillEnemy))]
 	public static class EnemyAIKillEnemyPatch

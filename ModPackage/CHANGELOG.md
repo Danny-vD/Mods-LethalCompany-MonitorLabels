@@ -2,6 +2,8 @@
 
 Add an option to show a label on scrap (name or value or both, your choice)!
 
+Fix the labels for the MaskedPlayerEnemy (mimics)!
+
 # Version 1.0.0
 
 Add labels for Players, Radar boosters and enemies

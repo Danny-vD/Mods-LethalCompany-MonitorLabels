@@ -74,7 +74,7 @@ public static class MapLabelUtil
 
 	public static TMP_Text GetRadarLabel(Transform radarParent)
 	{
-		return radarParent.GetComponentInChildren<TMP_Text>();
+		return radarParent.Find(LABEL_OBJECT_NAME).GetComponent<TMP_Text>();
 	}
 
 	/// <summary>

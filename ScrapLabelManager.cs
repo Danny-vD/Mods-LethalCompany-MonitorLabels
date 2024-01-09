@@ -33,7 +33,6 @@ namespace MonitorLabels
 
 			if (ReferenceEquals(radarLabel, null)) // No map label
 			{
-				AddLabelToScrap(item, radarIcon.gameObject);
 				return;
 			}
 

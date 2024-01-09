@@ -26,7 +26,7 @@ namespace MonitorLabels
 			CustomAINames.Remove(type);
 		}
 
-		internal static void AddLabelToAI(EnemyAI enemyAI)
+		public static void AddLabelToAI(EnemyAI enemyAI)
 		{
 			string aiLabel = GetAILabel(enemyAI, out bool showLabel);
 
@@ -41,7 +41,7 @@ namespace MonitorLabels
 
 			if (ReferenceEquals(mapDot, null))
 			{
-				LoggerUtil.LogError($"Child {MapLabelUtil.MAP_DOT_NAME} cannot be found for enemy: {enemyAI.gameObject.name}");
+				LoggerUtil.LogWarning($"Child {MapLabelUtil.MAP_DOT_NAME} cannot be found for enemy: {enemyAI.gameObject.name}");
 				return;
 			}
 
@@ -104,7 +104,6 @@ namespace MonitorLabels
 					return "Lasso";
 
 				case MaskedPlayerEnemy:
-					LoggerUtil.LogError("Spawned Masked enemy with label");
 					return ConfigUtil.MaskedLabel.Value;
 
 				case MouthDogAI:
