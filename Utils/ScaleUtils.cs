@@ -18,6 +18,13 @@ namespace MonitorLabels.Utils
 			return scale;
 		}
 
+		/// <summary>
+		/// Calculates the factor of currentScale that, once multiplied, would give the same result as if parentScale had the desired value
+		/// </summary>
+		/// <param name="parentScale">The original scale of the parent object</param>
+		/// <param name="desiredParentScale">The desired scale for the parent object</param>
+		/// <param name="currentScale">The current scale of the object</param>
+		/// <returns>The factor by which to scale currentScale that ensures that scaling by currentScale would have the same result as if parentScale had desiredParentScale</returns>
 		private static float GetScaleFactor(float parentScale, float desiredParentScale, float currentScale)
 		{
 			if (currentScale == 0)

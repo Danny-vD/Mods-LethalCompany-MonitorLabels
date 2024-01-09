@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Shows the playername on the terminal")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f6c43f65fc57403193eb628d83d07b6563dd39ff")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+89de4bf387b4d46fad5f23099f30f1cd44792f19")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonitorLabels")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonitorLabels")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

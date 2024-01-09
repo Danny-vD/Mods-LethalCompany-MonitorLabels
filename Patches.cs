@@ -1,4 +1,5 @@
 ﻿// ReSharper disable UnusedMember.Global // False positive, HarmonyX uses these to patch
+// ReSharper disable InconsistentNaming // While true, Harmony wants these specific names
 
 using GameNetcodeStuff;
 using HarmonyLib;
@@ -27,7 +28,7 @@ namespace MonitorLabels
 				return;
 			}
 
-			MonitorLabelsPlugin.UpdateLabels();
+			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
 
@@ -37,7 +38,7 @@ namespace MonitorLabels
 		public static void Postfix()
 		{
 			LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.RemoveTargetFromRadar)} patch run");
-			MonitorLabelsPlugin.UpdateLabels();
+			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
 
@@ -48,18 +49,18 @@ namespace MonitorLabels
 		{
 			LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.AddTransformAsTargetToRadar)} patch run");
 			
-			MonitorLabelsPlugin.UpdateLabels();
+			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
 	
 	[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.updateMapTarget))]
-	public static class ManualCameraRendererUpdateMapTargetPatch
+	public static class ManualCameraRendererUpdateMapTargetPatch //TODO: Figure out how to properly patch this function
 	{
 		public static void Postfix()
 		{
 			LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.updateMapTarget)} patch run");
 			
-			MonitorLabelsPlugin.UpdateLabels();
+			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
 
@@ -69,7 +70,7 @@ namespace MonitorLabels
 		public static void Postfix(PlayerControllerB __instance)
 		{
 			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)} patch run");
-			MonitorLabelsPlugin.UpdateLabels();
+			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
 
@@ -79,7 +80,7 @@ namespace MonitorLabels
 		public static void Postfix()
 		{
 			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesServerRpc)} patch run");
-			MonitorLabelsPlugin.UpdateLabels();
+			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
 
@@ -89,7 +90,7 @@ namespace MonitorLabels
 		public static void Postfix()
 		{
 			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SpawnDeadBody)} patch run");
-			MonitorLabelsPlugin.UpdateLabels();
+			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
 
@@ -99,7 +100,7 @@ namespace MonitorLabels
 		public static void Postfix()
 		{
 			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerServerRpc)} patch run");
-			MonitorLabelsPlugin.UpdateLabels();
+			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
 
@@ -109,7 +110,7 @@ namespace MonitorLabels
 		public static void Postfix()
 		{
 			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerClientRpc)} patch run");
-			MonitorLabelsPlugin.UpdateLabels();
+			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
 
@@ -156,7 +157,7 @@ namespace MonitorLabels
 				return;
 			}
 
-			TMP_Text mapLabel = MapLabelUtil.GetRadarLabel(mapDot);
+			_ = MapLabelUtil.GetRadarLabel(mapDot, out TMP_Text mapLabel);
 
 			if (ReferenceEquals(mapLabel, null)) // This enemy does not have a label, it was most likely skipped as a result of ConfigUtil.HideLabelOnCertainEnemies
 			{

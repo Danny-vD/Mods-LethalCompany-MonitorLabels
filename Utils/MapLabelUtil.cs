@@ -7,6 +7,8 @@ namespace MonitorLabels.Utils;
 public static class MapLabelUtil
 {
 	public const string MAP_DOT_NAME = "MapDot";
+	public const string RADAR_BOOSTER_DOT_NAME = "RadarBoosterDot";
+	
 	public const string LABEL_OBJECT_NAME = "MapLabel";
 
 	private static readonly Vector3 labelPosition = new Vector3(0, 0.5f, 0);
@@ -89,9 +91,16 @@ public static class MapLabelUtil
 		return null;
 	}
 
-	public static TMP_Text GetRadarLabel(Transform radarParent)
+	public static GameObject GetRadarLabel(Transform radarParent, out TMP_Text label)
 	{
-		return radarParent.Find(LABEL_OBJECT_NAME).GetComponent<TMP_Text>();
+		GameObject labelObject = radarParent.Find(LABEL_OBJECT_NAME).gameObject;
+		label = labelObject.GetComponent<TMP_Text>();
+		return labelObject;
+	}
+	
+	public static Transform GetRadarBoosterLabel(Transform radarParent)
+	{
+		return radarParent.Find(RADAR_BOOSTER_DOT_NAME);
 	}
 
 	/// <summary>

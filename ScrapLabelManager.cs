@@ -29,8 +29,8 @@ namespace MonitorLabels
 			{
 				return;
 			}
-
-			TMP_Text radarLabel = MapLabelUtil.GetRadarLabel(radarIcon);
+			
+			_ = MapLabelUtil.GetRadarLabel(radarIcon, out TMP_Text radarLabel);
 
 			if (ReferenceEquals(radarLabel, null)) // No map label
 			{

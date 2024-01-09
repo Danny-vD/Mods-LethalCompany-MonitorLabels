@@ -49,7 +49,7 @@ public static class ConfigUtil
 	// COLOURS // TODO: Create sub sections for players, radar booster, enemy and scrap
 	public static ConfigEntry<Color> TargetLabelColour;
 	public static ConfigEntry<Color> DefaultPlayerLabelColour;
-	public static ConfigEntry<Color> DeadLabelColour;
+	public static ConfigEntry<Color> DeadPlayerLabelColour;
 
 	public static ConfigEntry<Color> RadarBoosterLabelColour;
 
@@ -120,7 +120,7 @@ public static class ConfigUtil
 		// COLOURS
 		TargetLabelColour        = config.Bind("2. Colours", "targetLabelColour", Color.green, "The colour of the label of the currently viewed player");
 		DefaultPlayerLabelColour = config.Bind("2. Colours", "otherLabelColour", Color.white, "The default colour of a player label"); // NOTE: Rename to DefaultPlayerLabelColour
-		DeadLabelColour          = config.Bind("2. Colours", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
+		DeadPlayerLabelColour          = config.Bind("2. Colours", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
 
 		RadarBoosterLabelColour = config.Bind("2. Colours", "radarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster");
 
