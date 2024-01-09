@@ -1,7 +1,7 @@
 ﻿using BepInEx.Configuration;
 using BepInEx.Logging;
 
-namespace MonitorLabels;
+namespace MonitorLabels.Utils;
 
 public static class LoggerUtil //TODO: Add log levels to the config so people can choose what messages they see (flag?)
 {

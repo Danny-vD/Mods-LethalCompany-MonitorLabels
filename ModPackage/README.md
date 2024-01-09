@@ -37,7 +37,7 @@ The `CustomAILabelData.ShowLabel` boolean is used if you want to hide the label 
 If you do not call `base.Start()` in your overriden Start function, then you will have to manually call `MonitorLabels.AIMapLabelManager.AddLabelToAI(EnemyAI)` for it to have a label.
 
 ### Configuration
-The Configuration files can be publicly accessed from the `MonitorLabels.ConfigUtil` class if for whatever reason you want to modify something.
+The Configuration files can be publicly accessed from the `MonitorLabels.Utils.ConfigUtil` class if for whatever reason you want to modify something.
 
 ### General Info
 The GUID, PLUGIN_NAME and PLUGIN_VERSION can be accessed from their respective fields in the `MonitorLabels.MonitorLabelsPlugin` class.

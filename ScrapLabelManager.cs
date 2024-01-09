@@ -1,4 +1,5 @@
 ﻿using MonitorLabels.ExtensionMethods;
+using MonitorLabels.Utils;
 using TMPro;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ namespace MonitorLabels
 
 		private static void AddLabelToScrap(GrabbableObject item, GameObject radarParent)
 		{
-			TMP_Text label = MapLabelUtil.AddLabelObject(radarParent);
+			TMP_Text label = MapLabelUtil.AddLabelObject(radarParent, false);
 
 			label.gameObject.transform.localPosition += ScrapLabelOffset;
 

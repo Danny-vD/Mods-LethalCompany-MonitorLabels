@@ -1,7 +1,7 @@
 ﻿using BepInEx.Configuration;
 using UnityEngine;
 
-namespace MonitorLabels;
+namespace MonitorLabels.Utils;
 
 public static class ConfigUtil
 {
