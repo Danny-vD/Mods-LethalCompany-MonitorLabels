@@ -77,8 +77,8 @@ public static class ConfigUtil
 	public static void ReadConfig()
 	{
 		// GENERAL
-		LoggingLevel           = config.Bind("0 General", "logLevel", LogLevel.Error, "Should the plugin log to the console");
-		
+		LoggingLevel = config.Bind("0 General", "logLevel", LogLevel.Error, "Should the plugin log to the console");
+
 		//		Player Label						//TODO: move to 0.1 (breaks backwards compatibility)
 		ForceDeadPlayerLabel   = config.Bind("0. General", "forceDeadPlayerLabel", true, "Should the label of a dead player always be visible?");
 		MaximumNameLength      = config.Bind("0. General", "maxNameLength", 5, "The maximum length of the name that will be shown on the terminal");
@@ -124,7 +124,7 @@ public static class ConfigUtil
 		// COLOURS
 		TargetLabelColour        = config.Bind("2. Colours", "targetLabelColour", Color.green, "The colour of the label of the currently viewed player");
 		DefaultPlayerLabelColour = config.Bind("2. Colours", "otherLabelColour", Color.white, "The default colour of a player label"); // NOTE: Rename to DefaultPlayerLabelColour (this breaks backward compatibility)
-		DeadPlayerLabelColour          = config.Bind("2. Colours", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
+		DeadPlayerLabelColour    = config.Bind("2. Colours", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
 
 		RadarBoosterLabelColour = config.Bind("2. Colours", "radarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster");
 

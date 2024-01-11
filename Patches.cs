@@ -145,27 +145,7 @@ namespace MonitorLabels
 				return;
 			}
 
-			Transform mapDot = MapLabelUtil.GetMapDot(__instance.transform);
-
-			if (ReferenceEquals(mapDot, null))
-			{
-				return;
-			}
-
-			_ = MapLabelUtil.GetRadarLabel(mapDot, out TMP_Text mapLabel);
-
-			if (ReferenceEquals(mapLabel, null)) // This enemy does not have a label, it was most likely skipped as a result of ConfigUtil.HideLabelOnCertainEnemies
-			{
-				return;
-			}
-
-			if (!ConfigUtil.ShowLabelOnDeadEnemies.Value)
-			{
-				Object.Destroy(mapLabel.gameObject);
-				return;
-			}
-
-			mapLabel.color = ConfigUtil.DeadEnemyLabelColour.Value;
+			AIMapLabelManager.UpdateAILabel(__instance);
 		}
 	}
 

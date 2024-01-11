@@ -5,6 +5,7 @@ using MonitorLabels.Structs;
 using MonitorLabels.Utils;
 using TMPro;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace MonitorLabels
 {
@@ -50,6 +51,31 @@ namespace MonitorLabels
 
 			label.color = ConfigUtil.EnemyLabelColour.Value;
 			label.text  = aiLabel;
+		}
+
+		public static void UpdateAILabel(EnemyAI enemyAI)
+		{
+			Transform mapDot = MapLabelUtil.GetMapDot(enemyAI.transform);
+
+			if (ReferenceEquals(mapDot, null))
+			{
+				return;
+			}
+
+			_ = MapLabelUtil.GetRadarLabel(mapDot, out TMP_Text mapLabel);
+
+			if (ReferenceEquals(mapLabel, null)) // This enemy does not have a label, it was most likely skipped as a result of ConfigUtil.HideLabelOnCertainEnemies
+			{
+				return;
+			}
+
+			if (!ConfigUtil.ShowLabelOnDeadEnemies.Value)
+			{
+				Object.Destroy(mapLabel.gameObject);
+				return;
+			}
+
+			mapLabel.color = ConfigUtil.DeadEnemyLabelColour.Value;
 		}
 
 		private static string GetAILabel(EnemyAI enemyAI, out bool showLabel)
