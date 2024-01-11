@@ -10,8 +10,9 @@ It also exposes an API for other mods to add their own labels (in case they add 
 
 • How many characters a player label will have  
 • Whether the currently focused player should have a label too  
+• Whether radar boosters should have a label  
 • Whether enemies should have a label  
-• Whether scrap should have a label
+• Whether scrap should have a label  
 • The label of a player that is dead  
 • All enemy labels can have a custom label  
 • All colours

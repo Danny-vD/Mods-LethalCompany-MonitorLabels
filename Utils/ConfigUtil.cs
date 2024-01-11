@@ -1,4 +1,5 @@
 ﻿using BepInEx.Configuration;
+using BepInEx.Logging;
 using UnityEngine;
 
 namespace MonitorLabels.Utils;
@@ -6,7 +7,7 @@ namespace MonitorLabels.Utils;
 public static class ConfigUtil
 {
 	// GENERAL
-	public static ConfigEntry<bool> EnableLogger;
+	public static ConfigEntry<LogLevel> LoggingLevel;
 	public static ConfigEntry<bool> ForceDeadPlayerLabel;
 	public static ConfigEntry<int> MaximumNameLength;
 	public static ConfigEntry<bool> ShowLabelOnTarget;
@@ -76,7 +77,9 @@ public static class ConfigUtil
 	public static void ReadConfig()
 	{
 		// GENERAL
-		EnableLogger           = config.Bind("0. General", "enableLogger", true, "Should the plugin log to the console");
+		LoggingLevel           = config.Bind("0 General", "logLevel", LogLevel.Error, "Should the plugin log to the console");
+		
+		//		Player Label						//TODO: move to 0.1 (breaks backwards compatibility)
 		ForceDeadPlayerLabel   = config.Bind("0. General", "forceDeadPlayerLabel", true, "Should the label of a dead player always be visible?");
 		MaximumNameLength      = config.Bind("0. General", "maxNameLength", 5, "The maximum length of the name that will be shown on the terminal");
 		ShowLabelOnTarget      = config.Bind("0. General", "targetLabelEnabled", true, "Should the currently targeted player also show a label");
@@ -84,14 +87,15 @@ public static class ConfigUtil
 		HideNormalPlayerLabels = config.Bind("0. General", "hideNormalLabels", false, "Don't show any player labels except for 'forceDeadPlayerLabel'");
 		HideDeadPlayerLabels   = config.Bind("0. General", "hideDeadLabels", false, "Don't show the labels of dead players");
 
-		HideRadarBoosterLabels = config.Bind("0. General", "hideRadarBoosterLabels", false, "Don't show the labels of radar boosters");
+		//		Radar Booster Label
+		HideRadarBoosterLabels = config.Bind("0.2 General", "hideRadarBoosterLabels", false, "Don't show the labels of radar boosters");
 
 		// SCRAP
-		ShowLabelOnScrap           = config.Bind("0.1 Scrap", "showLabelOnScrap", false, "Should scrap also have a label?");
-		HideScrapLabelIfOnShip     = config.Bind("0.1 Scrap", "hideScrapLabelOnShip", true, "Hide the label if the scrap is on the ship");
-		HideScrapLabelIfCarried    = config.Bind("0.1 Scrap", "hideScrapLabelIfCarried", true, "Hide the label if the scrap is being carried");
-		HighValueScrapThreshold    = config.Bind("0.1 Scrap", "highValueScrapThreshold", 80, "The threshold above which the scrap will be considered 'high-value'");
-		HideScrapLabelOnNutcracker = config.Bind("0.1 Scrap", "hideScrapLabelOnNutcracker", true, "Hide the shotgun label if it is held by the nutcracker");
+		ShowLabelOnScrap           = config.Bind("0.3 Scrap", "showLabelOnScrap", false, "Should scrap also have a label?");
+		HideScrapLabelIfOnShip     = config.Bind("0.3 Scrap", "hideScrapLabelOnShip", true, "Hide the label if the scrap is on the ship");
+		HideScrapLabelIfCarried    = config.Bind("0.3 Scrap", "hideScrapLabelIfCarried", true, "Hide the label if the scrap is being carried");
+		HighValueScrapThreshold    = config.Bind("0.3 Scrap", "highValueScrapThreshold", 80, "The threshold above which the scrap will be considered 'high-value'");
+		HideScrapLabelOnNutcracker = config.Bind("0.3 Scrap", "hideScrapLabelOnNutcracker", true, "Hide the shotgun label if it is held by the nutcracker");
 
 		// ENEMIES
 		ShowLabelOnEnemies        = config.Bind("1. Enemies", "showLabelOnEnemies", true, "Should enemies have labels?");
@@ -119,7 +123,7 @@ public static class ConfigUtil
 
 		// COLOURS
 		TargetLabelColour        = config.Bind("2. Colours", "targetLabelColour", Color.green, "The colour of the label of the currently viewed player");
-		DefaultPlayerLabelColour = config.Bind("2. Colours", "otherLabelColour", Color.white, "The default colour of a player label"); // NOTE: Rename to DefaultPlayerLabelColour
+		DefaultPlayerLabelColour = config.Bind("2. Colours", "otherLabelColour", Color.white, "The default colour of a player label"); // NOTE: Rename to DefaultPlayerLabelColour (this breaks backward compatibility)
 		DeadPlayerLabelColour          = config.Bind("2. Colours", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
 
 		RadarBoosterLabelColour = config.Bind("2. Colours", "radarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster");

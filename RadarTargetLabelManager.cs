@@ -120,6 +120,11 @@ namespace MonitorLabels
 			else if (isRadarBooster)
 			{
 				labelColour = ConfigUtil.RadarBoosterLabelColour.Value;
+				
+				if (ConfigUtil.HideRadarBoosterLabels.Value)
+				{
+					return string.Empty;
+				}
 			}
 			else
 			{

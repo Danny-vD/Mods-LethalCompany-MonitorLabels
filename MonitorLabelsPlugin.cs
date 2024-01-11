@@ -18,7 +18,7 @@ namespace MonitorLabels
 			ConfigUtil.Initialize(Config);
 			ConfigUtil.ReadConfig();
 
-			LoggerUtil.Initialize(ConfigUtil.EnableLogger, Logger);
+			LoggerUtil.Initialize(ConfigUtil.LoggingLevel, Logger);
 
 			// Plugin startup logic
 			Logger.LogInfo($"Plugin {GUID} is loaded!"); // Deliberately circumvent the loggerUtil so that we always log

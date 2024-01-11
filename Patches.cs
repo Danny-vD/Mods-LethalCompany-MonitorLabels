@@ -13,13 +13,13 @@ namespace MonitorLabels
 	//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//
 	//         PLAYERS & RADARBOOSTER
 	//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//
-	
+
 	[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.Awake))]
 	public static class ManualCameraRendererAwakePatch
 	{
 		public static void Postfix(ManualCameraRenderer __instance)
 		{
-			LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.Awake)} patch run");
+			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.Awake)} patch run");
 
 			NetworkManager networkManager = __instance.NetworkManager;
 
@@ -32,44 +32,39 @@ namespace MonitorLabels
 		}
 	}
 
-	[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.RemoveTargetFromRadar))]
-	public static class ManualCameraRendererRemoveTargetFromRadarPatch
-	{
-		public static void Postfix()
-		{
-			LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.RemoveTargetFromRadar)} patch run");
-			RadarTargetLabelManager.UpdateLabels();
-		}
-	}
-
 	[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.AddTransformAsTargetToRadar))]
 	public static class ManualCameraRendererAddTransformAsTargetToRadarPatch
 	{
 		public static void Postfix()
 		{
-			LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.AddTransformAsTargetToRadar)} patch run");
-			
+			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.AddTransformAsTargetToRadar)} patch run");
+
 			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
-	
+
 	[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.updateMapTarget))]
-	public static class ManualCameraRendererUpdateMapTargetPatch //TODO: Figure out how to properly patch this function
+	public static class ManualCameraRendererUpdateMapTargetPatch
 	{
-		public static void Postfix()
+		public static void Postfix(int setRadarTargetIndex, bool calledFromRPC = true)
 		{
-			LoggerUtil.LogInfo($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.updateMapTarget)} patch run");
+			if (!calledFromRPC) // updateMapTarget calls itself with calledFromRPC = true, so we can ignore the first call where it's still false
+			{
+				return;
+			}
 			
-			RadarTargetLabelManager.UpdateLabels();
+			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.updateMapTarget)} patch run"); // Reduce logging by logging under the if-statement
+
+			RadarTargetLabelManager.UpdateLabels(setRadarTargetIndex);
 		}
 	}
 
 	[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SendNewPlayerValuesClientRpc))]
 	public static class PlayerControllerBSendNewPlayerValuesClientRpcPatch
 	{
-		public static void Postfix(PlayerControllerB __instance)
+		public static void Postfix()
 		{
-			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)} patch run");
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
@@ -79,7 +74,7 @@ namespace MonitorLabels
 	{
 		public static void Postfix()
 		{
-			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesServerRpc)} patch run");
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesServerRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
@@ -89,7 +84,7 @@ namespace MonitorLabels
 	{
 		public static void Postfix()
 		{
-			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SpawnDeadBody)} patch run");
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SpawnDeadBody)} patch run");
 			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
@@ -99,7 +94,7 @@ namespace MonitorLabels
 	{
 		public static void Postfix()
 		{
-			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerServerRpc)} patch run");
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerServerRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
@@ -109,7 +104,7 @@ namespace MonitorLabels
 	{
 		public static void Postfix()
 		{
-			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerClientRpc)} patch run");
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerClientRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabels();
 		}
 	}
@@ -117,23 +112,23 @@ namespace MonitorLabels
 	//\\//\\//\\//\\//\\//\\//\\//\\
 	//         AI
 	//\\//\\//\\//\\//\\//\\//\\//\\
-	
+
 	[HarmonyPatch(typeof(EnemyAI), nameof(EnemyAI.Start))]
 	public static class EnemyAIStartPatch
 	{
 		public static void Postfix(EnemyAI __instance)
 		{
-			LoggerUtil.LogInfo($"{nameof(EnemyAI)}.{nameof(EnemyAI.Start)} patch run");
+			LoggerUtil.LogDebug($"{nameof(EnemyAI)}.{nameof(EnemyAI.Start)} patch run");
 			AIMapLabelManager.AddLabelToAI(__instance);
 		}
 	}
-	
+
 	[HarmonyPatch(typeof(MaskedPlayerEnemy), nameof(MaskedPlayerEnemy.Start))] // MaskedPlayerEnemy does not call base.Start() so it has to be individually patched
 	public static class MaskedPlayerEnemyStartPatch
 	{
 		public static void Postfix(MaskedPlayerEnemy __instance)
 		{
-			LoggerUtil.LogInfo($"{nameof(MaskedPlayerEnemy)}.{nameof(MaskedPlayerEnemy.Start)} patch run");
+			LoggerUtil.LogDebug($"{nameof(MaskedPlayerEnemy)}.{nameof(MaskedPlayerEnemy.Start)} patch run");
 			AIMapLabelManager.AddLabelToAI(__instance);
 		}
 	}
@@ -143,7 +138,7 @@ namespace MonitorLabels
 	{
 		public static void Postfix(EnemyAI __instance, bool destroy = false)
 		{
-			LoggerUtil.LogInfo($"{nameof(EnemyAI)}.{nameof(EnemyAI.KillEnemy)} patch run");
+			LoggerUtil.LogDebug($"{nameof(EnemyAI)}.{nameof(EnemyAI.KillEnemy)} patch run");
 
 			if (destroy || !ConfigUtil.ShowLabelOnEnemies.Value || __instance == null)
 			{
@@ -177,35 +172,35 @@ namespace MonitorLabels
 	//\\//\\//\\//\\//\\//\\//\\//\\
 	//         SCRAP
 	//\\//\\//\\//\\//\\//\\//\\//\\
-	
+
 	[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.Start))]
 	public static class GrabbableObjectStartPatch
 	{
 		public static void Postfix(GrabbableObject __instance)
 		{
-			LoggerUtil.LogInfo($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.Start)} patch run");
+			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.Start)} patch run");
 
 			if (!ConfigUtil.ShowLabelOnScrap.Value)
 			{
 				return;
 			}
-			
+
 			ScrapLabelManager.TryAddLabelToScrap(__instance);
 		}
 	}
-	
+
 	[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.SetScrapValue))]
 	public static class GrabbableObjectSetScrapValuePatch
 	{
 		public static void Postfix(GrabbableObject __instance)
 		{
-			LoggerUtil.LogInfo($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.SetScrapValue)} patch run");
+			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.SetScrapValue)} patch run");
 
 			if (!ConfigUtil.ShowLabelOnScrap.Value)
 			{
 				return;
 			}
-			
+
 			ScrapLabelManager.UpdateScrapLabel(__instance);
 		}
 	}
@@ -215,13 +210,13 @@ namespace MonitorLabels
 	{
 		public static void Postfix(GrabbableObject gObject)
 		{
-			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetItemInElevator)} patch run");
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetItemInElevator)} patch run");
 
 			if (!ConfigUtil.ShowLabelOnScrap.Value || gObject == null || !gObject.itemProperties.isScrap)
 			{
 				return;
 			}
-			
+
 			ScrapLabelManager.UpdateScrapLabel(gObject);
 		}
 	}
@@ -231,7 +226,7 @@ namespace MonitorLabels
 	{
 		public static void Postfix(GrabbableObject dropObject)
 		{
-			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetObjectAsNoLongerHeld)} patch run");
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetObjectAsNoLongerHeld)} patch run");
 
 			if (!ConfigUtil.ShowLabelOnScrap.Value || dropObject == null || !dropObject.itemProperties.isScrap)
 			{
@@ -247,7 +242,7 @@ namespace MonitorLabels
 	{
 		public static void Postfix(NetworkObjectReference grabbedObject)
 		{
-			LoggerUtil.LogInfo($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.GrabObjectClientRpc)} patch run");
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.GrabObjectClientRpc)} patch run");
 
 			if (!ConfigUtil.ShowLabelOnScrap.Value)
 			{
@@ -261,7 +256,7 @@ namespace MonitorLabels
 			{
 				return;
 			}
-			
+
 			ScrapLabelManager.UpdateScrapLabel(item);
 		}
 	}
