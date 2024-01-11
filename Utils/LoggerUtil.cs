@@ -30,7 +30,7 @@ public static class LoggerUtil
 	
 	internal static void LogMessage(object data)
 	{
-		if (!configLoggingLevel.Value.HasFlag(LogLevel.Message))
+		if ((configLoggingLevel.Value & LogLevel.Message) == 0)
 		{
 			return;
 		}
@@ -40,7 +40,7 @@ public static class LoggerUtil
 
 	internal static void LogInfo(object data)
 	{
-		if (!configLoggingLevel.Value.HasFlag(LogLevel.Info))
+		if ((configLoggingLevel.Value & LogLevel.Info) == 0)
 		{
 			return;
 		}
@@ -50,7 +50,7 @@ public static class LoggerUtil
 	
 	internal static void LogDebug(object data)
 	{
-		if (!configLoggingLevel.Value.HasFlag(LogLevel.Debug))
+		if ((configLoggingLevel.Value & LogLevel.Debug) == 0)
 		{
 			return;
 		}
@@ -60,7 +60,7 @@ public static class LoggerUtil
 
 	internal static void LogError(object data)
 	{
-		if (!configLoggingLevel.Value.HasFlag(LogLevel.Error))
+		if ((configLoggingLevel.Value & LogLevel.Error) == 0)
 		{
 			return;
 		}
@@ -70,7 +70,7 @@ public static class LoggerUtil
 
 	internal static void LogWarning(object data)
 	{
-		if (!configLoggingLevel.Value.HasFlag(LogLevel.Warning))
+		if ((configLoggingLevel.Value & LogLevel.Warning) == 0)
 		{
 			return;
 		}
@@ -80,7 +80,7 @@ public static class LoggerUtil
 
 	internal static void LogFatal(object data)
 	{
-		if (!configLoggingLevel.Value.HasFlag(LogLevel.Fatal))
+		if ((configLoggingLevel.Value & LogLevel.Fatal) == 0)
 		{
 			return;
 		}

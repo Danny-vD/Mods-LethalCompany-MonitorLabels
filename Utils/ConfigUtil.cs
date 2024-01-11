@@ -77,7 +77,7 @@ public static class ConfigUtil
 	public static void ReadConfig()
 	{
 		// GENERAL
-		LoggingLevel = config.Bind("0 General", "logLevel", LogLevel.Error, "Should the plugin log to the console");
+		LoggingLevel = config.Bind("0. General", "logLevel", LogLevel.Error, "Should the plugin log to the console");
 
 		//		Player Label						//TODO: move to 0.1 (breaks backwards compatibility)
 		ForceDeadPlayerLabel   = config.Bind("0. General", "forceDeadPlayerLabel", true, "Should the label of a dead player always be visible?");
@@ -91,7 +91,7 @@ public static class ConfigUtil
 		HideRadarBoosterLabels = config.Bind("0.2 General", "hideRadarBoosterLabels", false, "Don't show the labels of radar boosters");
 
 		// SCRAP
-		ShowLabelOnScrap           = config.Bind("0.3 Scrap", "showLabelOnScrap", false, "Should scrap also have a label?");
+		ShowLabelOnScrap           = config.Bind("0.3 Scrap", "showLabelOnScrap", true, "Should scrap also have a label?");
 		HideScrapLabelIfOnShip     = config.Bind("0.3 Scrap", "hideScrapLabelOnShip", true, "Hide the label if the scrap is on the ship");
 		HideScrapLabelIfCarried    = config.Bind("0.3 Scrap", "hideScrapLabelIfCarried", true, "Hide the label if the scrap is being carried");
 		HighValueScrapThreshold    = config.Bind("0.3 Scrap", "highValueScrapThreshold", 80, "The threshold above which the scrap will be considered 'high-value'");
@@ -113,7 +113,7 @@ public static class ConfigUtil
 		ForestGiantLabel = config.Bind("1.2 Enemy Labels", "forestGiantLabel", "Giant", "The label of the ForestGiant enemy");
 		HoarderBugLabel  = config.Bind("1.2 Enemy Labels", "hoarderBugLabel", "Bug", "The label of the HoarderBug enemy");
 		JesterLabel      = config.Bind("1.2 Enemy Labels", "jesterLabel", "Jester", "The label of the Jester enemy");
-		MaskedLabel      = config.Bind("1.2 Enemy Labels", "maskedPlayerLabel", "Mimic", "The label of the MaskedPlayer enemy");
+		MaskedLabel      = config.Bind("1.2 Enemy Labels", "maskedPlayerLabel", "X", "The label of the MaskedPlayer enemy");
 		DogLabel         = config.Bind("1.2 Enemy Labels", "mouthDogLabel", "Dog", "The label of the MouthDog enemy");
 		NutCrackerLabel  = config.Bind("1.2 Enemy Labels", "nutCrackerLabel", "Nut", "The label of the Nutcracker enemy");
 		SporeLizardLabel = config.Bind("1.2 Enemy Labels", "sporeLizardLabel", "Spore", "The label of the Puffer (Spore Lizard) enemy");

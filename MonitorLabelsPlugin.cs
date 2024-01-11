@@ -1,6 +1,5 @@
-﻿using System;
-using BepInEx;
-using HarmonyLib;
+﻿using BepInEx;
+using BepInEx.Logging;
 using MonitorLabels.Utils;
 
 namespace MonitorLabels
@@ -17,24 +16,13 @@ namespace MonitorLabels
 		{
 			ConfigUtil.Initialize(Config);
 			ConfigUtil.ReadConfig();
-
+			
 			LoggerUtil.Initialize(ConfigUtil.LoggingLevel, Logger);
 
 			// Plugin startup logic
-			Logger.LogInfo($"Plugin {GUID} is loaded!"); // Deliberately circumvent the loggerUtil so that we always log
+			LoggerUtil.Log(LogLevel.Info, $"Plugin {GUID} is loaded!"); // Using the Log function circumvents the configuration option, this is by design
 
-			Harmony harmonyInstance = new Harmony(GUID);
-			LoggerUtil.LogInfo("Attempting to patch with Harmony!");
-
-			try
-			{
-				harmonyInstance.PatchAll();
-				LoggerUtil.LogInfo("Patching success!");
-			}
-			catch (Exception ex)
-			{
-				Logger.LogError("Failed to patch: " + ex); // Always log the error
-			}
+			PatchUtil.PatchFunctions();
 		}
 	}
 }
