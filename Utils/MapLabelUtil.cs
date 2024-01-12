@@ -20,7 +20,6 @@ public static class MapLabelUtil
 	/// </summary>
 	/// <param name="parent">A transform that can be seen on the radar</param>
 	/// <param name="setRotationInUpdate">Should a <see cref="ForceNorthRotation"/> component be added to this object?</param>
-	/// <returns></returns>
 	public static TMP_Text AddLabelObject(GameObject parent, bool setRotationInUpdate = true)
 	{
 		GameObject labelObject = new GameObject(LABEL_OBJECT_NAME);
@@ -36,12 +35,9 @@ public static class MapLabelUtil
 		Vector3 parentScale = parent.transform.localScale;
 		float highestScale = Mathf.Max(parentScale.x, parentScale.y, parentScale.z);
 
-		parentScale.x               = highestScale;
-		parentScale.y               = highestScale;
-		parentScale.z               = highestScale;
-		parent.transform.localScale = parentScale;
+		parent.transform.localScale = new Vector3(highestScale, highestScale, highestScale);
 
-		labelObject.layer = parent.layer; // 14 == MapRadar
+		labelObject.layer = parent.layer;
 		labelObject.tag   = parent.tag;
 
 		if (setRotationInUpdate)
@@ -107,7 +103,7 @@ public static class MapLabelUtil
 		return labelObject;
 	}
 
-	public static Transform GetRadarBoosterLabel(Transform radarParent)
+	public static Transform GetRadarBoosterMapDot(Transform radarParent)
 	{
 		return radarParent.Find(RADAR_BOOSTER_DOT_NAME);
 	}

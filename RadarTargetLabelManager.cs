@@ -61,7 +61,7 @@ namespace MonitorLabels
 			}
 			else // No playerController, it is probably a radar booster
 			{
-				labelParent = MapLabelUtil.GetRadarBoosterLabel(transformAndName.transform);
+				labelParent = MapLabelUtil.GetRadarBoosterMapDot(transformAndName.transform);
 			}
 
 			if (labelParent == null)
@@ -158,7 +158,10 @@ namespace MonitorLabels
 		private static Transform FindRadarDotOfPlayer(Transform parent)
 		{
 			Transform misc = parent.Find("Misc");
-			return MapLabelUtil.GetMapDot(misc);
+
+			Transform mapDot = misc.Find(MapLabelUtil.MAP_DOT_NAME);
+
+			return mapDot != null ? mapDot : MapLabelUtil.GetMapDot(misc);
 		}
 	}
 }

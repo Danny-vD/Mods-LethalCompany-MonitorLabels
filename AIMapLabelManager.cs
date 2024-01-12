@@ -113,6 +113,11 @@ namespace MonitorLabels
 					return ConfigUtil.ManticoilLabel.Value;
 
 				case DressGirlAI:
+					if (true) //ConfigUtil.HideLabelOnCertainEnemies.Value) // NOTE: DressGirl does not have a mapdot
+					{
+						showLabel = false;
+					}
+					
 					return "Girl";
 
 				case FlowermanAI:
