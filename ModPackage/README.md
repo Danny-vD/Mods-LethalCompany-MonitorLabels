@@ -1,4 +1,4 @@
-# What does this mod do?
+# What Does This Mod do?
 
 This mod adds a label to the icons on the monitor for players, radar boosters, enemies and scrap!
 
@@ -6,7 +6,7 @@ The mod is fully customisable to your liking, like turning off certain features.
 
 It also exposes an API for other mods to add their own labels (in case they add new enemies)
 
-# What is configurable?
+# What is Configurable?
 
 • How many characters a player label will have  
 • Whether the currently focused player should have a label too  
@@ -15,7 +15,7 @@ It also exposes an API for other mods to add their own labels (in case they add 
 • Whether scrap should have a label  
 • The label of a player that is dead  
 • All enemy labels can have a custom label  
-• All colours
+• All colours  
 
 # Examples
 [![Player labels example](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels/blob/main/Examples/ManyPlayer.png?raw=true)](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels)

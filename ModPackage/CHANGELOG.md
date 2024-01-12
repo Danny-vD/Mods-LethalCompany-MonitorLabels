@@ -1,3 +1,7 @@
+# Version 2.0.0 (UPCOMING!)
+
+Restructured the config file
+
 # Version 1.1.0
 
 Add an option to show a label on scrap (name or value or both, your choice)!
