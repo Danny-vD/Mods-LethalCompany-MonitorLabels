@@ -77,7 +77,7 @@ public static class ConfigUtil
 	public static void ReadConfig()
 	{
 		// GENERAL
-		LoggingLevel = config.Bind("0. General", "logLevel", LogLevel.Fatal | LogLevel.Error | LogLevel.Warning, "What should be logged?\nYou can seperate the options by a ',' to enable multiple\nValid options:\nNone\nFatal\nError\nWarning\nMessage\nInfo\nDebug\nAll");
+		LoggingLevel = config.Bind("0. General", "logLevel", LogLevel.Fatal | LogLevel.Error | LogLevel.Warning, "What should be logged?\nYou can seperate the options by a ',' to enable multiple\nValid options:\nNone, Fatal, Error, Warning, Message, Info, Debug, All");
 
 		//		Player Label						//TODO: move to 0.1 (breaks backwards compatibility)
 		ForceDeadPlayerLabel   = config.Bind("0. General", "forceDeadPlayerLabel", true, "Should the label of a dead player always be visible?");

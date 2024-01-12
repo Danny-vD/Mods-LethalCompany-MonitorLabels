@@ -8,6 +8,8 @@ Clarify the available options for the 'logLevel' config option
 
 Update the description in the manifest
 
+Add the correct .dll to the modpackage (Oops!)
+
 # Version 1.1.0
 
 Add an option to show a label on scrap (name or value or both, your choice)!
