@@ -22,6 +22,7 @@ public static class ConfigUtil
 	public static ConfigEntry<bool> HideScrapLabelIfCarried;
 	public static ConfigEntry<int> HighValueScrapThreshold;
 	public static ConfigEntry<bool> HideScrapLabelOnNutcracker;
+	public static ConfigEntry<float> ScrapLabelScaleFactor;
 
 	// ENEMIES
 	public static ConfigEntry<bool> ShowLabelOnEnemies;
@@ -77,7 +78,8 @@ public static class ConfigUtil
 	public static void ReadConfig()
 	{
 		// GENERAL
-		LoggingLevel = config.Bind("0. General", "logLevel", LogLevel.Fatal | LogLevel.Error | LogLevel.Warning, "What should be logged?\nYou can seperate the options by a ',' to enable multiple\nValid options:\nNone, Fatal, Error, Warning, Message, Info, Debug, All");
+		LoggingLevel = config.Bind("0. General", "logLevel", LogLevel.Fatal | LogLevel.Error | LogLevel.Warning,
+			"What should be logged?\nYou can seperate the options by a ',' to enable multiple\nValid options:\nNone, Fatal, Error, Warning, Message, Info, Debug, All");
 
 		//		Player Label						//TODO: move to 0.1 (breaks backwards compatibility)
 		ForceDeadPlayerLabel   = config.Bind("0. General", "forceDeadPlayerLabel", true, "Should the label of a dead player always be visible?");
@@ -92,6 +94,7 @@ public static class ConfigUtil
 
 		// SCRAP
 		ShowLabelOnScrap           = config.Bind("0.3 Scrap", "showLabelOnScrap", true, "Should scrap also have a label?");
+		ScrapLabelScaleFactor      = config.Bind("0.3 Scrap", "scrapLabelScaleFactor", 3.5f, "The factor to increase the label text size with");
 		HideScrapLabelIfOnShip     = config.Bind("0.3 Scrap", "hideScrapLabelOnShip", true, "Hide the label if the scrap is on the ship");
 		HideScrapLabelIfCarried    = config.Bind("0.3 Scrap", "hideScrapLabelIfCarried", true, "Hide the label if the scrap is being carried");
 		HighValueScrapThreshold    = config.Bind("0.3 Scrap", "highValueScrapThreshold", 80, "The threshold above which the scrap will be considered 'high-value'");

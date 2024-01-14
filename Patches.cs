@@ -117,6 +117,36 @@ namespace MonitorLabels
 
 			AIMapLabelManager.UpdateAILabel(__instance);
 		}
+		
+		//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
+		//         AI	-----	NUTCRACKER
+		//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
+		
+		[HarmonyPatch(typeof(NutcrackerEnemyAI), nameof(NutcrackerEnemyAI.GrabGun)), HarmonyPostfix]
+		internal static void NutcrackerEnemyAIGrabGunPatch(NutcrackerEnemyAI __instance)
+		{
+			LoggerUtil.LogDebug($"{nameof(NutcrackerEnemyAI)}.{nameof(NutcrackerEnemyAI.GrabGun)} patch run");
+
+			if (!ConfigUtil.ShowLabelOnScrap.Value || __instance.gun == null)
+			{
+				return;
+			}
+
+			ScrapLabelManager.UpdateScrapLabel(__instance.gun);
+		}
+		
+		[HarmonyPatch(typeof(NutcrackerEnemyAI), nameof(NutcrackerEnemyAI.DropGun)), HarmonyPostfix]
+		internal static void NutcrackerEnemyAIDropGunPatch(NutcrackerEnemyAI __instance)
+		{
+			LoggerUtil.LogDebug($"{nameof(NutcrackerEnemyAI)}.{nameof(NutcrackerEnemyAI.DropGun)} patch run");
+
+			if (!ConfigUtil.ShowLabelOnScrap.Value || __instance.gun == null)
+			{
+				return;
+			}
+
+			ScrapLabelManager.UpdateScrapLabel(__instance.gun);
+		}
 
 		//\\//\\//\\//\\//\\//\\//\\//\\
 		//         SCRAP

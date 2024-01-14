@@ -2,6 +2,12 @@
 
 Restructured the config file
 
+# Version 1.2.0
+
+Fix the label for the shotgun of the nutcracker not always disappearing when the appropriate config option is set
+
+Add a config option for the label text size of scrap
+
 # Version 1.1.1
 
 Clarify the available options for the 'logLevel' config option

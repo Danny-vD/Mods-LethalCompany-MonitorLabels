@@ -47,7 +47,7 @@ namespace MonitorLabels
 
 			label.gameObject.transform.localPosition += ScrapLabelOffset;
 
-			label.fontSize *= 3;
+			label.fontSize *= ConfigUtil.ScrapLabelScaleFactor.Value;
 
 			label.text  = GetScrapLabelString(item, out Color labelColor);
 			label.color = labelColor;

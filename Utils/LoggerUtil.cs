@@ -11,9 +11,9 @@ public static class LoggerUtil
 
 	public static bool IsLoggerEnabled => configLoggingLevel.Value > 0;
 
-	internal static void Initialize(ConfigEntry<LogLevel> enableLoggerEntry, ManualLogSource logSource)
+	internal static void Initialize(ConfigEntry<LogLevel> loggingLevelEntry, ManualLogSource logSource)
 	{
-		configLoggingLevel = enableLoggerEntry;
+		configLoggingLevel = loggingLevelEntry;
 
 		logger = logSource;
 	}

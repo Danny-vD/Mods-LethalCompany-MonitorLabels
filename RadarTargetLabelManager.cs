@@ -53,6 +53,10 @@ namespace MonitorLabels
 						// A dead body has the MapDot as a child
 						labelParent = MapLabelUtil.GetMapDot(playerControllerB.deadBody.transform);
 					}
+					else
+					{
+						return;
+					}
 				}
 				else
 				{
