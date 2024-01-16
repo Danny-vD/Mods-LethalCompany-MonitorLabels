@@ -18,11 +18,11 @@ public static class ConfigUtil
 
 	// SCRAP
 	public static ConfigEntry<bool> ShowLabelOnScrap;
+	public static ConfigEntry<float> ScrapLabelScaleFactor;
 	public static ConfigEntry<bool> HideScrapLabelIfOnShip;
 	public static ConfigEntry<bool> HideScrapLabelIfCarried;
 	public static ConfigEntry<int> HighValueScrapThreshold;
 	public static ConfigEntry<bool> HideScrapLabelOnNutcracker;
-	public static ConfigEntry<float> ScrapLabelScaleFactor;
 
 	// ENEMIES
 	public static ConfigEntry<bool> ShowLabelOnEnemies;
