@@ -1,5 +1,4 @@
-﻿using System;
-using GameNetcodeStuff;
+﻿using GameNetcodeStuff;
 using MonitorLabels.Utils;
 using TMPro;
 using UnityEngine;
