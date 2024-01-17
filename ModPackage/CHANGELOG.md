@@ -2,6 +2,12 @@
 
 Restructured the config file
 
+# Version 1.3.0
+
+Fix the rotation of the labels being wrong if the radar camera is rotated
+
+Add config entries to set the offset of the labels for players(/RadarBoosters), enemies and scrap
+
 # Version 1.2.0
 
 Fix the label for the shotgun of the nutcracker not always disappearing when the appropriate config option is set

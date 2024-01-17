@@ -42,10 +42,8 @@ namespace MonitorLabels
 
 		private static void AddLabelToScrap(GrabbableObject item, GameObject radarParent)
 		{
-			TMP_Text label = MapLabelUtil.AddLabelObject(radarParent, false);
-
-			// TODO: Move to label offset component ... RotateWithMapCamera.NorthDirection * 7.5f; // Magic number, but it's neatly above the icon
-			//label.gameObject.transform.localPosition += ScrapLabelOffset;
+			// TODO: Make a config entry ... ScrapLabelOffset = RotateWithMapCamera.NorthDirection * 7.5f; // Magic number, but it's neatly above the icon
+			TMP_Text label = MapLabelUtil.AddLabelObject(radarParent, MapCameraRotationObserver.MapCameraUp * 7.5f, false);
 
 			label.fontSize *= ConfigUtil.ScrapLabelScaleFactor.Value;
 

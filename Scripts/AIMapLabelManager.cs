@@ -47,7 +47,8 @@ namespace MonitorLabels
 				return;
 			}
 
-			TMP_Text label = MapLabelUtil.AddLabelObject(mapDot.gameObject);
+			//TODO: Use a config for offset
+			TMP_Text label = MapLabelUtil.AddLabelObject(mapDot.gameObject, Vector2.zero);
 
 			label.color = ConfigUtil.EnemyLabelColour.Value;
 			label.text  = aiLabel;

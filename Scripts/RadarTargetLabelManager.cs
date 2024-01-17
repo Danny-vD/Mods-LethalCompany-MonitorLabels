@@ -84,7 +84,8 @@ namespace MonitorLabels
 					Object.Destroy(labelObject);
 				}
 
-				labelComponent = MapLabelUtil.AddLabelObject(labelParent.gameObject, true);
+				//TODO: Use a config for offset
+				labelComponent = MapLabelUtil.AddLabelObject(labelParent.gameObject, Vector2.zero, true);
 			}
 
 			labelComponent.text  = GetLabelString(transformAndName.name, index, isCurrentTarget, isDead, transformAndName.isNonPlayer, out Color labelColour);
