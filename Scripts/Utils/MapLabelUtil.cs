@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MonitorLabels.Components;
 using TMPro;
 using UnityEngine;
@@ -53,7 +54,7 @@ public static class MapLabelUtil
 			labelObject.AddComponent<RotateWithMapCamera>();
 			labelOffsetManager = labelObject.AddComponent<LabelOffsetManagerEventHandler>();
 		}
-		
+
 		labelOffsetManager.Offset = labelOffset;
 
 		TMP_Text labelComponent = labelObject.AddComponent<TextMeshPro>();
@@ -102,14 +103,7 @@ public static class MapLabelUtil
 	{
 		Transform labelObject = radarParent.Find(LABEL_OBJECT_NAME);
 
-		if (labelObject != null)
-		{
-			label = labelObject.GetComponent<TMP_Text>();
-		}
-		else
-		{
-			label = null;
-		}
+		label = labelObject != null ? labelObject.GetComponent<TMP_Text>() : null;
 
 		return labelObject;
 	}

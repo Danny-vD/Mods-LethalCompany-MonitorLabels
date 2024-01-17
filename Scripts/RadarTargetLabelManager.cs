@@ -1,7 +1,9 @@
-﻿using GameNetcodeStuff;
+﻿using System;
+using GameNetcodeStuff;
 using MonitorLabels.Utils;
 using TMPro;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace MonitorLabels
 {
@@ -20,6 +22,11 @@ namespace MonitorLabels
 			{
 				bool isCurrentTarget = targetIndex == index;
 				TransformAndName transformAndName = StartOfRound.Instance.mapScreen.radarTargets[index];
+
+				if (transformAndName == null)
+				{
+					continue;
+				}
 
 				if (transformAndName.transform != null)
 				{
@@ -80,8 +87,9 @@ namespace MonitorLabels
 			{
 				if (labelObject != null)
 				{
-					LoggerUtil.LogError("The LabelObject exists but the TMP_Text component does not, this should never happen!\nDestroying the object and remaking it...");
-					Object.Destroy(labelObject);
+					// Only happens if something deliberately removes the TMP_Text component
+					LoggerUtil.LogError("The LabelObject exists but the TMP_Text component does not, this should never happen!\nDestroying the object and reinstantiating it...");
+					Object.Destroy(labelObject.gameObject);
 				}
 
 				labelComponent = MapLabelUtil.AddLabelObject(labelParent.gameObject, ConfigUtil.RadarTargetLabelOffset.Value, true);
@@ -124,7 +132,7 @@ namespace MonitorLabels
 			else if (isRadarBooster)
 			{
 				labelColour = ConfigUtil.RadarBoosterLabelColour.Value;
-				
+
 				if (ConfigUtil.HideRadarBoosterLabels.Value)
 				{
 					return string.Empty;

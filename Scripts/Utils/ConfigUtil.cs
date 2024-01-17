@@ -146,8 +146,8 @@ namespace MonitorLabels.Utils
 
 			// LABEL OFFSETS
 			RadarTargetLabelOffset = config.Bind("4. Label Offsets", "radarTargetLabelOffset", Vector2.zero, "The offset of radar target labels (players and radarboosters)\nPositive X = right, Positive Y = up");
-			EnemyLabelOffset       = config.Bind("4. Label Offsets", "enemyLabelOffset", Vector2.down * 2.5f, "The offset of AI labels\nPositive X = right, Positive Y = up");
-			ScrapLabelOffset       = config.Bind("4. Label Offsets", "scrapLabelOffset", Vector2.up * 2.5f, "The offset of scrap labels\nPositive X = right, Positive Y = up");
+			EnemyLabelOffset       = config.Bind("4. Label Offsets", "enemyLabelOffset", Vector2.down * 1.5f, "The offset of AI labels\nPositive X = right, Positive Y = up");
+			ScrapLabelOffset       = config.Bind("4. Label Offsets", "scrapLabelOffset", Vector2.up * 1.5f, "The offset of scrap labels\nPositive X = right, Positive Y = up");
 		
 			// ADVANCED //TODO: Make this section a high number to allow room for more (e.g. scrap will be section 3) (this breaks backward compatibility)
 			PlayerLabelStringFormat = config.Bind("3. Advanced", "labelFormat", "{0}", "The string that will be shown on a player label\n{0} = Name\n{1} = playerIndex");

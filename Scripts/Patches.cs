@@ -18,17 +18,17 @@ namespace MonitorLabels
 		[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.Start)), HarmonyPostfix]
 		internal static void ManualCameraRendererStartPatch(ManualCameraRenderer __instance)
 		{
-			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.Awake)} patch run");
-
+			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.Start)} patch run");
+		
 			NetworkManager networkManager = __instance.NetworkManager;
-
+		
 			if (networkManager == null || !networkManager.IsListening)
 			{
 				return;
 			}
-
+		
 			RadarTargetLabelManager.UpdateLabels();
-
+		
 			if (!ReferenceEquals(__instance.mapCamera, null))
 			{
 				__instance.mapCamera.gameObject.AddComponent<MapCameraRotationObserver>();
@@ -39,10 +39,10 @@ namespace MonitorLabels
 		internal static void ManualCameraRendererAddTransformAsTargetToRadarPatch()
 		{
 			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.AddTransformAsTargetToRadar)} patch run");
-
+		
 			RadarTargetLabelManager.UpdateLabels();
 		}
-
+		
 		[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.updateMapTarget)), HarmonyPostfix]
 		internal static void ManualCameraRendererUpdateMapTargetPatch(int setRadarTargetIndex, bool calledFromRPC = true)
 		{
@@ -50,9 +50,9 @@ namespace MonitorLabels
 			{
 				return;
 			}
-
+		
 			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.updateMapTarget)} patch run"); // Reduce logging by logging under the if-statement
-
+		
 			RadarTargetLabelManager.UpdateLabels(setRadarTargetIndex);
 		}
 
@@ -67,7 +67,7 @@ namespace MonitorLabels
 		internal static void PlayerControllerBSendNewPlayerValuesServerRpcPatch()
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesServerRpc)} patch run");
-
+		
 			RadarTargetLabelManager.UpdateLabels();
 		}
 
