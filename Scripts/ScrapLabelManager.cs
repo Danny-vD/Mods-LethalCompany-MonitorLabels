@@ -1,5 +1,4 @@
-﻿using MonitorLabels.Components;
-using MonitorLabels.ExtensionMethods;
+﻿using MonitorLabels.ExtensionMethods;
 using MonitorLabels.Utils;
 using TMPro;
 using UnityEngine;
@@ -42,8 +41,7 @@ namespace MonitorLabels
 
 		private static void AddLabelToScrap(GrabbableObject item, GameObject radarParent)
 		{
-			// TODO: Make a config entry ... ScrapLabelOffset = RotateWithMapCamera.NorthDirection * 7.5f; // Magic number, but it's neatly above the icon
-			TMP_Text label = MapLabelUtil.AddLabelObject(radarParent, MapCameraRotationObserver.MapCameraUp * 7.5f, false);
+			TMP_Text label = MapLabelUtil.AddLabelObject(radarParent, ConfigUtil.ScrapLabelOffset.Value, false);
 
 			label.fontSize *= ConfigUtil.ScrapLabelScaleFactor.Value;
 

@@ -19,9 +19,9 @@ public static class MapLabelUtil
 	/// Adds a child to this parent with a <see cref="TMP_Text"/> component
 	/// </summary>
 	/// <param name="parent">A transform that can be seen on the radar</param>
-	/// <param name="labeloffset">The offset for the label with respect to the mapCamera</param>
-	/// <param name="setRotationInUpdate">Should a <see cref="RotateWithMapCamera"/> component be added to this object?</param>
-	public static TMP_Text AddLabelObject(GameObject parent, Vector2 labeloffset, bool setRotationInUpdate = true)
+	/// <param name="labelOffset">The offset for the label with respect to the mapCamera</param>
+	/// <param name="continuouslyUpdateRotationAndOffset">Should the rotation and offset be updated every frame? (necessary for when the parent rotates a lot like enemies)</param>
+	public static TMP_Text AddLabelObject(GameObject parent, Vector2 labelOffset, bool continuouslyUpdateRotationAndOffset = true)
 	{
 		GameObject labelObject = new GameObject(LABEL_OBJECT_NAME);
 		Transform labelObjectTransform = labelObject.transform;
@@ -31,8 +31,6 @@ public static class MapLabelUtil
 		labelObjectTransform.localPosition = labelPosition;
 		labelObjectTransform.rotation      = MapCameraRotationObserver.MapCameraRotation;
 		labelObjectTransform.localScale    = labelScale;
-		
-		labelObject.AddComponent<LabelOffset>().Offset = labeloffset;
 
 		// Prevent non-uniform scaling in the parent
 		Vector3 parentScale = parent.transform.localScale;
@@ -43,14 +41,20 @@ public static class MapLabelUtil
 		labelObject.layer = parent.layer;
 		labelObject.tag   = parent.tag;
 
-		if (setRotationInUpdate)
+		LabelOffsetManager labelOffsetManager = null;
+
+		if (continuouslyUpdateRotationAndOffset)
 		{
 			labelObject.AddComponent<RotateWithMapCameraContinuously>();
+			labelOffsetManager = labelObject.AddComponent<LabelOffsetManagerContinuously>();
 		}
 		else
 		{
 			labelObject.AddComponent<RotateWithMapCamera>();
+			labelOffsetManager = labelObject.AddComponent<LabelOffsetManagerEventHandler>();
 		}
+		
+		labelOffsetManager.Offset = labelOffset;
 
 		TMP_Text labelComponent = labelObject.AddComponent<TextMeshPro>();
 

@@ -15,8 +15,8 @@ namespace MonitorLabels
 		//         PLAYERS & RADARBOOSTER
 		//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//
 
-		[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.Awake)), HarmonyPostfix]
-		internal static void ManualCameraRendererAwakePatch(ManualCameraRenderer __instance)
+		[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.Start)), HarmonyPostfix]
+		internal static void ManualCameraRendererStartPatch(ManualCameraRenderer __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.Awake)} patch run");
 
@@ -29,7 +29,10 @@ namespace MonitorLabels
 
 			RadarTargetLabelManager.UpdateLabels();
 
-			__instance.mapCamera.gameObject.AddComponent<MapCameraRotationObserver>();
+			if (!ReferenceEquals(__instance.mapCamera, null))
+			{
+				__instance.mapCamera.gameObject.AddComponent<MapCameraRotationObserver>();
+			}
 		}
 
 		[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.AddTransformAsTargetToRadar)), HarmonyPostfix]

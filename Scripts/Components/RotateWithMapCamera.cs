@@ -27,6 +27,7 @@ namespace MonitorLabels.Components
 	/// <summary>
 	/// Sets the rotation of this object to the mapCamera in LateUpdate() to make sure it is always rotated right
 	/// </summary>
+	/// <details>This is useful for when the parent rotates a lot (e.g. the enemies)</details>
 	public class RotateWithMapCameraContinuously : BetterMonoBehaviour
 	{
 		public void LateUpdate()

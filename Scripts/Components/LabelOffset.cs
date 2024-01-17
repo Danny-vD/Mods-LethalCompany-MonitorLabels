@@ -6,7 +6,7 @@ namespace MonitorLabels.Components
 	/// <summary>
 	/// Makes sure a label is always correctly offset with respect to the map camera
 	/// </summary>
-	public class LabelOffset : BetterMonoBehaviour
+	public class LabelOffsetManager : BetterMonoBehaviour
 	{
 		public const float LABEL_HEIGHT = 0.5f;
 	
@@ -16,7 +16,23 @@ namespace MonitorLabels.Components
 		{
 			SetOffset();
 		}
+		
+		protected void SetOffset()
+		{
+			Vector3 newPosition = transform.parent.position;
+			newPosition += MapCameraRotationObserver.MapCameraUp * Offset.y;
+			newPosition += MapCameraRotationObserver.MapCameraRight * Offset.x;
+			newPosition += Vector3.up * LABEL_HEIGHT;
 
+			transform.position = newPosition;
+		}
+	}
+
+	/// <summary>
+	/// Sets the label offset whenever the camera rotates to make sure the offset is always correct
+	/// </summary>
+	public class LabelOffsetManagerEventHandler : LabelOffsetManager
+	{
 		private void OnEnable()
 		{
 			MapCameraRotationObserver.OnMapCameraRotated += SetOffset;
@@ -26,15 +42,17 @@ namespace MonitorLabels.Components
 		{
 			MapCameraRotationObserver.OnMapCameraRotated -= SetOffset;
 		}
+	}
 
-		private void SetOffset()
+	/// <summary>
+	/// Sets the label offset in LateUpdate() to make sure the offset is always correct
+	/// </summary>
+	/// <details>This is useful for when the parent rotates a lot (e.g. the enemies)</details>
+	public class LabelOffsetManagerContinuously : LabelOffsetManager
+	{
+		private void LateUpdate()
 		{
-			Vector3 newPosition = transform.parent.position;
-			newPosition += MapCameraRotationObserver.MapCameraUp * Offset.y;
-			newPosition += MapCameraRotationObserver.MapCameraRight * Offset.x;
-			newPosition += Vector3.up * LABEL_HEIGHT;
-
-			transform.position = newPosition;
+			SetOffset();
 		}
 	}
 }
