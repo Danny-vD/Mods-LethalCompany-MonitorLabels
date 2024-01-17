@@ -100,6 +100,12 @@ namespace MonitorLabels
 		internal static void EnemyAIStartPatch(EnemyAI __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(EnemyAI)}.{nameof(EnemyAI.Start)} patch run");
+
+			if (!ConfigUtil.ShowLabelOnEnemies.Value)
+			{
+				return;
+			}
+			
 			AIMapLabelManager.AddLabelToAI(__instance);
 		}
 
@@ -107,6 +113,11 @@ namespace MonitorLabels
 		internal static void MaskedPlayerEnemyStartPatch(MaskedPlayerEnemy __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(MaskedPlayerEnemy)}.{nameof(MaskedPlayerEnemy.Start)} patch run");
+			
+			if (!ConfigUtil.ShowLabelOnEnemies.Value)
+			{
+				return;
+			}
 
 			AIMapLabelManager.AddLabelToAI(__instance);
 		}
