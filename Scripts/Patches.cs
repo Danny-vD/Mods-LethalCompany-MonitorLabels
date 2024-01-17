@@ -3,6 +3,7 @@
 
 using GameNetcodeStuff;
 using HarmonyLib;
+using MonitorLabels.Components;
 using MonitorLabels.Utils;
 using Unity.Netcode;
 
@@ -27,6 +28,8 @@ namespace MonitorLabels
 			}
 
 			RadarTargetLabelManager.UpdateLabels();
+
+			__instance.mapCamera.gameObject.AddComponent<MapCameraRotationObserver>();
 		}
 
 		[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.AddTransformAsTargetToRadar)), HarmonyPostfix]

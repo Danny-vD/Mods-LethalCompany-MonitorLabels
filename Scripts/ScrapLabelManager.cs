@@ -1,4 +1,5 @@
-﻿using MonitorLabels.ExtensionMethods;
+﻿using MonitorLabels.Components;
+using MonitorLabels.ExtensionMethods;
 using MonitorLabels.Utils;
 using TMPro;
 using UnityEngine;
@@ -7,8 +8,6 @@ namespace MonitorLabels
 {
 	internal static class ScrapLabelManager
 	{
-		public static readonly Vector3 ScrapLabelOffset = ForceNorthRotation.NorthDirection * 7.5f; // Magic number, but it's neatly above the icon
-		
 		internal static void TryAddLabelToScrap(GrabbableObject item)
 		{
 			Transform radarIcon = item.radarIcon;
@@ -45,7 +44,8 @@ namespace MonitorLabels
 		{
 			TMP_Text label = MapLabelUtil.AddLabelObject(radarParent, false);
 
-			label.gameObject.transform.localPosition += ScrapLabelOffset;
+			// TODO: Move to label offset component ... RotateWithMapCamera.NorthDirection * 7.5f; // Magic number, but it's neatly above the icon
+			//label.gameObject.transform.localPosition += ScrapLabelOffset;
 
 			label.fontSize *= ConfigUtil.ScrapLabelScaleFactor.Value;
 

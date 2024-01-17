@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MonitorLabels.Components;
 using TMPro;
 using UnityEngine;
 
@@ -12,14 +13,13 @@ public static class MapLabelUtil
 	public const string LABEL_OBJECT_NAME = "MapLabel";
 
 	private static readonly Vector3 labelPosition = new Vector3(0, 0.5f, 0);
-	private static readonly Quaternion labelRotation = Quaternion.Euler(new Vector3(90, -45, 0));
 	private static readonly Vector3 labelScale = new Vector3(0.5f, 0.5f, 0.5f);
 
 	/// <summary>
 	/// Adds a child to this parent with a <see cref="TMP_Text"/> component
 	/// </summary>
 	/// <param name="parent">A transform that can be seen on the radar</param>
-	/// <param name="setRotationInUpdate">Should a <see cref="ForceNorthRotation"/> component be added to this object?</param>
+	/// <param name="setRotationInUpdate">Should a <see cref="RotateWithMapCamera"/> component be added to this object?</param>
 	public static TMP_Text AddLabelObject(GameObject parent, bool setRotationInUpdate = true)
 	{
 		GameObject labelObject = new GameObject(LABEL_OBJECT_NAME);
@@ -28,7 +28,7 @@ public static class MapLabelUtil
 		labelObjectTransform.SetParent(parent.transform, false);
 
 		labelObjectTransform.localPosition = labelPosition;
-		labelObjectTransform.rotation      = labelRotation;
+		labelObjectTransform.rotation      = MapCameraRotationObserver.MapCameraRotation;
 		labelObjectTransform.localScale    = labelScale;
 
 		// Prevent non-uniform scaling in the parent
@@ -42,7 +42,11 @@ public static class MapLabelUtil
 
 		if (setRotationInUpdate)
 		{
-			labelObject.AddComponent<ForceNorthRotation>();
+			labelObject.AddComponent<RotateWithMapCameraContinuously>();
+		}
+		else
+		{
+			labelObject.AddComponent<RotateWithMapCamera>();
 		}
 
 		TMP_Text labelComponent = labelObject.AddComponent<TextMeshPro>();
