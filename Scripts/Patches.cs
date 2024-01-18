@@ -15,10 +15,11 @@ namespace MonitorLabels
 		//         PLAYERS & RADARBOOSTER
 		//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//
 
-		[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.Start)), HarmonyPostfix]
+		// Cannot patch Start, it causes incompatibility with MoreCompany
+		[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.Awake)), HarmonyPostfix]
 		internal static void ManualCameraRendererStartPatch(ManualCameraRenderer __instance)
 		{
-			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.Start)} patch run");
+			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.Awake)} patch run");
 		
 			NetworkManager networkManager = __instance.NetworkManager;
 		

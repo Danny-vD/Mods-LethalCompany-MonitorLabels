@@ -2,6 +2,12 @@
 
 Restructured the config file
 
+# Version 1.3.1
+
+Fix an incompatibility issue with MoreCompany
+
+Fix the config entry for enemy labels not having any effect
+
 # Version 1.3.0
 
 Fix the rotation of the labels being wrong if the radar camera is rotated
