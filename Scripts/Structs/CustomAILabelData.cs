@@ -1,13 +1,14 @@
-﻿namespace MonitorLabels.Structs;
-
-public struct CustomAILabelData //TODO: rename to CustomLabelData (breaks backwards compatibility)
+﻿namespace MonitorLabels.Structs
 {
-	public string Label;
-	public bool ShowLabel;
-
-	public CustomAILabelData(string label, bool showLabel = true)
+	public struct CustomAILabelData //TODO: rename to CustomLabelData (breaks backwards compatibility)
 	{
-		Label     = label;
-		ShowLabel = showLabel;
+		public string Label;
+		public bool ShowLabel;
+
+		public CustomAILabelData(string label, bool showLabel = true)
+		{
+			Label     = label;
+			ShowLabel = showLabel;
+		}
 	}
 }

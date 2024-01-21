@@ -131,7 +131,7 @@ namespace MonitorLabels.Utils
 
 			// COLOURS
 			TargetLabelColour        = config.Bind("2. Colours", "targetLabelColour", Color.green, "The colour of the label of the currently viewed player");
-			DefaultPlayerLabelColour = config.Bind("2. Colours", "otherLabelColour", Color.white, "The default colour of a player label"); // NOTE: Rename to defaultPlayerLabelColour (this breaks backward compatibility)
+			DefaultPlayerLabelColour = config.Bind("2. Colours", "otherLabelColour", Color.white, "The default colour of a player label"); // TODO: Rename to defaultPlayerLabelColour (this breaks backward compatibility)
 			DeadPlayerLabelColour    = config.Bind("2. Colours", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
 
 			RadarBoosterLabelColour = config.Bind("2. Colours", "radarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster");

@@ -84,6 +84,9 @@ namespace MonitorLabels
 			return GetFormattedScrapLabel(GetScrapName(item), scrapValue);
 		}
 
+		/// <summary>
+		/// Used for special cases where the label of a specific object depends on something specific to that object
+		/// </summary>
 		private static bool TryGetCustomLabel(GrabbableObject item, out string label)
 		{
 			label = string.Empty;
