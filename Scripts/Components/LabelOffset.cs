@@ -8,7 +8,7 @@ namespace MonitorLabels.Components
 	/// </summary>
 	public class LabelOffsetManager : BetterMonoBehaviour
 	{
-		public const float LABEL_HEIGHT = 0.5f;
+		public const float LABEL_HEIGHT = 0.65f;
 
 		public Vector2 Offset { get; set; }
 
@@ -22,13 +22,14 @@ namespace MonitorLabels.Components
 			Vector3 newPosition = transform.parent.position;
 			newPosition += MapCameraRotationObserver.MapCameraUp * Offset.y;
 			newPosition += MapCameraRotationObserver.MapCameraRight * Offset.x;
+			newPosition += Vector3.up * LABEL_HEIGHT;
 
 			transform.position = newPosition;
 
-			Vector3 localPosition = transform.localPosition;
-			localPosition           += Vector3.up * LABEL_HEIGHT;
-			
-			transform.localPosition =  localPosition;
+			//Vector3 localPosition = transform.localPosition;
+			//localPosition += Vector3.up * LABEL_HEIGHT;
+
+			//transform.localPosition = localPosition;
 		}
 	}
 

@@ -47,6 +47,15 @@ namespace MonitorLabels
 				return;
 			}
 
+			if (enemyAI is SandSpiderAI) // The sand spider is weirdly scaled which causes the label to appear rotated when it crawls on a wall
+			{
+				// Prevent non-uniform scaling in the parent
+				Vector3 parentScale = mapDot.localScale;
+				float highestScale = Mathf.Max(parentScale.x, parentScale.y, parentScale.z);
+
+				mapDot.localScale = new Vector3(highestScale, highestScale, highestScale);
+			}
+
 			TMP_Text label = MapLabelUtil.AddLabelObject(mapDot.gameObject, ConfigUtil.EnemyLabelOffset.Value);
 
 			label.color = ConfigUtil.EnemyLabelColour.Value;

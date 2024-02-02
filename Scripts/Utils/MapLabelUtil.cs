@@ -32,12 +32,6 @@ public static class MapLabelUtil
 		labelObjectTransform.rotation      = MapCameraRotationObserver.MapCameraRotation;
 		labelObjectTransform.localScale    = labelScale;
 
-		// Prevent non-uniform scaling in the parent
-		Vector3 parentScale = parent.transform.localScale;
-		float highestScale = Mathf.Max(parentScale.x, parentScale.y, parentScale.z);
-
-		parent.transform.localScale = new Vector3(highestScale, highestScale, highestScale);
-
 		labelObject.layer = parent.layer;
 		labelObject.tag   = parent.tag;
 
