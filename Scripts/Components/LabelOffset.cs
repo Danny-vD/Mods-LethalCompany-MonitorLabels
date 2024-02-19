@@ -8,7 +8,7 @@ namespace MonitorLabels.Components
 	/// </summary>
 	public class LabelOffsetManager : BetterMonoBehaviour
 	{
-		public const float LABEL_HEIGHT = 0.65f;
+		public const float LABEL_HEIGHT = 1.15f;
 
 		public Vector2 Offset { get; set; }
 
