@@ -5,6 +5,7 @@ using GameNetcodeStuff;
 using HarmonyLib;
 using MonitorLabels.Components;
 using MonitorLabels.Utils;
+using MonitorLabels.Utils.ModUtils;
 using Unity.Netcode;
 
 namespace MonitorLabels
@@ -170,16 +171,21 @@ namespace MonitorLabels
 		//         SCRAP
 		//\\//\\//\\//\\//\\//\\//\\//\\
 
-		[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.Start)), HarmonyPostfix]
+		[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.Start)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		internal static void GrabbableObjectStartPatch(GrabbableObject __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.Start)} patch run");
 
+			if (ConfigUtil.ShowIconOnTools.Value)
+			{
+				ToolIconSpawner.SpawnIcon(__instance);
+			}
+			
 			if (!ConfigUtil.ShowLabelOnScrap.Value)
 			{
 				return;
 			}
-
+			
 			ScrapLabelManager.TryAddLabelToScrap(__instance);
 		}
 

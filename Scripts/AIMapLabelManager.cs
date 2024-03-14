@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MonitorLabels.ExtensionMethods;
 using MonitorLabels.Structs;
 using MonitorLabels.Utils;
+using MonitorLabels.Utils.ModUtils;
 using TMPro;
 using UnityEngine;
 using Object = UnityEngine.Object;

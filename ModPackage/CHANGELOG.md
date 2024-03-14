@@ -2,6 +2,9 @@
 
 Restructured the config file
 
+# Version 1.4.0
+Add an icon to the radar for useful items like keys, shotgun shells and items bought from the store
+
 # Version 1.3.1
 
 Fix an incompatibility issue with MoreCompany

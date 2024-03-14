@@ -2,7 +2,7 @@
 using BepInEx.Logging;
 using UnityEngine;
 
-namespace MonitorLabels.Utils
+namespace MonitorLabels.Utils.ModUtils
 {
 	public static class ConfigUtil
 	{
@@ -17,6 +17,7 @@ namespace MonitorLabels.Utils
 		public static ConfigEntry<bool> HideRadarBoosterLabels;
 
 		// SCRAP
+		public static ConfigEntry<bool> ShowIconOnTools;
 		public static ConfigEntry<bool> ShowLabelOnScrap;
 		public static ConfigEntry<float> ScrapLabelScaleFactor;
 		public static ConfigEntry<bool> HideScrapLabelIfOnShip;
@@ -98,6 +99,7 @@ namespace MonitorLabels.Utils
 			HideRadarBoosterLabels = config.Bind("0.2 General", "hideRadarBoosterLabels", false, "Don't show the labels of radar boosters");
 
 			// SCRAP
+			ShowIconOnTools       = config.Bind("0.3 Scrap", "showScrapIconOnTools", true, "If true, adds an icon to tools that don't have an icon by default (e.g. Keys, flashlights, shovels)");
 			ShowLabelOnScrap           = config.Bind("0.3 Scrap", "showLabelOnScrap", true, "Should scrap also have a label?");
 			ScrapLabelScaleFactor      = config.Bind("0.3 Scrap", "scrapLabelScaleFactor", 3.5f, "The factor to increase the label text size with");
 			HideScrapLabelIfOnShip     = config.Bind("0.3 Scrap", "hideScrapLabelOnShip", true, "Hide the label if the scrap is on the ship");

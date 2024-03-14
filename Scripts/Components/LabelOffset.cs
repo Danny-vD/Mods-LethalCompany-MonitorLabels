@@ -25,11 +25,6 @@ namespace MonitorLabels.Components
 			newPosition += Vector3.up * LABEL_HEIGHT;
 
 			transform.position = newPosition;
-
-			//Vector3 localPosition = transform.localPosition;
-			//localPosition += Vector3.up * LABEL_HEIGHT;
-
-			//transform.localPosition = localPosition;
 		}
 	}
 

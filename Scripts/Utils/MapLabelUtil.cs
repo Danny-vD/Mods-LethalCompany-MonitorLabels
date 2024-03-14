@@ -3,117 +3,118 @@ using MonitorLabels.Components;
 using TMPro;
 using UnityEngine;
 
-namespace MonitorLabels.Utils;
-
-public static class MapLabelUtil
+namespace MonitorLabels.Utils
 {
-	public const string MAP_DOT_NAME = "MapDot";
-	public const string RADAR_BOOSTER_DOT_NAME = "RadarBoosterDot";
-
-	public const string LABEL_OBJECT_NAME = "MapLabel";
-
-	private static readonly Vector3 labelPosition = new Vector3(0, 0.5f, 0);
-	private static readonly Vector3 labelScale = new Vector3(0.5f, 0.5f, 0.5f);
-
-	/// <summary>
-	/// Adds a child to this parent with a <see cref="TMP_Text"/> component
-	/// </summary>
-	/// <param name="parent">A transform that can be seen on the radar</param>
-	/// <param name="labelOffset">The offset for the label with respect to the mapCamera</param>
-	/// <param name="continuouslyUpdateRotationAndOffset">Should the rotation and offset be updated every frame? (necessary for when the parent rotates a lot like enemies)</param>
-	public static TMP_Text AddLabelObject(GameObject parent, Vector2 labelOffset, bool continuouslyUpdateRotationAndOffset = true)
+	public static class MapLabelUtil
 	{
-		GameObject labelObject = new GameObject(LABEL_OBJECT_NAME);
-		Transform labelObjectTransform = labelObject.transform;
+		public const string MAP_DOT_NAME = "MapDot";
+		public const string RADAR_BOOSTER_DOT_NAME = "RadarBoosterDot";
 
-		labelObjectTransform.SetParent(parent.transform, false);
+		public const string LABEL_OBJECT_NAME = "MapLabel";
 
-		labelObjectTransform.localPosition = labelPosition;
-		labelObjectTransform.rotation      = MapCameraRotationObserver.MapCameraRotation;
-		labelObjectTransform.localScale    = labelScale;
+		private static readonly Vector3 labelPosition = new Vector3(0, 0.5f, 0);
+		private static readonly Vector3 labelScale = new Vector3(0.5f, 0.5f, 0.5f);
 
-		labelObject.layer = parent.layer;
-		labelObject.tag   = parent.tag;
-
-		LabelOffsetManager labelOffsetManager = null;
-
-		if (continuouslyUpdateRotationAndOffset)
+		/// <summary>
+		/// Adds a child to this parent with a <see cref="TMP_Text"/> component
+		/// </summary>
+		/// <param name="parent">A transform that can be seen on the radar</param>
+		/// <param name="labelOffset">The offset for the label with respect to the mapCamera</param>
+		/// <param name="continuouslyUpdateRotationAndOffset">Should the rotation and offset be updated every frame? (necessary for when the parent rotates a lot like enemies)</param>
+		public static TMP_Text AddLabelObject(GameObject parent, Vector2 labelOffset, bool continuouslyUpdateRotationAndOffset = true)
 		{
-			labelObject.AddComponent<RotateWithMapCameraContinuously>();
-			labelOffsetManager = labelObject.AddComponent<LabelOffsetManagerContinuously>();
-		}
-		else
-		{
-			labelObject.AddComponent<RotateWithMapCamera>();
-			labelOffsetManager = labelObject.AddComponent<LabelOffsetManagerEventHandler>();
-		}
+			GameObject labelObject = new GameObject(LABEL_OBJECT_NAME);
+			Transform labelObjectTransform = labelObject.transform;
 
-		labelOffsetManager.Offset = labelOffset;
+			labelObjectTransform.SetParent(parent.transform, false);
 
-		TMP_Text labelComponent = labelObject.AddComponent<TextMeshPro>();
+			labelObjectTransform.localPosition = labelPosition;
+			labelObjectTransform.rotation      = MapCameraRotationObserver.MapCameraRotation;
+			labelObjectTransform.localScale    = labelScale;
 
-		labelComponent.alignment             = TextAlignmentOptions.Center;
-		labelComponent.autoSizeTextContainer = true;
+			labelObject.layer = parent.layer;
+			labelObject.tag   = parent.tag;
 
-		labelComponent.enableWordWrapping = false;
-		labelComponent.overflowMode       = TextOverflowModes.Overflow;
+			LabelOffsetManager labelOffsetManager = null;
 
-		return labelComponent;
-	}
-
-	/// <summary>
-	/// A breadth-first search for a child that has 'MapDot' in its name
-	/// </summary>
-	public static Transform GetMapDot(Transform parent)
-	{
-		// A breadth-first queue to search through all the children before looking at their children
-		Queue<Transform> queue = new Queue<Transform>();
-
-		foreach (Transform child in parent)
-		{
-			queue.Enqueue(child);
-		}
-
-		while (queue.Count > 0)
-		{
-			Transform current = queue.Dequeue();
-
-			if (current.gameObject.name.Contains(MAP_DOT_NAME))
+			if (continuouslyUpdateRotationAndOffset)
 			{
-				return current;
+				labelObject.AddComponent<RotateWithMapCameraContinuously>();
+				labelOffsetManager = labelObject.AddComponent<LabelOffsetManagerContinuously>();
+			}
+			else
+			{
+				labelObject.AddComponent<RotateWithMapCamera>();
+				labelOffsetManager = labelObject.AddComponent<LabelOffsetManagerEventHandler>();
 			}
 
-			foreach (Transform child in current)
+			labelOffsetManager.Offset = labelOffset;
+
+			TMP_Text labelComponent = labelObject.AddComponent<TextMeshPro>();
+
+			labelComponent.alignment             = TextAlignmentOptions.Center;
+			labelComponent.autoSizeTextContainer = true;
+
+			labelComponent.enableWordWrapping = false;
+			labelComponent.overflowMode       = TextOverflowModes.Overflow;
+
+			return labelComponent;
+		}
+
+		/// <summary>
+		/// A breadth-first search for a child that has 'MapDot' in its name
+		/// </summary>
+		public static Transform GetMapDot(Transform parent)
+		{
+			// A breadth-first queue to search through all the children before looking at their children
+			Queue<Transform> queue = new Queue<Transform>();
+
+			foreach (Transform child in parent)
 			{
 				queue.Enqueue(child);
 			}
+
+			while (queue.Count > 0)
+			{
+				Transform current = queue.Dequeue();
+
+				if (current.gameObject.name.Contains(MAP_DOT_NAME))
+				{
+					return current;
+				}
+
+				foreach (Transform child in current)
+				{
+					queue.Enqueue(child);
+				}
+			}
+
+			return null;
 		}
 
-		return null;
-	}
+		public static Transform GetRadarLabel(Transform radarParent, out TMP_Text label)
+		{
+			Transform labelObject = radarParent.Find(LABEL_OBJECT_NAME);
 
-	public static Transform GetRadarLabel(Transform radarParent, out TMP_Text label)
-	{
-		Transform labelObject = radarParent.Find(LABEL_OBJECT_NAME);
+			label = labelObject != null ? labelObject.GetComponent<TMP_Text>() : null;
 
-		label = labelObject != null ? labelObject.GetComponent<TMP_Text>() : null;
+			return labelObject;
+		}
 
-		return labelObject;
-	}
+		public static Transform GetRadarBoosterMapDot(Transform radarParent)
+		{
+			return radarParent.Find(RADAR_BOOSTER_DOT_NAME);
+		}
 
-	public static Transform GetRadarBoosterMapDot(Transform radarParent)
-	{
-		return radarParent.Find(RADAR_BOOSTER_DOT_NAME);
-	}
+		/// <summary>
+		/// <para>Returns the same string without the (clone) part</para>
+		/// <para>It does this by removing anything after the first '('</para>
+		/// </summary>
+		public static string RemoveCloneFromString(string name)
+		{
+			int removeStartIndex = name.IndexOf('(');
 
-	/// <summary>
-	/// <para>Returns the same string without the (clone) part</para>
-	/// <para>It does this by removing anything after the first '('</para>
-	/// </summary>
-	public static string RemoveCloneFromString(string name)
-	{
-		int removeStartIndex = name.IndexOf('(');
-
-		return removeStartIndex == -1 ? name : name[..removeStartIndex];
+			return removeStartIndex == -1 ? name : name[..removeStartIndex];
+		}
 	}
 }

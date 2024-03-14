@@ -1,5 +1,6 @@
 ﻿using GameNetcodeStuff;
 using MonitorLabels.Utils;
+using MonitorLabels.Utils.ModUtils;
 using TMPro;
 using UnityEngine;
 using Object = UnityEngine.Object;
