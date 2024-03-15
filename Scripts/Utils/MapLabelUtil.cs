@@ -20,7 +20,7 @@ namespace MonitorLabels.Utils
 		/// </summary>
 		/// <param name="parent">A transform that can be seen on the radar</param>
 		/// <param name="labelOffset">The offset for the label with respect to the mapCamera</param>
-		/// <param name="continuouslyUpdateRotationAndOffset">Should the rotation and offset be updated every frame? (necessary for when the parent rotates a lot like enemies)</param>
+		/// <param name="continuouslyUpdateRotationAndOffset">Should the rotation and offset be updated every frame? (necessary when the parent rotates, like enemies)</param>
 		public static TMP_Text AddLabelObject(GameObject parent, Vector2 labelOffset, bool continuouslyUpdateRotationAndOffset = true)
 		{
 			GameObject labelObject = new GameObject(LABEL_OBJECT_NAME);
