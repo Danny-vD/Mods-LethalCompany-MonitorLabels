@@ -12,6 +12,8 @@ It also exposes an API for other mods to add their own labels (in case they add 
 • Whether the currently focused player should have a label too  
 • Whether radar boosters should have a label  
 • Whether enemies should have a label  
+• Whether non-scrap objects should have a label (e.g. Keys, Shovels and Flashlights)  
+• Whether non-scrap objects should have an icon (e.g. Keys, Shovels and Flashlights)  
 • Whether scrap should have a label  
 • The label of a player that is dead  
 • All enemy labels can have a custom label  
