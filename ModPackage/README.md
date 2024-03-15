@@ -24,7 +24,7 @@ It also exposes an API for other mods to add their own labels (in case they add 
 
 [![Radar booster labels example](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels/blob/main/Examples/RadarBoosterLabels.png?raw=true)](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels)
 
-[![Overal example](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels/blob/main/Examples/OveralExample.png?raw=true)](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels)
+[![Overall example](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels/blob/main/Examples/OveralExample.png?raw=true)](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels)
 
 [![Scrap example](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels/blob/main/Examples/ScrapExample.png?raw=true)](https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels)
 
