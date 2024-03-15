@@ -28,7 +28,7 @@ namespace MonitorLabels
 			{
 				return;
 			}
-			
+
 			_ = MapLabelUtil.GetRadarLabel(radarIcon, out TMP_Text radarLabel);
 
 			if (ReferenceEquals(radarLabel, null)) // No map label
@@ -42,16 +42,27 @@ namespace MonitorLabels
 
 		private static void AddLabelToScrap(GrabbableObject item, GameObject radarParent)
 		{
-			TMP_Text label = MapLabelUtil.AddLabelObject(radarParent, ConfigUtil.ScrapLabelOffset.Value, false);
+			bool isScrap = item.itemProperties.isScrap;
+			
+			TMP_Text label = MapLabelUtil.AddLabelObject(radarParent, isScrap ? ConfigUtil.ScrapLabelOffset.Value : ConfigUtil.ToolLabelOffset.Value, false);
 
-			label.fontSize *= ConfigUtil.ScrapLabelScaleFactor.Value;
+			if (isScrap)
+			{
+				label.fontSize *= ConfigUtil.ScrapLabelScaleFactor.Value;
+			}
+			else
+			{
+				label.fontSize = ConfigUtil.ToolLabelFontSize.Value;
+			}
 
 			label.text  = GetScrapLabelString(item, out Color labelColor);
 			label.color = labelColor;
 		}
-		
+
 		private static string GetScrapLabelString(GrabbableObject item, out Color labelColour)
 		{
+			bool isTool = !item.itemProperties.isScrap;
+
 			int scrapValue = item.scrapValue;
 
 			if (item.isInShipRoom)
@@ -64,7 +75,7 @@ namespace MonitorLabels
 				}
 			}
 			else if (item.isHeld || item.isPocketed)
-			{	
+			{
 				labelColour = ConfigUtil.CarriedScrapLabelColour.Value;
 
 				if (ConfigUtil.HideScrapLabelIfCarried.Value)
@@ -77,12 +88,17 @@ namespace MonitorLabels
 				labelColour = scrapValue >= ConfigUtil.HighValueScrapThreshold.Value ? ConfigUtil.HighValueScrapLabelColour.Value : ConfigUtil.ScrapLabelColour.Value;
 			}
 
+			if (isTool)
+			{
+				labelColour = ConfigUtil.ToolLabelColour.Value;
+			}
+
 			if (TryGetCustomLabel(item, out string label))
 			{
 				return label;
 			}
 
-			return GetFormattedScrapLabel(GetScrapName(item), scrapValue);
+			return GetFormattedScrapLabel(item, scrapValue, isTool);
 		}
 
 		/// <summary>
@@ -91,7 +107,7 @@ namespace MonitorLabels
 		private static bool TryGetCustomLabel(GrabbableObject item, out string label)
 		{
 			label = string.Empty;
-			
+
 			if (ConfigUtil.HideScrapLabelOnNutcracker.Value && item is ShotgunItem)
 			{
 				if (item.isHeldByEnemy)
@@ -102,18 +118,36 @@ namespace MonitorLabels
 
 			return false;
 		}
-		
-		private static string GetFormattedScrapLabel(string scrapName, int scrapValue)
+
+		private static string GetFormattedScrapLabel(GrabbableObject item, int scrapValue, bool isTool)
 		{
+			string scrapName = GetScrapName(item);
+
+			if (isTool)
+			{
+				return string.Format(ConfigUtil.ToolLabelStringFormat.Value, scrapName);
+			}
+
 			return string.Format(ConfigUtil.ScrapLabelStringFormat.Value, scrapName, scrapValue);
 		}
-		
+
 		private static string GetScrapName(GrabbableObject item)
 		{
 			ScanNodeProperties scanNodeProperties = item.GetComponentInChildren<ScanNodeProperties>();
-			
-			// If scannode is available, take the name from that
-			return ReferenceEquals(scanNodeProperties, null) ? MapLabelUtil.RemoveCloneFromString(item.gameObject.name).InsertSpaceBeforeCapitals() : scanNodeProperties.headerText;
+
+			if (scanNodeProperties) // If scannode is available, take the name from that
+			{
+				return scanNodeProperties.headerText;
+			}
+
+			Item itemProperties = item.itemProperties;
+
+			if (itemProperties && !string.IsNullOrEmpty(itemProperties.itemName))
+			{
+				return itemProperties.itemName;
+			}
+
+			return MapLabelUtil.RemoveCloneFromString(item.gameObject.name).InsertSpaceBeforeCapitals();
 		}
 	}
 }

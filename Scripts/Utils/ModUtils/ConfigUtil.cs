@@ -18,6 +18,9 @@ namespace MonitorLabels.Utils.ModUtils
 
 		// SCRAP
 		public static ConfigEntry<bool> ShowIconOnTools;
+		public static ConfigEntry<bool> ShowLabelOnTools;
+		public static ConfigEntry<float> ToolLabelFontSize;
+
 		public static ConfigEntry<bool> ShowLabelOnScrap;
 		public static ConfigEntry<float> ScrapLabelScaleFactor;
 		public static ConfigEntry<bool> HideScrapLabelIfOnShip;
@@ -49,7 +52,7 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<string> SandWormLabel;
 		public static ConfigEntry<string> CoilHeadLabel;
 
-		// COLOURS // TODO: Create sub sections for players, radar booster, enemy and scrap
+		// COLOURS // TODO: Create sub sections for players, radar booster, enemy, tools and scrap
 		public static ConfigEntry<Color> TargetLabelColour;
 		public static ConfigEntry<Color> DefaultPlayerLabelColour;
 		public static ConfigEntry<Color> DeadPlayerLabelColour;
@@ -59,19 +62,23 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<Color> EnemyLabelColour;
 		public static ConfigEntry<Color> DeadEnemyLabelColour;
 
+		public static ConfigEntry<Color> ToolLabelColour;
+
 		public static ConfigEntry<Color> ScrapLabelColour;
 		public static ConfigEntry<Color> HighValueScrapLabelColour;
 		public static ConfigEntry<Color> CarriedScrapLabelColour;
 		public static ConfigEntry<Color> InShipScrapLabelColour;
-	
+
 		// LABEL OFFSETS
 		public static ConfigEntry<Vector2> RadarTargetLabelOffset;
 		public static ConfigEntry<Vector2> EnemyLabelOffset;
+		public static ConfigEntry<Vector2> ToolLabelOffset;
 		public static ConfigEntry<Vector2> ScrapLabelOffset;
 
 		// ADVANCED
 		public static ConfigEntry<string> PlayerLabelStringFormat;
 		public static ConfigEntry<string> ScrapLabelStringFormat;
+		public static ConfigEntry<string> ToolLabelStringFormat;
 
 
 		private static ConfigFile config;
@@ -99,7 +106,10 @@ namespace MonitorLabels.Utils.ModUtils
 			HideRadarBoosterLabels = config.Bind("0.2 General", "hideRadarBoosterLabels", false, "Don't show the labels of radar boosters");
 
 			// SCRAP
-			ShowIconOnTools       = config.Bind("0.3 Scrap", "showScrapIconOnTools", true, "If true, adds an icon to tools that don't have an icon by default (e.g. Keys, flashlights, shovels)");
+			ShowIconOnTools   = config.Bind("0.3 Scrap", "showIconOnTools", true, "If true, adds an icon to tools that don't have an icon by default (e.g. Keys, flashlights, shovels)");
+			ShowLabelOnTools  = config.Bind("0.3 Scrap", "showLabelOnTools", true, "If true, adds a label to tools (e.g. Keys, flashlights, shovels)\nOnly works if they have an icon");
+			ToolLabelFontSize = config.Bind("0.3 Scrap", "toolLabelFontSize", 600f, "The size of the font of a tool label");
+
 			ShowLabelOnScrap           = config.Bind("0.3 Scrap", "showLabelOnScrap", true, "Should scrap also have a label?");
 			ScrapLabelScaleFactor      = config.Bind("0.3 Scrap", "scrapLabelScaleFactor", 3.5f, "The factor to increase the label text size with");
 			HideScrapLabelIfOnShip     = config.Bind("0.3 Scrap", "hideScrapLabelOnShip", true, "Hide the label if the scrap is on the ship");
@@ -142,6 +152,7 @@ namespace MonitorLabels.Utils.ModUtils
 			DeadEnemyLabelColour = config.Bind("2. Colours", "deadEnemyLabelColour", Color.red, "The colour of a label of an enemy that is dead");
 
 			ScrapLabelColour          = config.Bind("2. Colours", "scrapLabelColour", Color.white, "The colour of the label of scrap");
+			ToolLabelColour           = config.Bind("2. Colours", "toolLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of the label of tools");
 			HighValueScrapLabelColour = config.Bind("2. Colours", "highValueScrapLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of a label of scrap that is worth more than the highValueScrapThreshold");
 			CarriedScrapLabelColour   = config.Bind("2. Colours", "carriedScrapLabelColour", Color.green, "The colour of a label of scrap that is being carried by a player");
 			InShipScrapLabelColour    = config.Bind("2. Colours", "inShipScrapLabelColour", Color.blue, "The colour of a label of scrap that is stored in the ship");
@@ -149,11 +160,13 @@ namespace MonitorLabels.Utils.ModUtils
 			// LABEL OFFSETS
 			RadarTargetLabelOffset = config.Bind("4. Label Offsets", "radarTargetLabelOffset", Vector2.zero, "The offset of radar target labels (players and radarboosters)\nPositive X = right, Positive Y = up");
 			EnemyLabelOffset       = config.Bind("4. Label Offsets", "enemyLabelOffset", Vector2.down * 0.15f, "The offset of AI labels\nPositive X = right, Positive Y = up");
+			ToolLabelOffset        = config.Bind("4. Label Offsets", "toolLabelOffset", Vector2.up, "The offset of non-scrap object labels\nPositive X = right, Positive Y = up");
 			ScrapLabelOffset       = config.Bind("4. Label Offsets", "scrapLabelOffset", Vector2.up * 1.5f, "The offset of scrap labels\nPositive X = right, Positive Y = up");
-		
+
 			// ADVANCED //TODO: Make this section a high number to allow room for more (e.g. scrap will be section 3) (this breaks backward compatibility)
 			PlayerLabelStringFormat = config.Bind("3. Advanced", "labelFormat", "{0}", "The string that will be shown on a player label\n{0} = Name\n{1} = playerIndex");
 			ScrapLabelStringFormat  = config.Bind("3. Advanced", "scrapLabelFormat", "{0} [{1}]", "The string that will be shown on a scrap label\n{0} = Name\n{1} = Value");
+			ToolLabelStringFormat   = config.Bind("3. Advanced", "toolLabelStringFormat", "{0}", "The string that will be shown on a non-scrap object label\n{0} = Name");
 		}
 	}
 }

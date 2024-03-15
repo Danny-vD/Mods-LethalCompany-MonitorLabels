@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 867857650
+CRC: 411560773
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: eb7653f9981ef4d26a3ec4e52104254a
+    Hash: 25c53b3c611c8306f91492fb5a5dd5db
   TypeTreeHash:
     serializedVersion: 2
-    Hash: a3c8e9364a60c76c5b1821efa7fc8a17
+    Hash: 0f9fba26cbb38215f317d1fd6b1954a0
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: eb7653f9981ef4d26a3ec4e52104254a
+    Hash: 25c53b3c611c8306f91492fb5a5dd5db
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -26,9 +26,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
-- Class: 64
-  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Mods/TerminalMarker/Plane.prefab
+- Assets/Mods/TerminalMarker/ItemMarker.prefab
+- Assets/Mods/TerminalMarker/MarkerMaterial.mat
 Dependencies: []

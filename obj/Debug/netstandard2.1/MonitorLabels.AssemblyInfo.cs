@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Adds a label to the icons on the monitor for players, radar boosters, enemies and" +
     " scrap")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.3.1.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.3.1+df918c6bb75ca6e7cf0fcc6f5e8e6538a3c5a8dc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.3.1+98ef0ce5194d3bfccc2aacb1b7c3c2e26d064737")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonitorLabels")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonitorLabels")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.3.1.0")]

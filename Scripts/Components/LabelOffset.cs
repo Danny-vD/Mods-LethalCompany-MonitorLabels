@@ -47,7 +47,7 @@ namespace MonitorLabels.Components
 	/// <summary>
 	/// Sets the label offset in LateUpdate() to make sure the offset is always correct
 	/// </summary>
-	/// <details>This is useful for when the parent rotates a lot (e.g. the enemies)</details>
+	/// <details>This is useful for when the parent rotates (e.g. the enemies)</details>
 	public class LabelOffsetManagerContinuously : LabelOffsetManager
 	{
 		private void LateUpdate()

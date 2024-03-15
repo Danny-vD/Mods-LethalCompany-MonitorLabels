@@ -175,10 +175,16 @@ namespace MonitorLabels
 		internal static void GrabbableObjectStartPatch(GrabbableObject __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.Start)} patch run");
-
-			if (ConfigUtil.ShowIconOnTools.Value)
+            
+			if (!__instance.itemProperties.isScrap && ConfigUtil.ShowIconOnTools.Value)
 			{
 				ToolIconSpawner.SpawnIcon(__instance);
+
+				if (ConfigUtil.ShowLabelOnTools.Value)
+				{
+					ScrapLabelManager.TryAddLabelToScrap(__instance);
+					return;
+				}
 			}
 			
 			if (!ConfigUtil.ShowLabelOnScrap.Value)
@@ -207,9 +213,24 @@ namespace MonitorLabels
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetItemInElevator)} patch run");
 
-			if (!ConfigUtil.ShowLabelOnScrap.Value || gObject == null || !gObject.itemProperties.isScrap)
+			if (gObject == null)
 			{
 				return;
+			}
+			
+			if (gObject.itemProperties.isScrap)
+			{
+				if (!ConfigUtil.ShowLabelOnScrap.Value)
+				{
+					return;
+				}
+			}
+			else
+			{
+				if (!ConfigUtil.ShowLabelOnTools.Value)
+				{
+					return;
+				}
 			}
 
 			ScrapLabelManager.UpdateScrapLabel(gObject);
@@ -220,9 +241,24 @@ namespace MonitorLabels
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetObjectAsNoLongerHeld)} patch run");
 
-			if (!ConfigUtil.ShowLabelOnScrap.Value || dropObject == null || !dropObject.itemProperties.isScrap)
+			if (dropObject == null)
 			{
 				return;
+			}
+			
+			if (dropObject.itemProperties.isScrap)
+			{
+				if (!ConfigUtil.ShowLabelOnScrap.Value)
+				{
+					return;
+				}
+			}
+			else
+			{
+				if (!ConfigUtil.ShowLabelOnTools.Value)
+				{
+					return;
+				}
 			}
 
 			ScrapLabelManager.UpdateScrapLabel(dropObject);
@@ -241,9 +277,24 @@ namespace MonitorLabels
 			NetworkObject networkObject = grabbedObject;
 			GrabbableObject item = networkObject.GetComponentInChildren<GrabbableObject>();
 
-			if (item == null || !item.itemProperties.isScrap)
+			if (item == null)
 			{
 				return;
+			}
+			
+			if (item.itemProperties.isScrap)
+			{
+				if (!ConfigUtil.ShowLabelOnScrap.Value)
+				{
+					return;
+				}
+			}
+			else
+			{
+				if (!ConfigUtil.ShowLabelOnTools.Value)
+				{
+					return;
+				}
 			}
 
 			ScrapLabelManager.UpdateScrapLabel(item);
