@@ -20,6 +20,8 @@ namespace MonitorLabels.Utils
 		public static void SpawnIcon(GrabbableObject grabbableObject)
 		{
 			GameObject radarIcon = Object.Instantiate(iconPrefab, RoundManager.Instance.mapPropsContainer.transform);
+
+			radarIcon.name  = $"Item Marker ({grabbableObject.itemProperties.itemName})";
 			radarIcon.layer = mapRadarLayer;
 
 			grabbableObject.radarIcon = radarIcon.transform;

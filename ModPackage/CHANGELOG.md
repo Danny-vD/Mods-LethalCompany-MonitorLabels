@@ -2,6 +2,10 @@
 
 Restructured the config file
 
+# Version 1.4.1
+
+Add extra options in the config for non-scrap object labels (keys, flashlights, shovels etc.)
+
 # Version 1.4.0
 
 Add an icon to the radar for useful items like keys, shotgun shells and items bought from the store

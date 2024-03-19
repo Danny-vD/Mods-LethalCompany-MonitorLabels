@@ -20,6 +20,8 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<bool> ShowIconOnTools;
 		public static ConfigEntry<bool> ShowLabelOnTools;
 		public static ConfigEntry<float> ToolLabelFontSize;
+		public static ConfigEntry<bool> HideToolLabelIfOnShip;
+		public static ConfigEntry<bool> HideToolLabelIfCarried;
 
 		public static ConfigEntry<bool> ShowLabelOnScrap;
 		public static ConfigEntry<float> ScrapLabelScaleFactor;
@@ -63,6 +65,8 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<Color> DeadEnemyLabelColour;
 
 		public static ConfigEntry<Color> ToolLabelColour;
+		public static ConfigEntry<Color> CarriedToolLabelColour;
+		public static ConfigEntry<Color> InShipToolLabelColour;
 
 		public static ConfigEntry<Color> ScrapLabelColour;
 		public static ConfigEntry<Color> HighValueScrapLabelColour;
@@ -105,11 +109,14 @@ namespace MonitorLabels.Utils.ModUtils
 			//		Radar Booster Label
 			HideRadarBoosterLabels = config.Bind("0.2 General", "hideRadarBoosterLabels", false, "Don't show the labels of radar boosters");
 
-			// SCRAP
-			ShowIconOnTools   = config.Bind("0.3 Scrap", "showIconOnTools", true, "If true, adds an icon to tools that don't have an icon by default (e.g. Keys, flashlights, shovels)");
-			ShowLabelOnTools  = config.Bind("0.3 Scrap", "showLabelOnTools", true, "If true, adds a label to tools (e.g. Keys, flashlights, shovels)\nOnly works if they have an icon");
-			ToolLabelFontSize = config.Bind("0.3 Scrap", "toolLabelFontSize", 600f, "The size of the font of a tool label");
-
+			// Tools
+			ShowIconOnTools         = config.Bind("0.3 Scrap", "showIconOnTools", true, "If true, adds an icon to tools that don't have an icon by default (e.g. Keys, flashlights, shovels)");
+			ShowLabelOnTools        = config.Bind("0.3 Scrap", "showLabelOnTools", true, "If true, adds a label to tools (e.g. Keys, flashlights, shovels)\nOnly works if they have an icon");
+			ToolLabelFontSize       = config.Bind("0.3 Scrap", "toolLabelFontSize", 600f, "The size of the font of a tool label");
+			HideToolLabelIfOnShip  = config.Bind("0.3 Scrap", "hideToolLabelIfOnShip", true, "Hide the label if the tool is on the ship");
+			HideToolLabelIfCarried = config.Bind("0.3 Scrap", "hideToolLabelIfCarried", false, "Hide the label if the tool is being carried");
+			
+			// Scrap
 			ShowLabelOnScrap           = config.Bind("0.3 Scrap", "showLabelOnScrap", true, "Should scrap also have a label?");
 			ScrapLabelScaleFactor      = config.Bind("0.3 Scrap", "scrapLabelScaleFactor", 3.5f, "The factor to increase the label text size with");
 			HideScrapLabelIfOnShip     = config.Bind("0.3 Scrap", "hideScrapLabelOnShip", true, "Hide the label if the scrap is on the ship");
@@ -151,8 +158,11 @@ namespace MonitorLabels.Utils.ModUtils
 			EnemyLabelColour     = config.Bind("2. Colours", "enemyLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of a label of an enemy");
 			DeadEnemyLabelColour = config.Bind("2. Colours", "deadEnemyLabelColour", Color.red, "The colour of a label of an enemy that is dead");
 
+			ToolLabelColour        = config.Bind("2. Colours", "toolLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of the label of tools");
+			CarriedToolLabelColour = config.Bind("2. Colours", "carriedToolLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of a label of a tool that is being carried by a player");
+			InShipToolLabelColour  = config.Bind("2. Colours", "inShipToolLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of a label of a tool that is stored in the ship");
+			
 			ScrapLabelColour          = config.Bind("2. Colours", "scrapLabelColour", Color.white, "The colour of the label of scrap");
-			ToolLabelColour           = config.Bind("2. Colours", "toolLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of the label of tools");
 			HighValueScrapLabelColour = config.Bind("2. Colours", "highValueScrapLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of a label of scrap that is worth more than the highValueScrapThreshold");
 			CarriedScrapLabelColour   = config.Bind("2. Colours", "carriedScrapLabelColour", Color.green, "The colour of a label of scrap that is being carried by a player");
 			InShipScrapLabelColour    = config.Bind("2. Colours", "inShipScrapLabelColour", Color.blue, "The colour of a label of scrap that is stored in the ship");

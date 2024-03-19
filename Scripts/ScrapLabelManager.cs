@@ -43,7 +43,7 @@ namespace MonitorLabels
 		private static void AddLabelToScrap(GrabbableObject item, GameObject radarParent)
 		{
 			bool isScrap = item.itemProperties.isScrap;
-			
+
 			TMP_Text label = MapLabelUtil.AddLabelObject(radarParent, isScrap ? ConfigUtil.ScrapLabelOffset.Value : ConfigUtil.ToolLabelOffset.Value, false);
 
 			if (isScrap)
@@ -67,30 +67,56 @@ namespace MonitorLabels
 
 			if (item.isInShipRoom)
 			{
-				labelColour = ConfigUtil.InShipScrapLabelColour.Value;
-
-				if (ConfigUtil.HideScrapLabelIfOnShip.Value)
+				if (isTool)
 				{
-					return string.Empty;
+					labelColour = ConfigUtil.InShipToolLabelColour.Value;
+					
+					if (ConfigUtil.HideToolLabelIfOnShip.Value)
+					{
+						return string.Empty;
+					}
+				}
+				else
+				{
+					labelColour = ConfigUtil.InShipScrapLabelColour.Value;
+
+					if (ConfigUtil.HideScrapLabelIfOnShip.Value)
+					{
+						return string.Empty;
+					}
 				}
 			}
 			else if (item.isHeld || item.isPocketed)
 			{
-				labelColour = ConfigUtil.CarriedScrapLabelColour.Value;
-
-				if (ConfigUtil.HideScrapLabelIfCarried.Value)
+				if (isTool)
 				{
-					return string.Empty;
+					labelColour = ConfigUtil.CarriedToolLabelColour.Value;
+
+					if (ConfigUtil.HideToolLabelIfCarried.Value)
+					{
+						return string.Empty;
+					}
+				}
+				else
+				{
+					labelColour = ConfigUtil.CarriedScrapLabelColour.Value;
+
+					if (ConfigUtil.HideScrapLabelIfCarried.Value)
+					{
+						return string.Empty;
+					}
 				}
 			}
 			else
 			{
-				labelColour = scrapValue >= ConfigUtil.HighValueScrapThreshold.Value ? ConfigUtil.HighValueScrapLabelColour.Value : ConfigUtil.ScrapLabelColour.Value;
-			}
-
-			if (isTool)
-			{
-				labelColour = ConfigUtil.ToolLabelColour.Value;
+				if (isTool)
+				{
+					labelColour = ConfigUtil.ToolLabelColour.Value;
+				}
+				else
+				{
+					labelColour = scrapValue >= ConfigUtil.HighValueScrapThreshold.Value ? ConfigUtil.HighValueScrapLabelColour.Value : ConfigUtil.ScrapLabelColour.Value;
+				}
 			}
 
 			if (TryGetCustomLabel(item, out string label))

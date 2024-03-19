@@ -10,7 +10,7 @@ namespace MonitorLabels
 	{
 		public const string GUID = "DannyVD.mods.LethalCompany.MonitorLabels";
 		public const string PLUGIN_NAME = "MonitorLabels";
-		public const string PLUGIN_VERSION = "1.4.0"; //TODO: Consider making this 2.0.0
+		public const string PLUGIN_VERSION = "1.4.1"; //TODO: Consider making this 2.0.0
 		
 		public const string DEPENDENCY_STRING = $"DannyVD-{PLUGIN_NAME}-{PLUGIN_VERSION}";
 
