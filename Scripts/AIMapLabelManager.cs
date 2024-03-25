@@ -12,16 +12,16 @@ namespace MonitorLabels
 {
 	public static class AIMapLabelManager
 	{
-		public static readonly Dictionary<Type, CustomAILabelData> CustomAINames = new Dictionary<Type, CustomAILabelData>();
+		public static readonly Dictionary<Type, CustomLabelData> CustomAINames = new Dictionary<Type, CustomLabelData>();
 
-		public static bool TryAddNewAI(Type type, CustomAILabelData labelData)
+		public static bool TryAddNewAI(Type type, CustomLabelData labelData)
 		{
 			return CustomAINames.TryAdd(type, labelData);
 		}
 
 		public static bool TryAddNewAI(Type type, string label, bool showLabel = true)
 		{
-			return CustomAINames.TryAdd(type, new CustomAILabelData(label, showLabel));
+			return CustomAINames.TryAdd(type, new CustomLabelData(label, showLabel));
 		}
 
 		public static void RemoveAI(Type type)
@@ -170,6 +170,9 @@ namespace MonitorLabels
 
 				case SpringManAI:
 					return ConfigUtil.CoilHeadLabel.Value;
+				
+				case TestEnemy:
+					return "Obunga";
 
 				default:
 					return GetUnknownAILabel(enemyAI, out showLabel);
@@ -178,7 +181,7 @@ namespace MonitorLabels
 
 		private static string GetUnknownAILabel(EnemyAI enemyAI, out bool showLabel)
 		{
-			foreach (KeyValuePair<Type, CustomAILabelData> pair in CustomAINames)
+			foreach (KeyValuePair<Type, CustomLabelData> pair in CustomAINames)
 			{
 				if (pair.Key.IsInstanceOfType(enemyAI))
 				{

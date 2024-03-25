@@ -34,10 +34,10 @@ It also exposes an API for other mods to add their own labels (in case they add 
 
 # For Developers
 ### Custom Labels
-`MonitorLabels.AIMapLabelManager.CustomAINames` is a `Dictionary<Type, CustomAILabelData>` where you can add your own types to, to give them custom labels.  
-`MonitorLabels.AIMapLabelManager.TryAddNewAI(Type, CustomAILabelData)`, `MonitorLabels.AIMapLabelManager.TryAddNewAI(Type, String, Bool)` and `MonitorLabels.AIMapLabelManager.RemoveAI(Type)` are helper functions for this purpose.  
+`MonitorLabels.AIMapLabelManager.CustomAINames` is a `Dictionary<Type, CustomLabelData>` where you can add your own types to, to give them custom labels.  
+`MonitorLabels.AIMapLabelManager.TryAddNewAI(Type, CustomLabelData)`, `MonitorLabels.AIMapLabelManager.TryAddNewAI(Type, String, Bool)` and `MonitorLabels.AIMapLabelManager.RemoveAI(Type)` are helper functions for this purpose.  
 
-The `CustomAILabelData.ShowLabel` boolean is used if you want to hide the label of that AI.
+The `CustomLabelData.ShowLabel` boolean is used if you want to hide the label of that AI.
 
 #### Example
 `MonitorLabels.AIMapLabelManager.TryAddNewAI(typeof(MyAI), "MyLabel");`
@@ -46,7 +46,7 @@ The `CustomAILabelData.ShowLabel` boolean is used if you want to hide the label 
 If you do not call `base.Start()` in your overriden Start function, then you will have to manually call `MonitorLabels.AIMapLabelManager.AddLabelToAI(EnemyAI)` for it to have a label.
 
 ### Configuration
-The Configuration files can be publicly accessed from the `MonitorLabels.Utils.ConfigUtil` class if for whatever reason you want to modify something.
+The Configuration files can be publicly accessed from the `MonitorLabels.Utils.ModUtils.ConfigUtil` class if for whatever reason you want to modify something.
 
 ### General Info
 The GUID, PLUGIN_NAME and PLUGIN_VERSION can be accessed from their respective fields in the `MonitorLabels.MonitorLabelsPlugin` class.

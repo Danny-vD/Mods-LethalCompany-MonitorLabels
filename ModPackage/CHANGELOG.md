@@ -1,10 +1,14 @@
-# Version 2.0.0 (UPCOMING!)
+# Version 2.0.0
 
 Restructured the config file
 
-# Version 1.4.1
+Add extra options in the config for non-scrap item labels (keys, flashlights, shovels etc.)
 
-Add extra options in the config for non-scrap object labels (keys, flashlights, shovels etc.)
+### Disclaimer
+Some config options were renamed, while keeping these options in the config has no effect, for cleanliness it is best to delete the entire config and let it generate again
+
+#### For Developers
+CustomAILabelData was renamed to CustomLabelData
 
 # Version 1.4.0
 

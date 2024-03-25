@@ -5,7 +5,7 @@ namespace MonitorLabels.Utils
 {
 	public static class ToolIconSpawner
 	{
-		private const int mapRadarLayer = 14;
+		private const int mapRadarLayer = 14; // Radar sees layer 14 and 8
 
 		private static readonly GameObject iconPrefab;
 

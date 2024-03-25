@@ -1,4 +1,6 @@
-﻿using MonitorLabels.ExtensionMethods;
+﻿using MonitorLabels.Components;
+using MonitorLabels.Components.Tools;
+using MonitorLabels.ExtensionMethods;
 using MonitorLabels.Utils;
 using MonitorLabels.Utils.ModUtils;
 using TMPro;
@@ -6,7 +8,7 @@ using UnityEngine;
 
 namespace MonitorLabels
 {
-	internal static class ScrapLabelManager
+	internal static class ObjectLabelManager
 	{
 		internal static void TryAddLabelToScrap(GrabbableObject item)
 		{
@@ -22,6 +24,13 @@ namespace MonitorLabels
 
 		internal static void UpdateScrapLabel(GrabbableObject item)
 		{
+			ContinuouslyUpdateToolLabel toolLabelUpdater = item.GetComponent<ContinuouslyUpdateToolLabel>();
+
+			if (toolLabelUpdater != null && toolLabelUpdater.IsUpdating)
+			{
+				return; // It is already being updated by something else
+			}
+
 			Transform radarIcon = item.radarIcon;
 
 			if (radarIcon == null) // No radar icon, this can happen because some items (e.g. flashlights and keys) do not have a radar icon
@@ -36,6 +45,11 @@ namespace MonitorLabels
 				return;
 			}
 
+			SetScrapLabel(item, radarLabel);
+		}
+
+		internal static void SetScrapLabel(GrabbableObject item, TMP_Text radarLabel)
+		{
 			radarLabel.text  = GetScrapLabelString(item, out Color labelColour);
 			radarLabel.color = labelColour;
 		}
@@ -55,8 +69,12 @@ namespace MonitorLabels
 				label.fontSize = ConfigUtil.ToolLabelFontSize.Value;
 			}
 
-			label.text  = GetScrapLabelString(item, out Color labelColor);
-			label.color = labelColor;
+			SetScrapLabel(item, label);
+
+			if (item.itemProperties.requiresBattery && ConfigUtil.ShowBatteryChargeOnLabel.Value)
+			{
+				item.gameObject.AddComponent<ContinuouslyUpdateToolLabel>().Initialize(item, label);
+			}
 		}
 
 		private static string GetScrapLabelString(GrabbableObject item, out Color labelColour)
@@ -65,12 +83,46 @@ namespace MonitorLabels
 
 			int scrapValue = item.scrapValue;
 
-			if (item.isInShipRoom)
+			if (item.isHeld) // If an item is pocketed, it is always being held
+			{
+				if (isTool)
+				{
+					labelColour = ConfigUtil.CarriedToolLabelColour.Value;
+
+					if (item.isPocketed && ConfigUtil.HideToolLabelIfPocketed.Value)
+					{
+						bool currentlyHoldingATool = item.playerHeldBy.currentlyHeldObjectServer != null && !item.playerHeldBy.currentlyHeldObjectServer.itemProperties.isScrap;
+						
+						if (item.isBeingUsed && ConfigUtil.ShowToolIfInUseAndNoOtherToolHeld.Value && !currentlyHoldingATool) // reads easier
+						{
+						}
+						else
+						{
+							return string.Empty;
+						}
+					}
+
+					if (ConfigUtil.HideToolLabelIfInHand.Value)
+					{
+						return string.Empty;
+					}
+				}
+				else
+				{
+					labelColour = ConfigUtil.CarriedScrapLabelColour.Value;
+
+					if (ConfigUtil.HideScrapLabelIfCarried.Value)
+					{
+						return string.Empty;
+					}
+				}
+			}
+			else if (item.isInShipRoom)
 			{
 				if (isTool)
 				{
 					labelColour = ConfigUtil.InShipToolLabelColour.Value;
-					
+
 					if (ConfigUtil.HideToolLabelIfOnShip.Value)
 					{
 						return string.Empty;
@@ -81,27 +133,6 @@ namespace MonitorLabels
 					labelColour = ConfigUtil.InShipScrapLabelColour.Value;
 
 					if (ConfigUtil.HideScrapLabelIfOnShip.Value)
-					{
-						return string.Empty;
-					}
-				}
-			}
-			else if (item.isHeld || item.isPocketed)
-			{
-				if (isTool)
-				{
-					labelColour = ConfigUtil.CarriedToolLabelColour.Value;
-
-					if (ConfigUtil.HideToolLabelIfCarried.Value)
-					{
-						return string.Empty;
-					}
-				}
-				else
-				{
-					labelColour = ConfigUtil.CarriedScrapLabelColour.Value;
-
-					if (ConfigUtil.HideScrapLabelIfCarried.Value)
 					{
 						return string.Empty;
 					}
@@ -151,7 +182,16 @@ namespace MonitorLabels
 
 			if (isTool)
 			{
-				return string.Format(ConfigUtil.ToolLabelStringFormat.Value, scrapName);
+				string batteryString = string.Empty;
+
+				if (item.itemProperties.requiresBattery && ConfigUtil.ShowBatteryChargeOnLabel.Value && item.insertedBattery != null)
+				{
+					float charge = item.insertedBattery.empty ? 0 : item.insertedBattery.charge;
+
+					batteryString = string.Format(ConfigUtil.ToolBatteryStringFormat.Value, charge);
+				}
+
+				return string.Format(ConfigUtil.ToolLabelStringFormat.Value, scrapName, batteryString);
 			}
 
 			return string.Format(ConfigUtil.ScrapLabelStringFormat.Value, scrapName, scrapValue);

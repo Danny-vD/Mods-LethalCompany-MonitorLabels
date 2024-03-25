@@ -1,8 +1,8 @@
 {
     "name": "MonitorLabels",
-    "version_number": "1.4.1",
+    "version_number": "2.0.0",
     "website_url": "https://github.com/Danny-vD/Mods-LethalCompany-MonitorLabels",
-    "description": "Adds a label to the icons on the monitor for players, radar boosters, enemies and scrap",
+    "description": "Adds a label to the icons on the monitor for players, radar boosters, enemies and items",
     "dependencies": [
         "BepInEx-BepInExPack-5.4.2100"
     ]
