@@ -1,4 +1,4 @@
-﻿using MonitorLabels.Components;
+﻿using System.Linq;
 using MonitorLabels.Components.Tools;
 using MonitorLabels.ExtensionMethods;
 using MonitorLabels.Utils;
@@ -79,29 +79,80 @@ namespace MonitorLabels
 
 		private static string GetScrapLabelString(GrabbableObject item, out Color labelColour)
 		{
+			if (item == null)
+			{
+				labelColour = Color.white;
+				return string.Empty;
+			}
+			
 			bool isTool = !item.itemProperties.isScrap;
 
 			int scrapValue = item.scrapValue;
 
 			if (item.isHeld) // If an item is pocketed, it is always being held
 			{
-				if (isTool)
+				if (isTool && item.playerHeldBy != null)
 				{
 					labelColour = ConfigUtil.CarriedToolLabelColour.Value;
+					
+					GrabbableObject currentlyHeldObject = item.playerHeldBy.currentlyHeldObjectServer;
+					bool currentlyHoldingATool = currentlyHeldObject != null && !currentlyHeldObject.itemProperties.isScrap;
 
 					if (item.isPocketed && ConfigUtil.HideToolLabelIfPocketed.Value)
 					{
-						bool currentlyHoldingATool = item.playerHeldBy.currentlyHeldObjectServer != null && !item.playerHeldBy.currentlyHeldObjectServer.itemProperties.isScrap;
-						
-						if (item.isBeingUsed && ConfigUtil.ShowToolIfInUseAndNoOtherToolHeld.Value && !currentlyHoldingATool) // reads easier
+						if (item.isBeingUsed && ConfigUtil.ShowToolIfInUseAndNoOtherToolHeld.Value && !currentlyHoldingATool)
 						{
+							if (ConfigUtil.OnlyShow1PocketedLabel.Value)
+							{
+								GrabbableObject firstItemInUse = item.playerHeldBy.ItemSlots.FirstOrDefault(grabbableObject => grabbableObject != null && grabbableObject.isBeingUsed);
+
+								if (item != firstItemInUse)
+								{
+									return string.Empty;
+								}
+							}
 						}
 						else
 						{
 							return string.Empty;
 						}
 					}
+					else if (item.isPocketed && ConfigUtil.OnlyShow1PocketedLabel.Value)
+					{
+						if (currentlyHoldingATool && !ConfigUtil.HideToolLabelIfInHand.Value)
+						{
+							return string.Empty;
+						}
 
+						if (ConfigUtil.ShowToolIfInUseAndNoOtherToolHeld.Value)
+						{
+							GrabbableObject firstItemInUse = item.playerHeldBy.ItemSlots.FirstOrDefault(grabbableObject => grabbableObject != null && grabbableObject.isBeingUsed);
+
+							if (item != firstItemInUse)
+							{
+								return string.Empty;
+							}
+						}
+						else
+						{
+							GrabbableObject firstTool = item.playerHeldBy.ItemSlots.FirstOrDefault(grabbableObject => grabbableObject != null && !grabbableObject.itemProperties.isScrap);
+
+							if (item != firstTool)
+							{
+								return string.Empty;
+							}
+						}
+					}
+
+					if (ConfigUtil.HideToolLabelIfInHand.Value)
+					{
+						return string.Empty;
+					}
+				}
+				else if (isTool)
+				{
+					labelColour = ConfigUtil.CarriedToolLabelColour.Value;
+					
 					if (ConfigUtil.HideToolLabelIfInHand.Value)
 					{
 						return string.Empty;

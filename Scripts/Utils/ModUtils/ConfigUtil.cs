@@ -25,6 +25,7 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<bool> HideToolLabelIfOnShip;
 		public static ConfigEntry<bool> HideToolLabelIfInHand;
 		public static ConfigEntry<bool> HideToolLabelIfPocketed;
+		public static ConfigEntry<bool> OnlyShow1PocketedLabel;
 		public static ConfigEntry<bool> ShowToolIfInUseAndNoOtherToolHeld;
 
 		//     SCRAP
@@ -149,8 +150,9 @@ namespace MonitorLabels.Utils.ModUtils
 			HideToolLabelIfOnShip    = config.Bind("3.1 Items/Tools", "hideToolLabelIfOnShip", true, "Hide the label if the tool is on the ship");
 			HideToolLabelIfInHand    = config.Bind("3.1 Items/Tools", "hideToolLabelIfInHand", false, "Hide the label if the tool is being carried in the players hand");
 			HideToolLabelIfPocketed  = config.Bind("3.1 Items/Tools", "hideToolLabelIfCarried", true, "Hide the label if the tool is stored in the inventory");
+			OnlyShow1PocketedLabel   = config.Bind("3.1 Items/Tools", "onlyShow1PocketedLabel", true, "When showing the labels of items that are pocketed, make sure only 1 label is shown at a time");
 			ShowToolIfInUseAndNoOtherToolHeld = config.Bind("3.1 Items/Tools", "showToolIfInUseAndNoOtherToolHeld", true,
-				"Show the label of an pocketed tool in use when no other tool is held\n(e.g. active flashlight in pocket)\nThis setting overrides hideToolLabelIfCarried if the conditions are met");
+				"Prefer to show the label of an pocketed tool in use when no other tool is held\n(e.g. active flashlight in pocket)\nThis setting overrides hideToolLabelIfCarried if the conditions are met");
 
 			//     SCRAP
 			ShowLabelOnScrap           = config.Bind("3.2 Items/Scrap", "showLabelOnScrap", true, "Should scrap also have a label?");

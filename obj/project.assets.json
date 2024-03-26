@@ -3118,7 +3118,7 @@
     "C:\\IDE\\Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "1.4.1",
+    "version": "2.0.0",
     "restore": {
       "projectUniqueName": "D:\\Projects\\MODS\\Lethal Company\\MonitorLabels\\MonitorLabels.csproj",
       "projectName": "MonitorLabels",
@@ -3198,7 +3198,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   },
