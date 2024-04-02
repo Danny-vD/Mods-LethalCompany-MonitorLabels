@@ -9,6 +9,26 @@ namespace MonitorLabels
 {
 	internal static class RadarTargetLabelManager
 	{
+		internal static void UpdateLabel(Transform radarTargetTransform)
+		{
+			if (radarTargetTransform == null)
+			{
+				return;
+			}
+
+			TransformAndName transformAndName = RadarTargetUtils.GetMatchingRadarTarget(radarTargetTransform, out int radarIndex, out bool currentRadarTarget);
+
+			if (transformAndName == null)
+			{
+				return;
+			}
+
+			if (transformAndName.transform != null)
+			{
+				AddTargetLabel(transformAndName, radarIndex, currentRadarTarget);
+			}
+		}
+		
 		internal static void UpdateLabels(int radarTargetIndex = -1)
 		{
 			if (StartOfRound.Instance == null || StartOfRound.Instance.mapScreen == null)
@@ -17,7 +37,7 @@ namespace MonitorLabels
 			}
 
 			int targetIndex = radarTargetIndex != -1 ? radarTargetIndex : StartOfRound.Instance.mapScreen.targetTransformIndex;
-
+			
 			for (int index = 0; index < StartOfRound.Instance.mapScreen.radarTargets.Count; ++index)
 			{
 				bool isCurrentTarget = targetIndex == index;
@@ -96,11 +116,11 @@ namespace MonitorLabels
 				labelComponent = MapLabelUtil.AddLabelObject(labelParent.gameObject, ConfigUtil.RadarTargetLabelOffset.Value, true);
 			}
 
-			labelComponent.text  = GetLabelString(transformAndName.name, index, isCurrentTarget, isDead, transformAndName.isNonPlayer, out Color labelColour);
+			labelComponent.text  = GetLabelString(transformAndName, index, isCurrentTarget, isDead, transformAndName.isNonPlayer, out Color labelColour);
 			labelComponent.color = labelColour;
 		}
 
-		private static string GetLabelString(string targetName, int index, bool isTarget, bool isDead, bool isRadarBooster, out Color labelColour)
+		private static string GetLabelString(TransformAndName targetName, int index, bool isTarget, bool isDead, bool isRadarBooster, out Color labelColour)
 		{
 			if (isDead)
 			{
@@ -108,7 +128,7 @@ namespace MonitorLabels
 
 				if (ConfigUtil.ForceDeadPlayerLabel.Value)
 				{
-					return GetPlayerNameString(targetName, index, true);
+					return GetRadarTargetNameString(targetName, index, true);
 				}
 
 				if (ConfigUtil.HideDeadPlayerLabels.Value || ConfigUtil.HideNormalPlayerLabels.Value)
@@ -144,11 +164,13 @@ namespace MonitorLabels
 				labelColour = ConfigUtil.DefaultPlayerLabelColour.Value;
 			}
 
-			return GetPlayerNameString(targetName, index, isDead);
+			return GetRadarTargetNameString(targetName, index, isDead);
 		}
 
-		private static string GetPlayerNameString(string targetName, int index, bool isDead = false)
+		private static string GetRadarTargetNameString(TransformAndName targetTransformAndName, int index, bool isDead = false)
 		{
+			string targetName = targetTransformAndName.name;
+
 			if (isDead)
 			{
 				string customName = ConfigUtil.CustomDeadName.Value;
@@ -162,7 +184,20 @@ namespace MonitorLabels
 			int length = Mathf.Min(targetName.Length, ConfigUtil.MaximumNameLength.Value);
 			targetName = targetName.Substring(0, length);
 
-			return string.Format(ConfigUtil.PlayerLabelStringFormat.Value, targetName, index);
+			string carriedValue = string.Empty;
+
+			if (!targetTransformAndName.isNonPlayer && !isDead)
+			{
+				PlayerControllerB playerControllerB = targetTransformAndName.transform.GetComponentInParent<PlayerControllerB>();
+				int valueCarrying = ScrapUtil.GetTotalValueCarrying(playerControllerB, out int currentSlotValue);
+
+				if (valueCarrying > 0)
+				{
+					carriedValue = string.Format(ConfigUtil.PlayerCarriedScrapValueStringFormat.Value, valueCarrying, currentSlotValue);
+				}
+			}
+
+			return string.Format(ConfigUtil.PlayerLabelStringFormat.Value, targetName, index, carriedValue);
 		}
 
 		/// <summary>

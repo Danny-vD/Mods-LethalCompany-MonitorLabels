@@ -81,17 +81,17 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.KillPlayerServerRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBKillPlayerServerRpcPatch()
+		internal static void PlayerControllerBKillPlayerServerRpcPatch(PlayerControllerB __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerServerRpc)} patch run");
-			RadarTargetLabelManager.UpdateLabels();
+			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.KillPlayerClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBKillPlayerClientRpcPatch()
+		internal static void PlayerControllerBKillPlayerClientRpcPatch(PlayerControllerB __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerClientRpc)} patch run");
-			RadarTargetLabelManager.UpdateLabels();
+			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 		}
 
 		//\\//\\//\\//\\//\\//\\//\\//\\
@@ -220,6 +220,8 @@ namespace MonitorLabels
 		internal static void PlayerControllerBSwitchToItemSlotPatch(PlayerControllerB __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.PocketItem)} patch run");
+			
+			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 
 			for (int i = 0; i < __instance.ItemSlots.Length; i++)
 			{
@@ -250,10 +252,12 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SetItemInElevator)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBSetItemInElevatorPatch(GrabbableObject gObject)
+		internal static void PlayerControllerBSetItemInElevatorPatch(PlayerControllerB __instance, GrabbableObject gObject)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetItemInElevator)} patch run");
 
+			RadarTargetLabelManager.UpdateLabel(__instance.transform);
+			
 			if (gObject == null)
 			{
 				return;
@@ -278,10 +282,12 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SetObjectAsNoLongerHeld)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBSetObjectAsNoLongerHeldPatch(GrabbableObject dropObject)
+		internal static void PlayerControllerBSetObjectAsNoLongerHeldPatch(PlayerControllerB __instance, GrabbableObject dropObject)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetObjectAsNoLongerHeld)} patch run");
 
+			RadarTargetLabelManager.UpdateLabel(__instance.transform);
+			
 			if (dropObject == null)
 			{
 				return;
@@ -306,9 +312,11 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.GrabObjectClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBGrabObjectClientRpcPatch(NetworkObjectReference grabbedObject)
+		internal static void PlayerControllerBGrabObjectClientRpcPatch(PlayerControllerB __instance, NetworkObjectReference grabbedObject)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.GrabObjectClientRpc)} patch run");
+			
+			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 
 			if (!ConfigUtil.ShowLabelOnScrap.Value)
 			{

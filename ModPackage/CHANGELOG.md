@@ -1,14 +1,18 @@
 # Version 2.0.0
 
-Restructured the config file
+New mod icon!  
 
-Add extra options in the config for non-scrap item labels (keys, flashlights, shovels etc.)
+Restructured the config file  
+
+Add extra options in the config for non-scrap item labels (keys, flashlights, shovels etc.)  
+Add an option to show the value that a player is carrying (total value and value in their current item slot or both)  
+
 
 ### Disclaimer
-Some config options were renamed, while keeping these options in the config has no effect, for cleanliness it is best to delete the entire config and let it generate again
+Some config options were renamed, while keeping these options in the config has no effect, for cleanliness it is best to delete the entire config and let it generate again  
 
 #### For Developers
-CustomAILabelData was renamed to CustomLabelData
+CustomAILabelData was renamed to CustomLabelData  
 
 # Version 1.4.0
 

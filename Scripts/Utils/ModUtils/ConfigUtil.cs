@@ -87,7 +87,10 @@ namespace MonitorLabels.Utils.ModUtils
 
 		// ADVANCED
 		public static ConfigEntry<string> PlayerLabelStringFormat;
+		public static ConfigEntry<string> PlayerCarriedScrapValueStringFormat;
+
 		public static ConfigEntry<string> ScrapLabelStringFormat;
+
 		public static ConfigEntry<string> ToolLabelStringFormat;
 		public static ConfigEntry<string> ToolBatteryStringFormat;
 
@@ -107,9 +110,10 @@ namespace MonitorLabels.Utils.ModUtils
 
 			// RADAR TARGETS
 			//    Player Label
-			MaximumNameLength      = config.Bind("1.1 RadarTarget/Player", "maxNameLength", 5, "The maximum length of the name that will be shown on the terminal");
-			ShowLabelOnTarget      = config.Bind("1.1 RadarTarget/Player", "targetLabelEnabled", true, "Should the currently targeted player also show a label");
-			ForceDeadPlayerLabel   = config.Bind("1.1 RadarTarget/Player", "forceDeadPlayerLabel", true, "Should the label of a dead player always be visible?");
+			MaximumNameLength = config.Bind("1.1 RadarTarget/Player", "maxNameLength", 5, "The maximum length of the name that will be shown on the terminal");
+			ShowLabelOnTarget = config.Bind("1.1 RadarTarget/Player", "targetLabelEnabled", true, "Should the currently targeted player also show a label");
+			ForceDeadPlayerLabel = config.Bind("1.1 RadarTarget/Player", "forceDeadPlayerLabel", true,
+				"Should the label of a dead player always be visible?\nThis is to show dead labels if 'hideNormalLabels' is disabled");
 			CustomDeadName         = config.Bind("1.1 RadarTarget/Player", "customDeadLabel", string.Empty, "A custom label to show if someone is dead, leave empty to use their name instead");
 			HideNormalPlayerLabels = config.Bind("1.1 RadarTarget/Player", "hideNormalLabels", false, "Don't use any player labels except for 'forceDeadPlayerLabel'");
 			HideDeadPlayerLabels   = config.Bind("1.1 RadarTarget/Player", "hideDeadLabels", false, "Don't use labels for dead players");
@@ -129,7 +133,7 @@ namespace MonitorLabels.Utils.ModUtils
 			CentipedeLabel   = config.Bind("2.2 Enemy Labels", "snareFleaLabel", "Snare", "The label of the Centipede (Snare Flea) enemy");
 			CrawlerLabel     = config.Bind("2.2 Enemy Labels", "crawlerLabel", "Half", "The label of the Crawler (Thumper) enemy");
 			ManticoilLabel   = config.Bind("2.2 Enemy Labels", "manticoilLabel", "Bird", "The label of the Doublewing (Manticoil) enemy");
-			BrackenLabel     = config.Bind("2.2 Enemy Labels", "brackenLabel", "Bracken", "The label of the FlowerMan enemy");
+			BrackenLabel     = config.Bind("2.2 Enemy Labels", "brackenLabel", "Bracken", "The label of the FlowerMan (Bracken) enemy");
 			ForestGiantLabel = config.Bind("2.2 Enemy Labels", "forestGiantLabel", "Giant", "The label of the ForestGiant enemy");
 			HoarderBugLabel  = config.Bind("2.2 Enemy Labels", "hoarderBugLabel", "Bug", "The label of the HoarderBug enemy");
 			JesterLabel      = config.Bind("2.2 Enemy Labels", "jesterLabel", "Jester", "The label of the Jester enemy");
@@ -139,7 +143,7 @@ namespace MonitorLabels.Utils.ModUtils
 			SporeLizardLabel = config.Bind("2.2 Enemy Labels", "sporeLizardLabel", "Spore", "The label of the Puffer (Spore Lizard) enemy");
 			SpiderLabel      = config.Bind("2.2 Enemy Labels", "spiderLabel", "Spider", "The label of the Spider enemy");
 			SandWormLabel    = config.Bind("2.2 Enemy Labels", "sandWormLabel", string.Empty, "The label of the SandWorm enemy");
-			CoilHeadLabel    = config.Bind("2.2 Enemy Labels", "coilheadLabel", "Coil", "The label of the SpringMan enemy");
+			CoilHeadLabel    = config.Bind("2.2 Enemy Labels", "coilheadLabel", "Coil", "The label of the SpringMan (coilhead) enemy");
 
 			// ITEMS
 			//    TOOLS
@@ -149,7 +153,7 @@ namespace MonitorLabels.Utils.ModUtils
 			ToolLabelFontSize        = config.Bind("3.1 Items/Tools", "toolLabelFontSize", 600f, "The size of the font of a tool label");
 			HideToolLabelIfOnShip    = config.Bind("3.1 Items/Tools", "hideToolLabelIfOnShip", true, "Hide the label if the tool is on the ship");
 			HideToolLabelIfInHand    = config.Bind("3.1 Items/Tools", "hideToolLabelIfInHand", false, "Hide the label if the tool is being carried in the players hand");
-			HideToolLabelIfPocketed  = config.Bind("3.1 Items/Tools", "hideToolLabelIfCarried", true, "Hide the label if the tool is stored in the inventory");
+			HideToolLabelIfPocketed  = config.Bind("3.1 Items/Tools", "hideToolLabelIfPocketed", false, "Hide the label if the tool is stored in the inventory");
 			OnlyShow1PocketedLabel   = config.Bind("3.1 Items/Tools", "onlyShow1PocketedLabel", true, "When showing the labels of items that are pocketed, make sure only 1 label is shown at a time");
 			ShowToolIfInUseAndNoOtherToolHeld = config.Bind("3.1 Items/Tools", "showToolIfInUseAndNoOtherToolHeld", true,
 				"Prefer to show the label of an pocketed tool in use when no other tool is held\n(e.g. active flashlight in pocket)\nThis setting overrides hideToolLabelIfCarried if the conditions are met");
@@ -158,7 +162,6 @@ namespace MonitorLabels.Utils.ModUtils
 			ShowLabelOnScrap           = config.Bind("3.2 Items/Scrap", "showLabelOnScrap", true, "Should scrap also have a label?");
 			ScrapLabelScaleFactor      = config.Bind("3.2 Items/Scrap", "scrapLabelScaleFactor", 3.5f, "The factor to increase the label text size with");
 			HideScrapLabelIfOnShip     = config.Bind("3.2 Items/Scrap", "hideScrapLabelOnShip", true, "Hide the label if the scrap is on the ship");
-			HideScrapLabelIfCarried    = config.Bind("3.2 Items/Scrap", "hideScrapLabelIfCarried", true, "Hide the label if the scrap is being carried");
 			HideScrapLabelIfCarried    = config.Bind("3.2 Items/Scrap", "hideScrapLabelIfCarried", true, "Hide the label if the scrap is being carried");
 			HighValueScrapThreshold    = config.Bind("3.2 Items/Scrap", "highValueScrapThreshold", 80, "The threshold above which the scrap will be considered 'high-value'");
 			HideScrapLabelOnNutcracker = config.Bind("3.2 Items/Scrap", "hideScrapLabelOnNutcracker", true, "Hide the shotgun label if it is held by the nutcracker");
@@ -200,8 +203,12 @@ namespace MonitorLabels.Utils.ModUtils
 			ScrapLabelOffset = config.Bind("5.3 Label Offsets/Items", "scrapLabelOffset", Vector2.up * 1.5f, "The offset of scrap labels\nPositive X = right, Positive Y = up");
 
 			// ADVANCED
-			PlayerLabelStringFormat = config.Bind("99. Advanced", "labelFormat", "{0}", "The string that will be shown on a player label\n{0} = Name\n{1} = playerIndex");
+			PlayerLabelStringFormat = config.Bind("99. Advanced", "labelFormat", "{0} {2}", "The string that will be shown on a player label\n{0} = Name\n{1} = playerIndex\n{2} = carried value string");
+			PlayerCarriedScrapValueStringFormat = config.Bind("99. Advanced", "playerCarriedScrapValueStringFormat", "[{0}]",
+				"The string that will be shown to display scrap value for a player that is carrying scrap\n{0} = Total Value\n{1} = Value in currently held slot");
+			
 			ScrapLabelStringFormat  = config.Bind("99. Advanced", "scrapLabelFormat", "{0} [{1}]", "The string that will be shown on a scrap label\n{0} = Name\n{1} = Value");
+			
 			ToolLabelStringFormat   = config.Bind("99. Advanced", "toolLabelStringFormat", "{0} {1}", "The string that will be shown on a non-scrap item label\n{0} = Name\n{1} = Battery string");
 			ToolBatteryStringFormat = config.Bind("99. Advanced", "toolBatteryStringFormat", "[{0:P0}]", "The string that will be shown for the battery charge\n{0} = Battery charge");
 		}
