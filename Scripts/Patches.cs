@@ -65,25 +65,18 @@ namespace MonitorLabels
 			RadarTargetLabelManager.UpdateLabels();
 		}
 
-		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SendNewPlayerValuesServerRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void PlayerControllerBSendNewPlayerValuesServerRpcPatch()
+		// [HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SendNewPlayerValuesServerRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		// private static void PlayerControllerBSendNewPlayerValuesServerRpcPatch()
+		// {
+		// 	LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesServerRpc)} patch run");
+		//
+		// 	RadarTargetLabelManager.UpdateLabels();
+		//}
+				
+		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.DamagePlayerClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void PlayerControllerBDamagePlayerPatch(PlayerControllerB __instance)
 		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesServerRpc)} patch run");
-
-			RadarTargetLabelManager.UpdateLabels();
-		}
-
-		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SpawnDeadBody)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void PlayerControllerBSpawnDeadBodyPatch()
-		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SpawnDeadBody)} patch run");
-			RadarTargetLabelManager.UpdateLabels();
-		}
-
-		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.KillPlayerServerRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void PlayerControllerBKillPlayerServerRpcPatch(PlayerControllerB __instance)
-		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerServerRpc)} patch run");
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.DamagePlayer)} patch run");
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 		}
 
@@ -93,6 +86,13 @@ namespace MonitorLabels
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerClientRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 		}
+
+		// [HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.KillPlayerServerRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		// private static void PlayerControllerBKillPlayerServerRpcPatch(PlayerControllerB __instance)
+		// {
+		// 	LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerServerRpc)} patch run");
+		// 	RadarTargetLabelManager.UpdateLabel(__instance.transform);
+		// }
 
 		//\\//\\//\\//\\//\\//\\//\\//\\
 		//         AI

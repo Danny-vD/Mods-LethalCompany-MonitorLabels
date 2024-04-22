@@ -12,7 +12,7 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<int> MaximumNameLength;
 		public static ConfigEntry<bool> ShowLabelOnTarget;
 		public static ConfigEntry<string> CustomDeadName;
-		public static ConfigEntry<bool> HideNormalPlayerLabels;
+		public static ConfigEntry<bool> HidePlayerLabels;
 		public static ConfigEntry<bool> HideDeadPlayerLabels;
 		public static ConfigEntry<bool> HideRadarBoosterLabels;
 		public static ConfigEntry<bool> UseColorsToShowPlayerHealth;
@@ -62,19 +62,35 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<string> CoilHeadLabel;
 
 		// COLOURS
-		public static ConfigEntry<Color> TargetLabelColour;
-		public static ConfigEntry<Color> DefaultPlayerLabelColour;
+
+		//     PLAYERS
 		public static ConfigEntry<Color> DeadPlayerLabelColour;
 
+		public static ConfigEntry<Color> TargetPlayerLabelColour;
+		public static ConfigEntry<Color> TargetPlayerHalfHealthColour;
+		public static ConfigEntry<Color> TargetPlayerCriticalHealthColour;
+
+		public static ConfigEntry<Color> DefaultPlayerLabelColour;
+		public static ConfigEntry<Color> DefaultPlayerHalfHealthColour;
+		public static ConfigEntry<Color> DefaultPlayerCriticalHealthColour;
+
+		//     RADAR BOOSTERS
+		public static ConfigEntry<Color> TargetRadarBoosterLabelColour;
 		public static ConfigEntry<Color> RadarBoosterLabelColour;
 
+
+		//     ENEMIES
 		public static ConfigEntry<Color> EnemyLabelColour;
 		public static ConfigEntry<Color> DeadEnemyLabelColour;
 
+
+		//     TOOLS
 		public static ConfigEntry<Color> ToolLabelColour;
 		public static ConfigEntry<Color> CarriedToolLabelColour;
 		public static ConfigEntry<Color> InShipToolLabelColour;
 
+
+		//     SCRAP
 		public static ConfigEntry<Color> ScrapLabelColour;
 		public static ConfigEntry<Color> HighValueScrapLabelColour;
 		public static ConfigEntry<Color> CarriedScrapLabelColour;
@@ -119,7 +135,7 @@ namespace MonitorLabels.Utils.ModUtils
 			ForceDeadPlayerLabel = config.Bind("1.1 RadarTarget/Player", "forceDeadPlayerLabel", true,
 				"Should the label of a dead player always be visible?\nThis is to show dead labels if 'hideNormalLabels' is disabled");
 			CustomDeadName              = config.Bind("1.1 RadarTarget/Player", "customDeadLabel", string.Empty, "A custom label to show if someone is dead, leave empty to use their name instead");
-			HideNormalPlayerLabels      = config.Bind("1.1 RadarTarget/Player", "hideNormalLabels", false, "Don't use any player labels except for 'forceDeadPlayerLabel'");
+			HidePlayerLabels      = config.Bind("1.1 RadarTarget/Player", "hideAlivePlayerLabels", false, "Don't use any player labels except for 'forceDeadPlayerLabel'");
 			HideDeadPlayerLabels        = config.Bind("1.1 RadarTarget/Player", "hideDeadLabels", false, "Don't use labels for dead players");
 			UseColorsToShowPlayerHealth = config.Bind("1.1 RadarTarget/Player", "useColorsToShowPlayerHealth", true, "If true the player label will be coloured depending on their health");
 
@@ -173,12 +189,20 @@ namespace MonitorLabels.Utils.ModUtils
 
 			// COLOURS
 			//     PLAYERS
-			TargetLabelColour        = config.Bind("4.1 Colours/Players", "targetLabelColour", Color.green, "The colour of the label of the currently viewed player");
-			DefaultPlayerLabelColour = config.Bind("4.1 Colours/Players", "defaultPlayerLabelColour", Color.white, "The default colour of a player label");
-			DeadPlayerLabelColour    = config.Bind("4.1 Colours/Players", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
+			DeadPlayerLabelColour = config.Bind("4.1 Colours/Players", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
+
+			TargetPlayerLabelColour      = config.Bind("4.1 Colours/Players", "targetPlayerLabelColour", Color.green, "The colour of the label of the currently viewed player");
+			TargetPlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "targetPlayerHalfHealthColour", new Color(.88f, .47f, 0, 1.0f), "The colour of the label of the currently viewed player at 50% health");
+			TargetPlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "targetPlayerCriticalHealthColour", new Color(.39f, 0, .13f, 1.0f),
+				"The colour of the label of the currently viewed player at 20% health");
+
+			DefaultPlayerLabelColour          = config.Bind("4.1 Colours/Players", "defaultPlayerLabelColour", Color.white, "The default colour of a player label");
+			DefaultPlayerHalfHealthColour     = config.Bind("4.1 Colours/Players", "defaultPlayerHalfHealthColour", new Color(.88f, .47f, 0, 1.0f), "The default colour of a player label at 50% health");
+			DefaultPlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "defaultPlayerCriticalHealthColour", new Color(.39f, 0, .13f, 1.0f), "The default colour of a player label at 20% health");
 
 			//     RADAR BOOSTERS
-			RadarBoosterLabelColour = config.Bind("4.2 Colours/RadarBooster", "radarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster");
+			TargetRadarBoosterLabelColour = config.Bind("4.2 Colours/RadarBooster", "targetRadarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster that is targeted by the radar");
+			RadarBoosterLabelColour       = config.Bind("4.2 Colours/RadarBooster", "radarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster");
 
 			//     ENEMIES
 			EnemyLabelColour     = config.Bind("4.3 Colours/Enemies", "enemyLabelColour", new Color(1, .5f, .2f, 1.0f), "The colour of a label of an enemy");

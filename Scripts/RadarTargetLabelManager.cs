@@ -115,11 +115,11 @@ namespace MonitorLabels
 				labelComponent = MapLabelUtil.AddLabelObject(labelParent.gameObject, ConfigUtil.RadarTargetLabelOffset.Value, true);
 			}
 
-			labelComponent.text  = GetLabelString(transformAndName, index, isCurrentTarget, isDead, transformAndName.isNonPlayer, out Color labelColour);
+			labelComponent.text  = GetLabelString(transformAndName, index, isCurrentTarget, isDead, transformAndName.isNonPlayer, playerControllerB, out Color labelColour);
 			labelComponent.color = labelColour;
 		}
 
-		private static string GetLabelString(TransformAndName targetName, int index, bool isTarget, bool isDead, bool isRadarBooster, out Color labelColour)
+		private static string GetLabelString(TransformAndName targetName, int index, bool isTarget, bool isDead, bool isRadarBooster, PlayerControllerB playerControllerB, out Color labelColour)
 		{
 			if (isDead)
 			{
@@ -130,19 +130,34 @@ namespace MonitorLabels
 					return GetRadarTargetNameString(targetName, index, true);
 				}
 
-				if (ConfigUtil.HideDeadPlayerLabels.Value || ConfigUtil.HideNormalPlayerLabels.Value)
+				if (ConfigUtil.HideDeadPlayerLabels.Value || ConfigUtil.HidePlayerLabels.Value)
 				{
 					return string.Empty;
 				}
 			}
-			else if (!isRadarBooster && ConfigUtil.HideNormalPlayerLabels.Value)
+			else if (!isRadarBooster && ConfigUtil.HidePlayerLabels.Value)
 			{
 				labelColour = Color.white;
 				return string.Empty;
 			}
 			else if (isTarget)
 			{
-				labelColour = ConfigUtil.TargetLabelColour.Value;
+				if (isRadarBooster)
+				{
+					labelColour = ConfigUtil.TargetRadarBoosterLabelColour.Value;
+				}
+				else
+				{
+					if (ConfigUtil.UseColorsToShowPlayerHealth.Value)
+					{
+						labelColour = ColorCalculator.GetColorDependingOnHealth(playerControllerB,
+							ConfigUtil.TargetPlayerLabelColour.Value, ConfigUtil.TargetPlayerHalfHealthColour.Value, ConfigUtil.TargetPlayerCriticalHealthColour.Value);
+					}
+					else
+					{
+						labelColour = ConfigUtil.TargetPlayerLabelColour.Value;
+					}
+				}
 
 				if (!ConfigUtil.ShowLabelOnTarget.Value)
 				{
@@ -160,7 +175,15 @@ namespace MonitorLabels
 			}
 			else
 			{
-				labelColour = ConfigUtil.DefaultPlayerLabelColour.Value;
+				if (ConfigUtil.UseColorsToShowPlayerHealth.Value)
+				{
+					labelColour = ColorCalculator.GetColorDependingOnHealth(playerControllerB,
+						ConfigUtil.DefaultPlayerLabelColour.Value, ConfigUtil.DefaultPlayerHalfHealthColour.Value, ConfigUtil.DefaultPlayerCriticalHealthColour.Value);
+				}
+				else
+				{
+					labelColour = ConfigUtil.DefaultPlayerLabelColour.Value;
+				}
 			}
 
 			return GetRadarTargetNameString(targetName, index, isDead);
