@@ -6,10 +6,7 @@ using HarmonyLib;
 using MonitorLabels.Components;
 using MonitorLabels.Utils;
 using MonitorLabels.Utils.ModUtils;
-using TMPro;
 using Unity.Netcode;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace MonitorLabels
 {
@@ -21,7 +18,7 @@ namespace MonitorLabels
 
 		// Cannot patch Start, it causes incompatibility with MoreCompany
 		[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.Awake)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void ManualCameraRendererAwakePatch(ManualCameraRenderer __instance)
+		private static void ManualCameraRendererAwakePatch(ManualCameraRenderer __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.Awake)} patch run");
 
@@ -41,7 +38,7 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.AddTransformAsTargetToRadar)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void ManualCameraRendererAddTransformAsTargetToRadarPatch()
+		private static void ManualCameraRendererAddTransformAsTargetToRadarPatch()
 		{
 			LoggerUtil.LogDebug($"{nameof(ManualCameraRenderer)}.{nameof(ManualCameraRenderer.AddTransformAsTargetToRadar)} patch run");
 
@@ -49,7 +46,7 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(ManualCameraRenderer), nameof(ManualCameraRenderer.updateMapTarget)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void ManualCameraRendererUpdateMapTargetPatch(int setRadarTargetIndex, bool calledFromRPC = true)
+		private static void ManualCameraRendererUpdateMapTargetPatch(int setRadarTargetIndex, bool calledFromRPC = true)
 		{
 			if (!calledFromRPC) // updateMapTarget calls itself with calledFromRPC = true, so we can ignore the first call where it's still false
 			{
@@ -62,14 +59,14 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBSendNewPlayerValuesClientRpcPatch()
+		private static void PlayerControllerBSendNewPlayerValuesClientRpcPatch()
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabels();
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SendNewPlayerValuesServerRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBSendNewPlayerValuesServerRpcPatch()
+		private static void PlayerControllerBSendNewPlayerValuesServerRpcPatch()
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesServerRpc)} patch run");
 
@@ -77,21 +74,21 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SpawnDeadBody)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBSpawnDeadBodyPatch()
+		private static void PlayerControllerBSpawnDeadBodyPatch()
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SpawnDeadBody)} patch run");
 			RadarTargetLabelManager.UpdateLabels();
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.KillPlayerServerRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBKillPlayerServerRpcPatch(PlayerControllerB __instance)
+		private static void PlayerControllerBKillPlayerServerRpcPatch(PlayerControllerB __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerServerRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.KillPlayerClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBKillPlayerClientRpcPatch(PlayerControllerB __instance)
+		private static void PlayerControllerBKillPlayerClientRpcPatch(PlayerControllerB __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerClientRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
@@ -102,7 +99,7 @@ namespace MonitorLabels
 		//\\//\\//\\//\\//\\//\\//\\//\\
 
 		[HarmonyPatch(typeof(EnemyAI), nameof(EnemyAI.Start)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void EnemyAIStartPatch(EnemyAI __instance)
+		private static void EnemyAIStartPatch(EnemyAI __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(EnemyAI)}.{nameof(EnemyAI.Start)} patch run");
 
@@ -115,7 +112,7 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(MaskedPlayerEnemy), nameof(MaskedPlayerEnemy.Start)), HarmonyPostfix, HarmonyPriority(Priority.Low)] // MaskedPlayerEnemy does not call base.Start() so it has to be individually patched
-		internal static void MaskedPlayerEnemyStartPatch(MaskedPlayerEnemy __instance)
+		private static void MaskedPlayerEnemyStartPatch(MaskedPlayerEnemy __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(MaskedPlayerEnemy)}.{nameof(MaskedPlayerEnemy.Start)} patch run");
 
@@ -128,7 +125,7 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(EnemyAI), nameof(EnemyAI.KillEnemy)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void EnemyAIKillEnemyPatch(EnemyAI __instance, bool destroy = false)
+		private static void EnemyAIKillEnemyPatch(EnemyAI __instance, bool destroy = false)
 		{
 			LoggerUtil.LogDebug($"{nameof(EnemyAI)}.{nameof(EnemyAI.KillEnemy)} patch run");
 
@@ -145,7 +142,7 @@ namespace MonitorLabels
 		//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 
 		[HarmonyPatch(typeof(NutcrackerEnemyAI), nameof(NutcrackerEnemyAI.GrabGun)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void NutcrackerEnemyAIGrabGunPatch(NutcrackerEnemyAI __instance)
+		private static void NutcrackerEnemyAIGrabGunPatch(NutcrackerEnemyAI __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(NutcrackerEnemyAI)}.{nameof(NutcrackerEnemyAI.GrabGun)} patch run");
 
@@ -158,7 +155,7 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(NutcrackerEnemyAI), nameof(NutcrackerEnemyAI.DropGun)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void NutcrackerEnemyAIDropGunPatch(NutcrackerEnemyAI __instance)
+		private static void NutcrackerEnemyAIDropGunPatch(NutcrackerEnemyAI __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(NutcrackerEnemyAI)}.{nameof(NutcrackerEnemyAI.DropGun)} patch run");
 
@@ -175,7 +172,7 @@ namespace MonitorLabels
 		//\\//\\//\\//\\//\\//\\//\\//\\
 
 		[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.Start)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void GrabbableObjectStartPatch(GrabbableObject __instance)
+		private static void GrabbableObjectStartPatch(GrabbableObject __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.Start)} patch run");
 
@@ -207,7 +204,7 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.SetScrapValue)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void GrabbableObjectSetScrapValuePatch(GrabbableObject __instance)
+		private static void GrabbableObjectSetScrapValuePatch(GrabbableObject __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.SetScrapValue)} patch run");
 
@@ -220,7 +217,7 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SwitchToItemSlot)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBSwitchToItemSlotPatch(PlayerControllerB __instance)
+		private static void PlayerControllerBSwitchToItemSlotPatch(PlayerControllerB __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SwitchToItemSlot)} patch run");
 			
@@ -255,7 +252,7 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SetItemInElevator)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBSetItemInElevatorPatch(PlayerControllerB __instance, GrabbableObject gObject)
+		private static void PlayerControllerBSetItemInElevatorPatch(PlayerControllerB __instance, GrabbableObject gObject)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetItemInElevator)} patch run");
 
@@ -285,7 +282,7 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SetObjectAsNoLongerHeld)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBSetObjectAsNoLongerHeldPatch(PlayerControllerB __instance, GrabbableObject dropObject)
+		private static void PlayerControllerBSetObjectAsNoLongerHeldPatch(PlayerControllerB __instance, GrabbableObject dropObject)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetObjectAsNoLongerHeld)} patch run");
 
@@ -315,7 +312,7 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.GrabObjectClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void PlayerControllerBGrabObjectClientRpcPatch(PlayerControllerB __instance, NetworkObjectReference grabbedObject)
+		private static void PlayerControllerBGrabObjectClientRpcPatch(PlayerControllerB __instance, NetworkObjectReference grabbedObject)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.GrabObjectClientRpc)} patch run");
 			
@@ -357,7 +354,7 @@ namespace MonitorLabels
 		//\\//\\//\\//\\//\\//\\//\\//\\
 		
 		[HarmonyPatch(typeof(Landmine), nameof(Landmine.Detonate)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		internal static void LandMineDetonatePatch(Landmine __instance)
+		private static void LandMineDetonatePatch(Landmine __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(Landmine)}.{nameof(Landmine.Detonate)} patch run");
 
