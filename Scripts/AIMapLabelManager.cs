@@ -94,6 +94,13 @@ namespace MonitorLabels
 
 			switch (enemyAI)
 			{
+				case ButlerEnemyAI: // TODO: complete
+					return "Butler";
+				case RadMechAI:
+					return "Mech";
+				case FlowerSnakeEnemy:
+					return "Snake";
+				
 				case BaboonBirdAI:
 					return ConfigUtil.BaboonHawkLabel.Value;
 

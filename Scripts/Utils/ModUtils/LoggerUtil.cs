@@ -50,12 +50,12 @@ namespace MonitorLabels.Utils.ModUtils
 	
 		internal static void LogDebug(object data)
 		{
-			if ((configLoggingLevel.Value & LogLevel.Debug) == 0)
+			if ((configLoggingLevel.Value & LogLevel.All) == 0) //TODO: Set to Debug
 			{
 				return;
 			}
 		
-			Log(LogLevel.Debug, data);
+			Log(LogLevel.Info, data);
 		}
 
 		internal static void LogError(object data)

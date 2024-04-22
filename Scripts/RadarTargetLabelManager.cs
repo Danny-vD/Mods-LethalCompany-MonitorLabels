@@ -18,17 +18,16 @@ namespace MonitorLabels
 
 			TransformAndName transformAndName = RadarTargetUtils.GetMatchingRadarTarget(radarTargetTransform, out int radarIndex, out bool currentRadarTarget);
 
-			if (transformAndName == null)
+			if (transformAndName == null || transformAndName.transform == null)
 			{
+				LoggerUtil.LogWarning("Tried to update an invalid transform!\nUpdating all radar targets to make sure everything is correct!");
+				UpdateLabels();
 				return;
 			}
 
-			if (transformAndName.transform != null)
-			{
-				AddTargetLabel(transformAndName, radarIndex, currentRadarTarget);
-			}
+			AddTargetLabel(transformAndName, radarIndex, currentRadarTarget);
 		}
-		
+
 		internal static void UpdateLabels(int radarTargetIndex = -1)
 		{
 			if (StartOfRound.Instance == null || StartOfRound.Instance.mapScreen == null)
@@ -37,7 +36,7 @@ namespace MonitorLabels
 			}
 
 			int targetIndex = radarTargetIndex != -1 ? radarTargetIndex : StartOfRound.Instance.mapScreen.targetTransformIndex;
-			
+
 			for (int index = 0; index < StartOfRound.Instance.mapScreen.radarTargets.Count; ++index)
 			{
 				bool isCurrentTarget = targetIndex == index;

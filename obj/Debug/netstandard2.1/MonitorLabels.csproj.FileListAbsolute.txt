@@ -10,3 +10,4 @@ D:\Projects\MODS\Lethal Company\MonitorLabels\obj\Debug\netstandard2.1\MonitorLa
 D:\Projects\MODS\Lethal Company\MonitorLabels\obj\Debug\netstandard2.1\MonitorLabels.sourcelink.json
 D:\Projects\MODS\Lethal Company\MonitorLabels\obj\Debug\netstandard2.1\MonitorLabels.dll
 D:\Projects\MODS\Lethal Company\MonitorLabels\obj\Debug\netstandard2.1\MonitorLabels.pdb
+D:\Projects\MODS\Lethal Company\MonitorLabels\obj\Debug\netstandard2.1\MonitorLabels.IgnoresAccessChecksTo.cs

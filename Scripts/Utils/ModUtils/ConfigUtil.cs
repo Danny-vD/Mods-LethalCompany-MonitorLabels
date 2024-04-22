@@ -15,6 +15,7 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<bool> HideNormalPlayerLabels;
 		public static ConfigEntry<bool> HideDeadPlayerLabels;
 		public static ConfigEntry<bool> HideRadarBoosterLabels;
+		public static ConfigEntry<bool> UseColorsToShowPlayerHealth;
 
 		// OBJECTS
 		//     TOOLS
@@ -85,6 +86,9 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<Vector2> ToolLabelOffset;
 		public static ConfigEntry<Vector2> ScrapLabelOffset;
 
+		// MISC
+		public static ConfigEntry<bool> RemoveDetonatedMineLabel;
+
 		// ADVANCED
 		public static ConfigEntry<string> PlayerLabelStringFormat;
 		public static ConfigEntry<string> PlayerCarriedScrapValueStringFormat;
@@ -114,9 +118,10 @@ namespace MonitorLabels.Utils.ModUtils
 			ShowLabelOnTarget = config.Bind("1.1 RadarTarget/Player", "targetLabelEnabled", true, "Should the currently targeted player also show a label");
 			ForceDeadPlayerLabel = config.Bind("1.1 RadarTarget/Player", "forceDeadPlayerLabel", true,
 				"Should the label of a dead player always be visible?\nThis is to show dead labels if 'hideNormalLabels' is disabled");
-			CustomDeadName         = config.Bind("1.1 RadarTarget/Player", "customDeadLabel", string.Empty, "A custom label to show if someone is dead, leave empty to use their name instead");
-			HideNormalPlayerLabels = config.Bind("1.1 RadarTarget/Player", "hideNormalLabels", false, "Don't use any player labels except for 'forceDeadPlayerLabel'");
-			HideDeadPlayerLabels   = config.Bind("1.1 RadarTarget/Player", "hideDeadLabels", false, "Don't use labels for dead players");
+			CustomDeadName              = config.Bind("1.1 RadarTarget/Player", "customDeadLabel", string.Empty, "A custom label to show if someone is dead, leave empty to use their name instead");
+			HideNormalPlayerLabels      = config.Bind("1.1 RadarTarget/Player", "hideNormalLabels", false, "Don't use any player labels except for 'forceDeadPlayerLabel'");
+			HideDeadPlayerLabels        = config.Bind("1.1 RadarTarget/Player", "hideDeadLabels", false, "Don't use labels for dead players");
+			UseColorsToShowPlayerHealth = config.Bind("1.1 RadarTarget/Player", "useColorsToShowPlayerHealth", true, "If true the player label will be coloured depending on their health");
 
 			//    Radar Booster Label
 			HideRadarBoosterLabels = config.Bind("1.2 RadarTarget/RadarBooster", "hideRadarBoosterLabels", false, "Don't use labels for radar boosters");
@@ -202,13 +207,15 @@ namespace MonitorLabels.Utils.ModUtils
 			ToolLabelOffset  = config.Bind("5.3 Label Offsets/Items", "toolLabelOffset", Vector2.up * 1.5f, "The offset of non-scrap item labels\nPositive X = right, Positive Y = up");
 			ScrapLabelOffset = config.Bind("5.3 Label Offsets/Items", "scrapLabelOffset", Vector2.up * 1.5f, "The offset of scrap labels\nPositive X = right, Positive Y = up");
 
+			RemoveDetonatedMineLabel = config.Bind("9.0 MISC", "removeDetonatedMineLabel", true, "Remove the code-label of a mine after it detonates");
+
 			// ADVANCED
 			PlayerLabelStringFormat = config.Bind("99. Advanced", "labelFormat", "{0} {2}", "The string that will be shown on a player label\n{0} = Name\n{1} = playerIndex\n{2} = carried value string");
 			PlayerCarriedScrapValueStringFormat = config.Bind("99. Advanced", "playerCarriedScrapValueStringFormat", "[{0}]",
 				"The string that will be shown to display scrap value for a player that is carrying scrap\n{0} = Total Value\n{1} = Value in currently held slot");
-			
-			ScrapLabelStringFormat  = config.Bind("99. Advanced", "scrapLabelFormat", "{0} [{1}]", "The string that will be shown on a scrap label\n{0} = Name\n{1} = Value");
-			
+
+			ScrapLabelStringFormat = config.Bind("99. Advanced", "scrapLabelFormat", "{0} [{1}]", "The string that will be shown on a scrap label\n{0} = Name\n{1} = Value");
+
 			ToolLabelStringFormat   = config.Bind("99. Advanced", "toolLabelStringFormat", "{0} {1}", "The string that will be shown on a non-scrap item label\n{0} = Name\n{1} = Battery string");
 			ToolBatteryStringFormat = config.Bind("99. Advanced", "toolBatteryStringFormat", "[{0:P0}]", "The string that will be shown for the battery charge\n{0} = Battery charge");
 		}
