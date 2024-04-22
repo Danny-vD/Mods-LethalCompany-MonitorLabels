@@ -6,7 +6,10 @@ using HarmonyLib;
 using MonitorLabels.Components;
 using MonitorLabels.Utils;
 using MonitorLabels.Utils.ModUtils;
+using TMPro;
 using Unity.Netcode;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace MonitorLabels
 {
@@ -219,7 +222,7 @@ namespace MonitorLabels
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SwitchToItemSlot)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		internal static void PlayerControllerBSwitchToItemSlotPatch(PlayerControllerB __instance)
 		{
-			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.PocketItem)} patch run");
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SwitchToItemSlot)} patch run");
 			
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 
@@ -347,6 +350,30 @@ namespace MonitorLabels
 			}
 
 			ObjectLabelManager.UpdateScrapLabel(item);
+		}
+		
+		//\\//\\//\\//\\//\\//\\//\\//\\
+		//         VANILLA LABELS
+		//\\//\\//\\//\\//\\//\\//\\//\\
+		
+		[HarmonyPatch(typeof(Landmine), nameof(Landmine.Detonate)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		internal static void LandMineDetonatePatch(Landmine __instance)
+		{
+			LoggerUtil.LogDebug($"{nameof(Landmine)}.{nameof(Landmine.Detonate)} patch run");
+
+			if (!ConfigUtil.RemoveDetonatedMineLabel.Value)
+			{
+				return;
+			}
+			
+			TerminalAccessibleObject terminalObject = __instance.GetComponent<TerminalAccessibleObject>();
+
+			if (terminalObject is not { mapRadarText: not null })
+			{
+				return;
+			}
+			
+			terminalObject.mapRadarText.gameObject.SetActive(false);
 		}
 	}
 }
