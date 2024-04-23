@@ -10,7 +10,7 @@ namespace MonitorLabels.Dependencies.LethalConfig
 		
 		internal static void SetUpConfig()
 		{
-			LethalConfigManager.AddConfigItem(new GenericButtonConfigItem("RELOAD CONFIG", "Apply all changes", $"Reloads the config for {MonitorLabelsPlugin.PLUGIN_NAME}\nThis way the settings will take immediate effect.", "Reload Configs", ApplyChanges));
+			LethalConfigManager.AddConfigItem(new GenericButtonConfigItem("RELOAD CONFIG", "Apply all changes", $"Reloads the config for {MonitorLabelsPlugin.PLUGIN_NAME}\nThis way the settings will take immediate effect.", "Apply", ApplyChanges));
 		}
 
 		private static void ApplyChanges()

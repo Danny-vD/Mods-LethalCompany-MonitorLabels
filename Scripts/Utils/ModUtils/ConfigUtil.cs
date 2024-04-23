@@ -198,13 +198,13 @@ namespace MonitorLabels.Utils.ModUtils
 			DeadPlayerLabelColour = config.Bind("4.1 Colours/Players", "deadPlayerLabelColour", Color.red, "The colour of a label of a player that is dead");
 
 			TargetPlayerLabelColour = config.Bind("4.1 Colours/Players", "targetPlayerLabelColour", Color.green, "The colour of the label of the currently viewed player");
-			TargetPlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "targetPlayerHalfHealthColour", new Color(.62f, .547f, 0, 1.0f),
+			TargetPlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "targetPlayerHalfHealthColour", new Color(1, .31f, 0.01f),
 				$"The colour of the label of the currently viewed player at {ColorCalculator.HALF_HEALTH}% health");
 			TargetPlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "targetPlayerCriticalHealthColour", new Color(.1965f, 0, 0f, 1.0f),
 				$"The colour of the label of the currently viewed player at {ColorCalculator.CRITICAL_HEALTH}% health");
 
 			DefaultPlayerLabelColour = config.Bind("4.1 Colours/Players", "defaultPlayerLabelColour", Color.white, "The default colour of a player label");
-			DefaultPlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "defaultPlayerHalfHealthColour", new Color(.62f, .547f, 0, 1.0f),
+			DefaultPlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "defaultPlayerHalfHealthColour", new Color(1, .31f, 0.01f),
 				$"The default colour of a player label at {ColorCalculator.HALF_HEALTH}% health");
 			DefaultPlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "defaultPlayerCriticalHealthColour", new Color(.1965f, 0, 0f, 1.0f),
 				$"The default colour of a player label at {ColorCalculator.CRITICAL_HEALTH}% health");
