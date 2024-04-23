@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using BepInEx.Bootstrap;
+﻿using BepInEx.Bootstrap;
 using MonitorLabels.Dependencies.LethalConfig;
 
 namespace MonitorLabels.Utils.ModUtils

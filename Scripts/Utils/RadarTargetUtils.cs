@@ -1,5 +1,4 @@
-﻿using GameNetcodeStuff;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MonitorLabels.Utils
 {
