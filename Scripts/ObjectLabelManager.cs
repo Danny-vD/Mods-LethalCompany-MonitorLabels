@@ -248,20 +248,21 @@ namespace MonitorLabels
 			return string.Format(ConfigUtil.ScrapLabelStringFormat.Value, scrapName, scrapValue);
 		}
 
+		// ReSharper disable Unity.PerformanceAnalysis | REASON: Most of the time the expensive invocation is not done, only in the rare case that itemName is an empty string
 		private static string GetScrapName(GrabbableObject item)
 		{
-			ScanNodeProperties scanNodeProperties = item.GetComponentInChildren<ScanNodeProperties>();
-
-			if (scanNodeProperties) // If scannode is available, take the name from that
-			{
-				return scanNodeProperties.headerText;
-			}
-
 			Item itemProperties = item.itemProperties;
 
 			if (itemProperties && !string.IsNullOrEmpty(itemProperties.itemName))
 			{
 				return itemProperties.itemName;
+			}
+			
+			ScanNodeProperties scanNodeProperties = item.GetComponentInChildren<ScanNodeProperties>();
+
+			if (scanNodeProperties) // If scannode is available, take the name from that
+			{
+				return scanNodeProperties.headerText;
 			}
 
 			return MapLabelUtil.RemoveCloneFromString(item.gameObject.name).InsertSpaceBeforeCapitals();
