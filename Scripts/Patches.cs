@@ -216,40 +216,40 @@ namespace MonitorLabels
 			ObjectLabelManager.UpdateScrapLabel(__instance);
 		}
 
-		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SwitchToItemSlot)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void PlayerControllerBSwitchToItemSlotPatch(PlayerControllerB __instance)
-		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SwitchToItemSlot)} patch run");
-			
-			RadarTargetLabelManager.UpdateLabel(__instance.transform);
-
-			for (int i = 0; i < __instance.ItemSlots.Length; i++)
-			{
-				GrabbableObject item = __instance.ItemSlots[i];
-
-				if (item == null)
-				{
-					continue;
-				}
-
-				if (item.itemProperties.isScrap)
-				{
-					if (!ConfigUtil.ShowLabelOnScrap.Value)
-					{
-						continue;
-					}
-				}
-				else
-				{
-					if (!ConfigUtil.ShowLabelOnTools.Value)
-					{
-						continue;
-					}
-				}
-
-				ObjectLabelManager.UpdateScrapLabel(item);
-			}
-		}
+		//[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SwitchToItemSlot)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		//private static void PlayerControllerBSwitchToItemSlotPatch(PlayerControllerB __instance)
+		//{
+		//	LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SwitchToItemSlot)} patch run");
+		//	
+		//	RadarTargetLabelManager.UpdateLabel(__instance.transform);
+		//
+		//	for (int i = 0; i < __instance.ItemSlots.Length; i++)
+		//	{
+		//		GrabbableObject item = __instance.ItemSlots[i];
+		//
+		//		if (item == null)
+		//		{
+		//			continue;
+		//		}
+		//
+		//		if (item.itemProperties.isScrap)
+		//		{
+		//			if (!ConfigUtil.ShowLabelOnScrap.Value)
+		//			{
+		//				continue;
+		//			}
+		//		}
+		//		else
+		//		{
+		//			if (!ConfigUtil.ShowLabelOnTools.Value)
+		//			{
+		//				continue;
+		//			}
+		//		}
+		//
+		//		ObjectLabelManager.UpdateScrapLabel(item);
+		//	}
+		//}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SetItemInElevator)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		private static void PlayerControllerBSetItemInElevatorPatch(PlayerControllerB __instance, GrabbableObject gObject)
