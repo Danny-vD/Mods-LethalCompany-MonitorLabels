@@ -65,7 +65,6 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<string> FlowerSnakeLabel;
 
 		// COLOURS
-
 		//     PLAYERS
 		public static ConfigEntry<Color> DeadPlayerLabelColour;
 
