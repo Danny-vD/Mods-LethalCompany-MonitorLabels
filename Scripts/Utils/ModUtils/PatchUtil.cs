@@ -4,9 +4,9 @@ using HarmonyLib;
 
 namespace MonitorLabels.Utils.ModUtils
 {
-	public static class PatchUtil
+	internal static class PatchUtil
 	{
-		public static void PatchFunctions()
+		internal static void PatchFunctions()
 		{
 			Harmony harmonyInstance = new Harmony(MonitorLabelsPlugin.GUID);
 			LoggerUtil.LogInfo("Attempting to patch with Harmony!");

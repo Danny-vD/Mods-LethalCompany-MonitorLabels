@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace MonitorLabels.Components.Tools
 {
-	public class ContinuouslyUpdateToolLabel : BetterMonoBehaviour
+	internal class ContinuouslyUpdateToolLabel : BetterMonoBehaviour
 	{
-		public bool IsUpdating { get; private set; }
+		internal bool IsUpdating { get; private set; }
 
 		private TMP_Text label;
 		private GrabbableObject item;
 
-		public void Initialize(GrabbableObject grabbableObject, TMP_Text radarLabel)
+		internal void Initialize(GrabbableObject grabbableObject, TMP_Text radarLabel)
 		{
 			item  = grabbableObject;
 			label = radarLabel;

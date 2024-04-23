@@ -24,6 +24,16 @@ namespace MonitorLabels
 			return CustomAINames.TryAdd(type, new CustomLabelData(label, showLabel));
 		}
 
+		public static void SetAI(Type type, CustomLabelData customLabelData)
+		{
+			CustomAINames[type] = customLabelData;
+		}
+
+		public static void SetAI(Type type, string label, bool showLabel = true)
+		{
+			SetAI(type, new CustomLabelData(label, showLabel));
+		}
+
 		public static void RemoveAI(Type type)
 		{
 			CustomAINames.Remove(type);
@@ -94,13 +104,6 @@ namespace MonitorLabels
 
 			switch (enemyAI)
 			{
-				case ButlerEnemyAI: // TODO: complete
-					return "Butler";
-				case RadMechAI:
-					return "Mech";
-				case FlowerSnakeEnemy:
-					return "Snake";
-				
 				case BaboonBirdAI:
 					return ConfigUtil.BaboonHawkLabel.Value;
 
@@ -122,7 +125,7 @@ namespace MonitorLabels
 					return "Bees";
 
 				case DoublewingAI:
-					if (ConfigUtil.HideLabelOnCertainEnemies.Value)
+					if (ConfigUtil.HideLabelOnSomeEnemies.Value)
 					{
 						showLabel = false;
 					}
@@ -134,7 +137,7 @@ namespace MonitorLabels
 					{
 						showLabel = false;
 					}
-					
+
 					return "Girl";
 
 				case FlowermanAI:
@@ -168,7 +171,7 @@ namespace MonitorLabels
 					return ConfigUtil.SpiderLabel.Value;
 
 				case SandWormAI:
-					if (ConfigUtil.HideLabelOnCertainEnemies.Value)
+					if (ConfigUtil.HideLabelOnSomeEnemies.Value)
 					{
 						showLabel = false;
 					}
@@ -177,20 +180,34 @@ namespace MonitorLabels
 
 				case SpringManAI:
 					return ConfigUtil.CoilHeadLabel.Value;
-				
+
 				case TestEnemy:
 					return "Obunga";
+				
+				case ButlerEnemyAI:
+					return ConfigUtil.ButlerLabel.Value;
+
+				case RadMechAI:
+					return ConfigUtil.RadMechLabel.Value;
+
+				case FlowerSnakeEnemy:
+					if (ConfigUtil.HideLabelOnSomeEnemies.Value)
+					{
+						showLabel = false;
+					}
+
+					return ConfigUtil.FlowerSnakeLabel.Value;
 
 				default:
 					return GetUnknownAILabel(enemyAI, out showLabel);
 			}
 		}
 
-		private static string GetUnknownAILabel(EnemyAI enemyAI, out bool showLabel)
+		private static string GetUnknownAILabel(EnemyAI enemyAISubclassInstance, out bool showLabel)
 		{
 			foreach (KeyValuePair<Type, CustomLabelData> pair in CustomAINames)
 			{
-				if (pair.Key.IsInstanceOfType(enemyAI))
+				if (pair.Key.IsInstanceOfType(enemyAISubclassInstance))
 				{
 					showLabel = pair.Value.ShowLabel;
 					return pair.Value.Label;
@@ -200,7 +217,7 @@ namespace MonitorLabels
 			showLabel = true;
 
 			string label = ConfigUtil.UnknownLabel.Value;
-			return label.Equals(string.Empty) ? MapLabelUtil.RemoveCloneFromString(enemyAI.gameObject.name).InsertSpaceBeforeCapitals() : label;
+			return label.Equals(string.Empty) ? MapLabelUtil.RemoveCloneFromString(enemyAISubclassInstance.gameObject.name).InsertSpaceBeforeCapitals() : label;
 		}
 	}
 }

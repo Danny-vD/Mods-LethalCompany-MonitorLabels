@@ -40,7 +40,7 @@ namespace MonitorLabels.Utils.ModUtils
 		// ENEMIES
 		public static ConfigEntry<bool> ShowLabelOnEnemies;
 		public static ConfigEntry<bool> ShowLabelOnDeadEnemies;
-		public static ConfigEntry<bool> HideLabelOnCertainEnemies;
+		public static ConfigEntry<bool> HideLabelOnSomeEnemies;
 
 		//     ENEMY LABELS
 		public static ConfigEntry<string> UnknownLabel;
@@ -60,6 +60,9 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<string> SpiderLabel;
 		public static ConfigEntry<string> SandWormLabel;
 		public static ConfigEntry<string> CoilHeadLabel;
+		public static ConfigEntry<string> ButlerLabel;
+		public static ConfigEntry<string> RadMechLabel;
+		public static ConfigEntry<string> FlowerSnakeLabel;
 
 		// COLOURS
 
@@ -130,22 +133,23 @@ namespace MonitorLabels.Utils.ModUtils
 
 			// RADAR TARGETS
 			//    Player Label
-			MaximumNameLength = config.Bind("1.1 RadarTarget/Player", "maxNameLength", 5, "The maximum length of the name that will be shown on the terminal");
-			ShowLabelOnTarget = config.Bind("1.1 RadarTarget/Player", "targetLabelEnabled", true, "Should the currently targeted player also show a label");
+			MaximumNameLength = config.Bind("1.1 RadarTarget/Player", "maximumNameLength", 5, "The maximum length of the name that will be shown on the terminal");
+			ShowLabelOnTarget = config.Bind("1.1 RadarTarget/Player", "showLabelOnTarget", true, "Should the currently targeted player also show a label");
 			ForceDeadPlayerLabel = config.Bind("1.1 RadarTarget/Player", "forceDeadPlayerLabel", true,
 				"Should the label of a dead player always be visible?\nThis is to show dead labels if 'hideNormalLabels' is disabled");
-			CustomDeadName              = config.Bind("1.1 RadarTarget/Player", "customDeadLabel", string.Empty, "A custom label to show if someone is dead, leave empty to use their name instead");
-			HidePlayerLabels      = config.Bind("1.1 RadarTarget/Player", "hideAlivePlayerLabels", false, "Don't use any player labels except for 'forceDeadPlayerLabel'");
-			HideDeadPlayerLabels        = config.Bind("1.1 RadarTarget/Player", "hideDeadLabels", false, "Don't use labels for dead players");
-			UseColorsToShowPlayerHealth = config.Bind("1.1 RadarTarget/Player", "useColorsToShowPlayerHealth", true, "If true the player label will be coloured depending on their health");
+			CustomDeadName       = config.Bind("1.1 RadarTarget/Player", "customDeadLabel", string.Empty, "A custom label to show if someone is dead, leave empty to use their name instead");
+			HidePlayerLabels     = config.Bind("1.1 RadarTarget/Player", "hidePlayerLabels", false, "Don't use any player labels except for 'forceDeadPlayerLabel'");
+			HideDeadPlayerLabels = config.Bind("1.1 RadarTarget/Player", "hideDeadPlayerLabels", false, "Don't use labels for dead players");
+			UseColorsToShowPlayerHealth = config.Bind("1.1 RadarTarget/Player", "useColorsToShowPlayerHealth", true,
+				"If true the player label will be coloured depending on their health\nGradient between full and half health and a gradient betwen half and critical health");
 
 			//    Radar Booster Label
 			HideRadarBoosterLabels = config.Bind("1.2 RadarTarget/RadarBooster", "hideRadarBoosterLabels", false, "Don't use labels for radar boosters");
 
 			// ENEMIES
-			ShowLabelOnEnemies        = config.Bind("2.1 Enemies", "showLabelOnEnemies", true, "Should enemies have labels?");
-			ShowLabelOnDeadEnemies    = config.Bind("2.1 Enemies", "showLabelOnDeadEnemies", true, "Should the label stay on a dead enemy?");
-			HideLabelOnCertainEnemies = config.Bind("2.1 Enemies", "hideLabelOnSomeEnemies", false, "Don't show a label for the following enemies:\nBirds\nBees\nWorm");
+			ShowLabelOnEnemies     = config.Bind("2.1 Enemies", "showLabelOnEnemies", true, "Should enemies have labels?");
+			ShowLabelOnDeadEnemies = config.Bind("2.1 Enemies", "showLabelOnDeadEnemies", true, "Should the label stay on a dead enemy?");
+			HideLabelOnSomeEnemies = config.Bind("2.1 Enemies", "hideLabelOnSomeEnemies", false, "Don't show a label for the following enemies:\nBirds\nBees\nWorm");
 
 			//    ENEMY LABELS
 			UnknownLabel     = config.Bind("2.2 Enemy Labels", "unknownLabel", string.Empty, "The label of an unidentified enemy, leave empty to use the name");
@@ -165,6 +169,9 @@ namespace MonitorLabels.Utils.ModUtils
 			SpiderLabel      = config.Bind("2.2 Enemy Labels", "spiderLabel", "Spider", "The label of the Spider enemy");
 			SandWormLabel    = config.Bind("2.2 Enemy Labels", "sandWormLabel", string.Empty, "The label of the SandWorm enemy");
 			CoilHeadLabel    = config.Bind("2.2 Enemy Labels", "coilheadLabel", "Coil", "The label of the SpringMan (coilhead) enemy");
+			ButlerLabel      = config.Bind("2.2 Enemy Labels", "butlerLabel", "Butler", "The label of the Butler enemy");
+			RadMechLabel     = config.Bind("2.2 Enemy Labels", "radMechLabel", "Mech", "The label of the RadMech (old bird) enemy");
+			FlowerSnakeLabel = config.Bind("2.2 Enemy Labels", "flowerSnakeLabel", "Snake", "The label of the FlowerSnake (Tulip Snake) enemy");
 
 			// ITEMS
 			//    TOOLS
@@ -189,16 +196,19 @@ namespace MonitorLabels.Utils.ModUtils
 
 			// COLOURS
 			//     PLAYERS
-			DeadPlayerLabelColour = config.Bind("4.1 Colours/Players", "deadLabelColour", Color.red, "The colour of a label of a player that is dead");
+			DeadPlayerLabelColour = config.Bind("4.1 Colours/Players", "deadPlayerLabelColour", Color.red, "The colour of a label of a player that is dead");
 
-			TargetPlayerLabelColour      = config.Bind("4.1 Colours/Players", "targetPlayerLabelColour", Color.green, "The colour of the label of the currently viewed player");
-			TargetPlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "targetPlayerHalfHealthColour", new Color(.88f, .47f, 0, 1.0f), "The colour of the label of the currently viewed player at 50% health");
-			TargetPlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "targetPlayerCriticalHealthColour", new Color(.39f, 0, .13f, 1.0f),
-				"The colour of the label of the currently viewed player at 20% health");
+			TargetPlayerLabelColour = config.Bind("4.1 Colours/Players", "targetPlayerLabelColour", Color.green, "The colour of the label of the currently viewed player");
+			TargetPlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "targetPlayerHalfHealthColour", new Color(.62f, .547f, 0, 1.0f),
+				$"The colour of the label of the currently viewed player at {ColorCalculator.HALF_HEALTH}% health");
+			TargetPlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "targetPlayerCriticalHealthColour", new Color(.1965f, 0, 0f, 1.0f),
+				$"The colour of the label of the currently viewed player at {ColorCalculator.CRITICAL_HEALTH}% health");
 
-			DefaultPlayerLabelColour          = config.Bind("4.1 Colours/Players", "defaultPlayerLabelColour", Color.white, "The default colour of a player label");
-			DefaultPlayerHalfHealthColour     = config.Bind("4.1 Colours/Players", "defaultPlayerHalfHealthColour", new Color(.88f, .47f, 0, 1.0f), "The default colour of a player label at 50% health");
-			DefaultPlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "defaultPlayerCriticalHealthColour", new Color(.39f, 0, .13f, 1.0f), "The default colour of a player label at 20% health");
+			DefaultPlayerLabelColour = config.Bind("4.1 Colours/Players", "defaultPlayerLabelColour", Color.white, "The default colour of a player label");
+			DefaultPlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "defaultPlayerHalfHealthColour", new Color(.62f, .547f, 0, 1.0f),
+				$"The default colour of a player label at {ColorCalculator.HALF_HEALTH}% health");
+			DefaultPlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "defaultPlayerCriticalHealthColour", new Color(.1965f, 0, 0f, 1.0f),
+				$"The default colour of a player label at {ColorCalculator.CRITICAL_HEALTH}% health");
 
 			//     RADAR BOOSTERS
 			TargetRadarBoosterLabelColour = config.Bind("4.2 Colours/RadarBooster", "targetRadarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster that is targeted by the radar");
@@ -231,11 +241,11 @@ namespace MonitorLabels.Utils.ModUtils
 			ToolLabelOffset  = config.Bind("5.3 Label Offsets/Items", "toolLabelOffset", Vector2.up * 1.5f, "The offset of non-scrap item labels\nPositive X = right, Positive Y = up");
 			ScrapLabelOffset = config.Bind("5.3 Label Offsets/Items", "scrapLabelOffset", Vector2.up * 1.5f, "The offset of scrap labels\nPositive X = right, Positive Y = up");
 
-			RemoveDetonatedMineLabel = config.Bind("9.0 MISC", "removeDetonatedMineLabel", true, "Remove the code-label of a mine after it detonates");
+			RemoveDetonatedMineLabel = config.Bind("9. Miscellaneous", "removeDetonatedMineLabel", true, "Remove the code-label of a mine after it detonates");
 
 			// ADVANCED
-			PlayerLabelStringFormat = config.Bind("99. Advanced", "labelFormat", "{0} {2}", "The string that will be shown on a player label\n{0} = Name\n{1} = playerIndex\n{2} = carried value string");
-			PlayerCarriedScrapValueStringFormat = config.Bind("99. Advanced", "playerCarriedScrapValueStringFormat", "[{0}]",
+			PlayerLabelStringFormat = config.Bind("99. Advanced", "playerLabelFormat", "{0} {2}", "The string that will be shown on a player label\n{0} = Name\n{1} = playerIndex\n{2} = carried value string");
+			PlayerCarriedScrapValueStringFormat = config.Bind("99. Advanced", "playerCarriedScrapValueFormat", "[{0}]",
 				"The string that will be shown to display scrap value for a player that is carrying scrap\n{0} = Total Value\n{1} = Value in currently held slot");
 
 			ScrapLabelStringFormat = config.Bind("99. Advanced", "scrapLabelFormat", "{0} [{1}]", "The string that will be shown on a scrap label\n{0} = Name\n{1} = Value");

@@ -9,7 +9,7 @@ Restructured the config file
 Add extra options in the config for non-scrap item labels (keys, flashlights, shovels etc.)  
 Add an option to show the value that a player is carrying (total value and value in their current item slot or both)  
 Add an option to tint the player label depending on their health  
-Add an option to remove the label of a landmine after it detonates
+Add an option to remove the label of a landmine after it detonates  
 
 ### Disclaimer
 Some config options were renamed, while keeping these options in the config has no effect, for cleanliness it is best to delete the entire config and let it generate again  

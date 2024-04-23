@@ -5,9 +5,9 @@ namespace MonitorLabels.Utils
 {
 	public static class ColorCalculator
 	{
-		private const int fullHealth = 100;
-		private const int halfHealth = fullHealth / 2;
-		private const int criticalHealth = 10;
+		public const int FULL_HEALTH = 100;
+		public const int HALF_HEALTH = FULL_HEALTH / 2;
+		public const int CRITICAL_HEALTH = 10;
 		
 		public static Color GetColorDependingOnHealth(PlayerControllerB playerController, Color fullHealthColour, Color halfHealthColour, Color criticalHealthColour)
 		{
@@ -18,17 +18,17 @@ namespace MonitorLabels.Utils
 
 			float lerpValue = 0;
 			
-			if (playerController.health >= halfHealth)
+			if (playerController.health >= HALF_HEALTH)
 			{
-				lerpValue = Mathf.InverseLerp(halfHealth, fullHealth, playerController.health);
+				lerpValue = Mathf.InverseLerp(HALF_HEALTH, FULL_HEALTH, playerController.health);
 
 				return Color.Lerp(halfHealthColour, fullHealthColour, lerpValue);
 			}
 			else
 			{
-				lerpValue = Mathf.InverseLerp(criticalHealth, halfHealth, playerController.health);
+				lerpValue = Mathf.InverseLerp(CRITICAL_HEALTH, HALF_HEALTH, playerController.health);
 
-				return Color.Lerp(halfHealthColour, fullHealthColour, lerpValue);
+				return Color.Lerp(criticalHealthColour, halfHealthColour, lerpValue);
 			}
 		}
 	}
