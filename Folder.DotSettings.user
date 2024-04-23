@@ -121,6 +121,7 @@
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CGames_005CSteamLibrary_005Csteamapps_005Ccommon_005CLethal_0020Company_005CLethal_0020Company_005FData_005CManaged_005CUnityEngine_002EVRModule_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CGames_005CSteamLibrary_005Csteamapps_005Ccommon_005CLethal_0020Company_005CLethal_0020Company_005FData_005CManaged_005CUnityEngine_002EWindModule_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CGames_005CSteamLibrary_005Csteamapps_005Ccommon_005CLethal_0020Company_005CLethal_0020Company_005FData_005CManaged_005CUnityEngine_002EXRModule_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=D_003A_005CProjects_005CMODS_005CLethal_0020Company_005CMonitorLabels_005CMOD_005FDEPENDENCIES_005CLethalConfig_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;PhysicalFolder Path="C:\Users\dvdui\.nuget\packages\lethalcompanygamelibs\45.0.0" Loaded="True" /&gt;&#xD;
   &lt;Assembly Path="C:\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Assembly-CSharp.dll" /&gt;&#xD;

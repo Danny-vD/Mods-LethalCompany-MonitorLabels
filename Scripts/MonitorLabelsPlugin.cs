@@ -1,11 +1,13 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using MonitorLabels.Dependencies.LethalConfig;
 using MonitorLabels.Utils.ModUtils;
 
 namespace MonitorLabels
 {
 	[BepInPlugin(GUID, PLUGIN_NAME, PLUGIN_VERSION)]
 	[BepInProcess("Lethal Company.exe")]
+	[BepInDependency(LethalConfigUtils.LETHAL_CONFIG_GUID, BepInDependency.DependencyFlags.SoftDependency)]
 	public class MonitorLabelsPlugin : BaseUnityPlugin
 	{
 		public const string GUID = "DannyVD.mods.LethalCompany.MonitorLabels";
@@ -25,6 +27,8 @@ namespace MonitorLabels
 			LoggerUtil.Log(LogLevel.Info, $"Plugin {DEPENDENCY_STRING} is loaded!"); // Using the Log function circumvents the configuration option, this is by design
 
 			PatchUtil.PatchFunctions();
+			
+			DependencyUtils.CheckDependencies();
 		}
 	}
 }
