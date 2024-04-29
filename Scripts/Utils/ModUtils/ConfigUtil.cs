@@ -69,12 +69,11 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<Color> DeadPlayerLabelColour;
 
 		public static ConfigEntry<Color> TargetPlayerLabelColour;
-		public static ConfigEntry<Color> TargetPlayerHalfHealthColour;
-		public static ConfigEntry<Color> TargetPlayerCriticalHealthColour;
-
 		public static ConfigEntry<Color> DefaultPlayerLabelColour;
-		public static ConfigEntry<Color> DefaultPlayerHalfHealthColour;
-		public static ConfigEntry<Color> DefaultPlayerCriticalHealthColour;
+
+		public static ConfigEntry<Color> PlayerFullHealthColour;
+		public static ConfigEntry<Color> PlayerHalfHealthColour;
+		public static ConfigEntry<Color> PlayerCriticalHealthColour;
 
 		//     RADAR BOOSTERS
 		public static ConfigEntry<Color> TargetRadarBoosterLabelColour;
@@ -197,17 +196,15 @@ namespace MonitorLabels.Utils.ModUtils
 			//     PLAYERS
 			DeadPlayerLabelColour = config.Bind("4.1 Colours/Players", "deadPlayerLabelColour", Color.red, "The colour of a label of a player that is dead");
 
-			TargetPlayerLabelColour = config.Bind("4.1 Colours/Players", "targetPlayerLabelColour", Color.green, "The colour of the label of the currently viewed player");
-			TargetPlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "targetPlayerHalfHealthColour", new Color(1, .31f, 0.01f),
-				$"The colour of the label of the currently viewed player at {ColorCalculator.HALF_HEALTH}% health");
-			TargetPlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "targetPlayerCriticalHealthColour", new Color(.1965f, 0, 0f, 1.0f),
-				$"The colour of the label of the currently viewed player at {ColorCalculator.CRITICAL_HEALTH}% health");
-
+			TargetPlayerLabelColour  = config.Bind("4.1 Colours/Players", "targetPlayerLabelColour", Color.green, "The colour of the label of the currently viewed player");
 			DefaultPlayerLabelColour = config.Bind("4.1 Colours/Players", "defaultPlayerLabelColour", Color.white, "The default colour of a player label");
-			DefaultPlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "defaultPlayerHalfHealthColour", new Color(1, .31f, 0.01f),
-				$"The default colour of a player label at {ColorCalculator.HALF_HEALTH}% health");
-			DefaultPlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "defaultPlayerCriticalHealthColour", new Color(.1965f, 0, 0f, 1.0f),
-				$"The default colour of a player label at {ColorCalculator.CRITICAL_HEALTH}% health");
+
+			PlayerFullHealthColour = config.Bind("4.1 Colours/Players", "playerFullHealthColour", Color.white,
+				$"The colour of a player label at {ColorCalculator.FULL_HEALTH}% health");
+			PlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "playerHalfHealthColour", new Color(1, .31f, 0.01f),
+				$"The colour of a player label at {ColorCalculator.HALF_HEALTH}% health");
+			PlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "playerCriticalHealthColour", new Color(.1965f, 0, 0f, 1.0f),
+				$"The colour of a player label at {ColorCalculator.CRITICAL_HEALTH}% health");
 
 			//     RADAR BOOSTERS
 			TargetRadarBoosterLabelColour = config.Bind("4.2 Colours/RadarBooster", "targetRadarBoosterLabelColour", Color.magenta, "The colour of a label of a radar booster that is targeted by the radar");

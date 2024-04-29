@@ -1,4 +1,5 @@
 ﻿using GameNetcodeStuff;
+using MonitorLabels.Constants;
 using MonitorLabels.Utils;
 using MonitorLabels.Utils.ModUtils;
 using TMPro;
@@ -150,12 +151,11 @@ namespace MonitorLabels
 				{
 					if (ConfigUtil.UseColorsToShowPlayerHealth.Value)
 					{
-						labelColour = ColorCalculator.GetColorDependingOnHealth(playerControllerB,
-							ConfigUtil.TargetPlayerLabelColour.Value, ConfigUtil.TargetPlayerHalfHealthColour.Value, ConfigUtil.TargetPlayerCriticalHealthColour.Value);
+						labelColour = ColorCalculator.GetColorDependingOnHealth(playerControllerB, true);
 					}
 					else
 					{
-						labelColour = ConfigUtil.TargetPlayerLabelColour.Value;
+						labelColour = playerControllerB.playerSteamId == SteamIDs.MY_ID ? Colors.DevColor : ConfigUtil.TargetPlayerLabelColour.Value;
 					}
 				}
 
@@ -177,12 +177,11 @@ namespace MonitorLabels
 			{
 				if (ConfigUtil.UseColorsToShowPlayerHealth.Value)
 				{
-					labelColour = ColorCalculator.GetColorDependingOnHealth(playerControllerB,
-						ConfigUtil.DefaultPlayerLabelColour.Value, ConfigUtil.DefaultPlayerHalfHealthColour.Value, ConfigUtil.DefaultPlayerCriticalHealthColour.Value);
+					labelColour = ColorCalculator.GetColorDependingOnHealth(playerControllerB, false);
 				}
 				else
 				{
-					labelColour = ConfigUtil.DefaultPlayerLabelColour.Value;
+					labelColour = playerControllerB.playerSteamId == SteamIDs.MY_ID ? Colors.DevColor : ConfigUtil.DefaultPlayerLabelColour.Value;
 				}
 			}
 

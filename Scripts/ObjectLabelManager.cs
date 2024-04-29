@@ -24,18 +24,18 @@ namespace MonitorLabels
 
 		internal static void UpdateScrapLabel(GrabbableObject item)
 		{
-			ContinuouslyUpdateToolLabel toolLabelUpdater = item.GetComponent<ContinuouslyUpdateToolLabel>();
-
-			if (toolLabelUpdater != null && toolLabelUpdater.IsUpdating)
-			{
-				return; // It is already being updated by something else
-			}
-
 			Transform radarIcon = item.radarIcon;
 
 			if (radarIcon == null) // No radar icon, this can happen because some items (e.g. flashlights and keys) do not have a radar icon by default
 			{
 				return;
+			}
+			
+			ContinuouslyUpdateToolLabel toolLabelUpdater = item.GetComponent<ContinuouslyUpdateToolLabel>();
+
+			if (toolLabelUpdater != null && toolLabelUpdater.IsUpdating)
+			{
+				return; // It is already being updated by something else
 			}
 
 			_ = MapLabelUtil.GetRadarLabel(radarIcon, out TMP_Text radarLabel);

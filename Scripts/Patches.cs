@@ -59,7 +59,7 @@ namespace MonitorLabels
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void PlayerControllerBSendNewPlayerValuesClientRpcPatch()
+		private static void PlayerControllerBSendNewPlayerValuesClientRpcPatch(PlayerControllerB __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabels();
@@ -72,7 +72,7 @@ namespace MonitorLabels
 		//
 		// 	RadarTargetLabelManager.UpdateLabels();
 		//}
-				
+
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.DamagePlayerClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		private static void PlayerControllerBDamagePlayerPatch(PlayerControllerB __instance)
 		{
@@ -216,6 +216,164 @@ namespace MonitorLabels
 			ObjectLabelManager.UpdateScrapLabel(__instance);
 		}
 
+		[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.EquipItem)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void GrabbableObjectEquipItemPatch(GrabbableObject __instance)
+		{
+			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.PocketItem)} patch run");
+			
+			PlayerControllerB holdingPlayer = __instance.playerHeldBy;
+
+			if (!ReferenceEquals(holdingPlayer, null))
+			{
+				RadarTargetLabelManager.UpdateLabel(__instance.transform);
+			}
+			
+			if (__instance.itemProperties.isScrap)
+			{
+				if (!ConfigUtil.ShowLabelOnScrap.Value)
+				{
+					return;
+				}
+			}
+			else
+			{
+				if (!ConfigUtil.ShowLabelOnTools.Value)
+				{
+					return;
+				}
+			}
+
+			ObjectLabelManager.UpdateScrapLabel(__instance);
+		}
+		
+		[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.PocketItem)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void GrabbableObjectPocketItemPatch(GrabbableObject __instance)
+		{
+			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.PocketItem)} patch run");
+			
+			PlayerControllerB holdingPlayer = __instance.playerHeldBy;
+
+			if (!ReferenceEquals(holdingPlayer, null))
+			{
+				RadarTargetLabelManager.UpdateLabel(__instance.transform);
+			}
+			
+			if (__instance.itemProperties.isScrap)
+			{
+				if (!ConfigUtil.ShowLabelOnScrap.Value)
+				{
+					return;
+				}
+			}
+			else
+			{
+				if (!ConfigUtil.ShowLabelOnTools.Value)
+				{
+					return;
+				}
+			}
+
+			ObjectLabelManager.UpdateScrapLabel(__instance);
+		}
+
+		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SetItemInElevator)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void PlayerControllerBSetItemInElevatorPatch(PlayerControllerB __instance, GrabbableObject gObject)
+		{
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetItemInElevator)} patch run");
+
+			RadarTargetLabelManager.UpdateLabel(__instance.transform);
+
+			if (gObject == null)
+			{
+				return;
+			}
+
+			if (gObject.itemProperties.isScrap)
+			{
+				if (!ConfigUtil.ShowLabelOnScrap.Value)
+				{
+					return;
+				}
+			}
+			else
+			{
+				if (!ConfigUtil.ShowLabelOnTools.Value)
+				{
+					return;
+				}
+			}
+
+			ObjectLabelManager.UpdateScrapLabel(gObject);
+		}
+
+		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SetObjectAsNoLongerHeld)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void PlayerControllerBSetObjectAsNoLongerHeldPatch(PlayerControllerB __instance, GrabbableObject dropObject)
+		{
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetObjectAsNoLongerHeld)} patch run");
+
+			RadarTargetLabelManager.UpdateLabel(__instance.transform);
+
+			if (dropObject == null)
+			{
+				return;
+			}
+
+			if (dropObject.itemProperties.isScrap)
+			{
+				if (!ConfigUtil.ShowLabelOnScrap.Value)
+				{
+					return;
+				}
+			}
+			else
+			{
+				if (!ConfigUtil.ShowLabelOnTools.Value)
+				{
+					return;
+				}
+			}
+
+			ObjectLabelManager.UpdateScrapLabel(dropObject);
+		}
+
+		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.GrabObjectClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void PlayerControllerBGrabObjectClientRpcPatch(PlayerControllerB __instance, NetworkObjectReference grabbedObject)
+		{
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.GrabObjectClientRpc)} patch run");
+
+			RadarTargetLabelManager.UpdateLabel(__instance.transform);
+
+			if (!ConfigUtil.ShowLabelOnScrap.Value)
+			{
+				return;
+			}
+
+			NetworkObject networkObject = grabbedObject;
+			GrabbableObject item = networkObject.GetComponentInChildren<GrabbableObject>();
+
+			if (item == null)
+			{
+				return;
+			}
+
+			if (item.itemProperties.isScrap)
+			{
+				if (!ConfigUtil.ShowLabelOnScrap.Value)
+				{
+					return;
+				}
+			}
+			else
+			{
+				if (!ConfigUtil.ShowLabelOnTools.Value)
+				{
+					return;
+				}
+			}
+
+			ObjectLabelManager.UpdateScrapLabel(item);
+		}
+		
 		//[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SwitchToItemSlot)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		//private static void PlayerControllerBSwitchToItemSlotPatch(PlayerControllerB __instance)
 		//{
@@ -251,108 +409,10 @@ namespace MonitorLabels
 		//	}
 		//}
 
-		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SetItemInElevator)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void PlayerControllerBSetItemInElevatorPatch(PlayerControllerB __instance, GrabbableObject gObject)
-		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetItemInElevator)} patch run");
-
-			RadarTargetLabelManager.UpdateLabel(__instance.transform);
-			
-			if (gObject == null)
-			{
-				return;
-			}
-
-			if (gObject.itemProperties.isScrap)
-			{
-				if (!ConfigUtil.ShowLabelOnScrap.Value)
-				{
-					return;
-				}
-			}
-			else
-			{
-				if (!ConfigUtil.ShowLabelOnTools.Value)
-				{
-					return;
-				}
-			}
-
-			ObjectLabelManager.UpdateScrapLabel(gObject);
-		}
-
-		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SetObjectAsNoLongerHeld)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void PlayerControllerBSetObjectAsNoLongerHeldPatch(PlayerControllerB __instance, GrabbableObject dropObject)
-		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetObjectAsNoLongerHeld)} patch run");
-
-			RadarTargetLabelManager.UpdateLabel(__instance.transform);
-			
-			if (dropObject == null)
-			{
-				return;
-			}
-
-			if (dropObject.itemProperties.isScrap)
-			{
-				if (!ConfigUtil.ShowLabelOnScrap.Value)
-				{
-					return;
-				}
-			}
-			else
-			{
-				if (!ConfigUtil.ShowLabelOnTools.Value)
-				{
-					return;
-				}
-			}
-
-			ObjectLabelManager.UpdateScrapLabel(dropObject);
-		}
-
-		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.GrabObjectClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void PlayerControllerBGrabObjectClientRpcPatch(PlayerControllerB __instance, NetworkObjectReference grabbedObject)
-		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.GrabObjectClientRpc)} patch run");
-			
-			RadarTargetLabelManager.UpdateLabel(__instance.transform);
-
-			if (!ConfigUtil.ShowLabelOnScrap.Value)
-			{
-				return;
-			}
-
-			NetworkObject networkObject = grabbedObject;
-			GrabbableObject item = networkObject.GetComponentInChildren<GrabbableObject>();
-
-			if (item == null)
-			{
-				return;
-			}
-
-			if (item.itemProperties.isScrap)
-			{
-				if (!ConfigUtil.ShowLabelOnScrap.Value)
-				{
-					return;
-				}
-			}
-			else
-			{
-				if (!ConfigUtil.ShowLabelOnTools.Value)
-				{
-					return;
-				}
-			}
-
-			ObjectLabelManager.UpdateScrapLabel(item);
-		}
-		
 		//\\//\\//\\//\\//\\//\\//\\//\\
 		//         VANILLA LABELS
 		//\\//\\//\\//\\//\\//\\//\\//\\
-		
+
 		[HarmonyPatch(typeof(Landmine), nameof(Landmine.Detonate)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		private static void LandMineDetonatePatch(Landmine __instance)
 		{
@@ -362,14 +422,14 @@ namespace MonitorLabels
 			{
 				return;
 			}
-			
+
 			TerminalAccessibleObject terminalObject = __instance.GetComponent<TerminalAccessibleObject>();
 
 			if (terminalObject is not { mapRadarText: not null })
 			{
 				return;
 			}
-			
+
 			terminalObject.mapRadarText.gameObject.SetActive(false);
 		}
 	}

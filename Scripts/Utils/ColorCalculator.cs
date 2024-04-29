@@ -1,4 +1,6 @@
 ﻿using GameNetcodeStuff;
+using MonitorLabels.Constants;
+using MonitorLabels.Utils.ModUtils;
 using UnityEngine;
 
 namespace MonitorLabels.Utils
@@ -9,11 +11,25 @@ namespace MonitorLabels.Utils
 		public const int HALF_HEALTH = FULL_HEALTH / 2;
 		public const int CRITICAL_HEALTH = 10;
 		
-		public static Color GetColorDependingOnHealth(PlayerControllerB playerController, Color fullHealthColour, Color halfHealthColour, Color criticalHealthColour)
+		public static Color GetColorDependingOnHealth(PlayerControllerB playerController, bool isTarget)
 		{
+			Color fullHealthColour = ConfigUtil.PlayerFullHealthColour.Value;
+			Color halfHealthColour = ConfigUtil.PlayerHalfHealthColour.Value;
+			Color criticalHealthColour = ConfigUtil.PlayerCriticalHealthColour.Value;
+			
 			if (ReferenceEquals(playerController, null))
 			{
 				return fullHealthColour;
+			}
+
+			if (playerController.health == FULL_HEALTH)
+			{
+				if (playerController.playerSteamId == SteamIDs.MY_ID)
+				{
+					return Colors.DevColor;
+				}
+				
+				return isTarget ? ConfigUtil.TargetPlayerLabelColour.Value : ConfigUtil.DefaultPlayerLabelColour.Value;
 			}
 
 			float lerpValue = 0;
