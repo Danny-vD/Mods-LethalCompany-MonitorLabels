@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using GameNetcodeStuff;
 using MonitorLabels.Components.Tools;
 using MonitorLabels.ExtensionMethods;
 using MonitorLabels.Utils;
@@ -127,6 +128,8 @@ namespace MonitorLabels
 					{
 						if (currentlyHoldingATool && !ConfigUtil.HideToolLabelIfInHand.Value) // If we are currently holding a tool with a visible label, we don't have to check anything else
 						{
+							//TODO: REMOVE
+							LoggerUtil.LogWarning($"Hiding {item.itemProperties.itemName} because {currentlyHeldObject.itemProperties.itemName} is already held!");
 							return string.Empty;
 						}
 
@@ -139,7 +142,7 @@ namespace MonitorLabels
 									return string.Empty;
 								}
 							}
-							else if (firstToolInItemSlots != item)
+							else if (firstToolInItemSlots != item) // No null check, because we are a tool so there is always a tool
 							{
 								return string.Empty;
 							}

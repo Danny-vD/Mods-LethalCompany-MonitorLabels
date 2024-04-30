@@ -211,7 +211,7 @@ namespace MonitorLabels
 			if (holdingPlayer != null)
 			{
 				RadarTargetLabelManager.UpdateLabel(holdingPlayer.transform);
-				
+
 				PlayerItemSlotsUtil.GetFirstToolAndFirstToolInUse(holdingPlayer, out GrabbableObject firstTool, out GrabbableObject firstToolInUse);
 				ObjectLabelManager.UpdateItemSlotLabel(__instance, firstTool, firstToolInUse);
 			}
@@ -221,59 +221,14 @@ namespace MonitorLabels
 			}
 		}
 
-		[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.PocketItem)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void GrabbableObjectPocketItemPatch(GrabbableObject __instance)
+		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SwitchToItemSlot)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void PlayerControllerBSwitchToItemSlotPatch(PlayerControllerB __instance)
 		{
-			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.PocketItem)} patch run");
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SwitchToItemSlot)} patch run");
 
-			PlayerControllerB holdingPlayer = __instance.playerHeldBy;
-
-			if (!ReferenceEquals(holdingPlayer, null))
+			if (!ReferenceEquals(__instance, null))
 			{
-				PlayerItemSlotsUtil.UpdateLabelsOfItemSlots(holdingPlayer);
-			}
-			else
-			{
-				if (__instance.itemProperties.isScrap)
-				{
-					return;
-				}
-
-				if (!ConfigUtil.ShowLabelOnTools.Value)
-				{
-					return;
-				}
-
-				// Not pocketed by any player so only update this label
-				ObjectLabelManager.UpdateScrapLabel(__instance);
-			}
-		}
-
-		[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.EquipItem)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void GrabbableObjectEquipItemPatch(GrabbableObject __instance)
-		{
-			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.EquipItem)} patch run");
-
-			PlayerControllerB holdingPlayer = __instance.playerHeldBy;
-
-			if (!ReferenceEquals(holdingPlayer, null))
-			{
-				PlayerItemSlotsUtil.UpdateLabelsOfItemSlots(holdingPlayer);
-			}
-			else
-			{
-				if (__instance.itemProperties.isScrap)
-				{
-					return;
-				}
-
-				if (!ConfigUtil.ShowLabelOnTools.Value)
-				{
-					return;
-				}
-
-				// Not equipped by any player so only update this label
-				ObjectLabelManager.UpdateScrapLabel(__instance);
+				PlayerItemSlotsUtil.UpdateLabelsOfItemSlots(__instance);
 			}
 		}
 
@@ -336,36 +291,21 @@ namespace MonitorLabels
 			ObjectLabelManager.UpdateScrapLabel(gObject);
 		}
 
-		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SetObjectAsNoLongerHeld)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void PlayerControllerBSetObjectAsNoLongerHeldPatch(PlayerControllerB __instance, GrabbableObject dropObject)
+		[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.DiscardItemOnClient)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void GrabbableObjectDiscardItemOnClientPatch(GrabbableObject __instance)
 		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetObjectAsNoLongerHeld)} patch run");
+			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.DiscardItemOnClient)} patch run");
+
+			ObjectLabelManager.UpdateScrapLabel(__instance);
+		}
+
+		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.DiscardHeldObject)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void PlayerControllerBDiscardHeldObjectPatch(PlayerControllerB __instance)
+		{
+			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.DiscardHeldObject)} patch run");
 
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
-
-			if (dropObject == null)
-			{
-				return;
-			}
-
-			if (dropObject.itemProperties.isScrap)
-			{
-				if (!ConfigUtil.ShowLabelOnScrap.Value)
-				{
-					return;
-				}
-			}
-			else
-			{
-				if (!ConfigUtil.ShowLabelOnTools.Value)
-				{
-					return;
-				}
-
-				PlayerItemSlotsUtil.UpdateLabelsOfItemSlots(__instance); // If we dropped a tool, update all tools in our item slots
-			}
-
-			ObjectLabelManager.UpdateScrapLabel(dropObject);
+			PlayerItemSlotsUtil.UpdateLabelsOfItemSlots(__instance);
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.GrabObjectClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
