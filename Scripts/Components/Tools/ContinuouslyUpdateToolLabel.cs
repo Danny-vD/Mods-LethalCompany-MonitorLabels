@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using MonitorLabels.BaseClasses;
+using MonitorLabels.Utils;
 using TMPro;
 using UnityEngine;
 
@@ -22,7 +23,8 @@ namespace MonitorLabels.Components.Tools
 
 		private void UpdateLabel()
 		{
-			ObjectLabelManager.SetScrapLabel(item, label);
+			PlayerItemSlotsUtil.GetFirstToolAndFirstToolInUse(item.playerHeldBy, out GrabbableObject firstTool, out GrabbableObject firstToolInUse);
+			ObjectLabelManager.SetScrapLabel(item, label, firstTool, firstToolInUse);
 		}
 
 		private IEnumerator UpdateLabelRoutine()

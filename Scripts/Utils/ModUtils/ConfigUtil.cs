@@ -182,7 +182,7 @@ namespace MonitorLabels.Utils.ModUtils
 			HideToolLabelIfPocketed  = config.Bind("3.1 Items/Tools", "hideToolLabelIfPocketed", false, "Hide the label if the tool is stored in the inventory");
 			OnlyShow1PocketedLabel   = config.Bind("3.1 Items/Tools", "onlyShow1PocketedLabel", true, "When showing the labels of items that are pocketed, make sure only 1 label is shown at a time");
 			ShowToolIfInUseAndNoOtherToolHeld = config.Bind("3.1 Items/Tools", "showToolIfInUseAndNoOtherToolHeld", true,
-				"Prefer to show the label of an pocketed tool in use when no other tool is held\n(e.g. active flashlight in pocket)\nThis setting overrides hideToolLabelIfCarried if the conditions are met");
+				"Prefer to show the label of an pocketed tool in use when no other tool is held\n(e.g. active flashlight in pocket)\nThis setting overrides hideToolLabelIfPocketed if the conditions are met");
 
 			//     SCRAP
 			ShowLabelOnScrap           = config.Bind("3.2 Items/Scrap", "showLabelOnScrap", true, "Should scrap also have a label?");
@@ -200,7 +200,7 @@ namespace MonitorLabels.Utils.ModUtils
 			DefaultPlayerLabelColour = config.Bind("4.1 Colours/Players", "defaultPlayerLabelColour", Color.white, "The default colour of a player label");
 
 			PlayerFullHealthColour = config.Bind("4.1 Colours/Players", "playerFullHealthColour", Color.white,
-				$"The colour of a player label at {ColorCalculator.FULL_HEALTH}% health");
+				$"The colour of a player label at {ColorCalculator.FULL_HEALTH}% health (only used for interpolation purposes, the actual color at full health is the usual color as defined above)");
 			PlayerHalfHealthColour = config.Bind("4.1 Colours/Players", "playerHalfHealthColour", new Color(1, .31f, 0.01f),
 				$"The colour of a player label at {ColorCalculator.HALF_HEALTH}% health");
 			PlayerCriticalHealthColour = config.Bind("4.1 Colours/Players", "playerCriticalHealthColour", new Color(.1965f, 0, 0f, 1.0f),

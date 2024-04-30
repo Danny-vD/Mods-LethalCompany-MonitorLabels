@@ -24,13 +24,19 @@ namespace MonitorLabels
 
 		internal static void UpdateScrapLabel(GrabbableObject item)
 		{
+			// Item slots are not applicable because this is not a tool
+			UpdateItemSlotLabel(item, null, null);
+		}
+		
+		internal static void UpdateItemSlotLabel(GrabbableObject item, GrabbableObject firstToolInItemSlots, GrabbableObject firstToolInUseInItemSlots)
+		{
 			Transform radarIcon = item.radarIcon;
 
 			if (radarIcon == null) // No radar icon, this can happen because some items (e.g. flashlights and keys) do not have a radar icon by default
 			{
 				return;
 			}
-			
+
 			ContinuouslyUpdateToolLabel toolLabelUpdater = item.GetComponent<ContinuouslyUpdateToolLabel>();
 
 			if (toolLabelUpdater != null && toolLabelUpdater.IsUpdating)
@@ -45,12 +51,12 @@ namespace MonitorLabels
 				return;
 			}
 
-			SetScrapLabel(item, radarLabel);
+			SetScrapLabel(item, radarLabel, firstToolInItemSlots, firstToolInUseInItemSlots);
 		}
 
-		internal static void SetScrapLabel(GrabbableObject item, TMP_Text radarLabel)
+		internal static void SetScrapLabel(GrabbableObject item, TMP_Text radarLabel, GrabbableObject firstToolInItemSlots = null, GrabbableObject firstToolInUseInItemSlots = null)
 		{
-			radarLabel.text  = GetScrapLabelString(item, out Color labelColour);
+			radarLabel.text  = GetScrapLabelString(item, out Color labelColour, firstToolInItemSlots, firstToolInUseInItemSlots);
 			radarLabel.color = labelColour;
 		}
 
@@ -77,14 +83,14 @@ namespace MonitorLabels
 			}
 		}
 
-		private static string GetScrapLabelString(GrabbableObject item, out Color labelColour)
+		private static string GetScrapLabelString(GrabbableObject item, out Color labelColour, GrabbableObject firstToolInItemSlots, GrabbableObject firstToolInUseInItemSlots)
 		{
 			if (item == null)
 			{
 				labelColour = Color.white;
 				return string.Empty;
 			}
-			
+
 			bool isTool = !item.itemProperties.isScrap;
 
 			int scrapValue = item.scrapValue;
@@ -94,15 +100,15 @@ namespace MonitorLabels
 				if (isTool && item.playerHeldBy != null)
 				{
 					labelColour = ConfigUtil.CarriedToolLabelColour.Value;
-					
+
 					GrabbableObject currentlyHeldObject = item.playerHeldBy.currentlyHeldObjectServer;
 					bool currentlyHoldingATool = currentlyHeldObject != null && !currentlyHeldObject.itemProperties.isScrap;
 
 					if (item.isPocketed && ConfigUtil.HideToolLabelIfPocketed.Value)
 					{
-						if (item.isBeingUsed && ConfigUtil.ShowToolIfInUseAndNoOtherToolHeld.Value && !currentlyHoldingATool)
+						if (item.isBeingUsed && ConfigUtil.ShowToolIfInUseAndNoOtherToolHeld.Value && !currentlyHoldingATool) // Show a pocketed tool in use when not holding another tool
 						{
-							if (ConfigUtil.OnlyShow1PocketedLabel.Value)
+							if (ConfigUtil.OnlyShow1PocketedLabel.Value) // Prevent showing multiple pocketed tools in use
 							{
 								GrabbableObject firstItemInUse = item.playerHeldBy.ItemSlots.FirstOrDefault(grabbableObject => grabbableObject != null && grabbableObject.isBeingUsed);
 
@@ -117,34 +123,36 @@ namespace MonitorLabels
 							return string.Empty;
 						}
 					}
-					else if (item.isPocketed && ConfigUtil.OnlyShow1PocketedLabel.Value)
+					else if (item.isPocketed && ConfigUtil.OnlyShow1PocketedLabel.Value) // Show pocketed labels, but we only want to show one. We do this by preferring the first tool or the first tool in use
 					{
-						if (currentlyHoldingATool && !ConfigUtil.HideToolLabelIfInHand.Value)
+						if (currentlyHoldingATool && !ConfigUtil.HideToolLabelIfInHand.Value) // If we are currently holding a tool with a visible label, we don't have to check anything else
 						{
 							return string.Empty;
 						}
 
-						if (ConfigUtil.ShowToolIfInUseAndNoOtherToolHeld.Value)
+						if (ConfigUtil.ShowToolIfInUseAndNoOtherToolHeld.Value) // Prefer showing a tool that is in use
 						{
-							GrabbableObject firstItemInUse = item.playerHeldBy.ItemSlots.FirstOrDefault(grabbableObject => grabbableObject != null && grabbableObject.isBeingUsed);
-
-							if (item != firstItemInUse)
+							if (firstToolInUseInItemSlots != null)
+							{
+								if (firstToolInUseInItemSlots != item)
+								{
+									return string.Empty;
+								}
+							}
+							else if (firstToolInItemSlots != item)
 							{
 								return string.Empty;
 							}
 						}
-						else
+						else // Show the first tool
 						{
-							GrabbableObject firstTool = item.playerHeldBy.ItemSlots.FirstOrDefault(grabbableObject => grabbableObject != null && !grabbableObject.itemProperties.isScrap);
-
-							if (item != firstTool)
+							if (item != firstToolInItemSlots)
 							{
 								return string.Empty;
 							}
 						}
 					}
-
-					if (ConfigUtil.HideToolLabelIfInHand.Value)
+					else if (!item.isPocketed && ConfigUtil.HideToolLabelIfInHand.Value) // If item is not pocketed and we should hide in hand, hide the label
 					{
 						return string.Empty;
 					}
@@ -152,7 +160,7 @@ namespace MonitorLabels
 				else if (isTool)
 				{
 					labelColour = ConfigUtil.CarriedToolLabelColour.Value;
-					
+
 					if (ConfigUtil.HideToolLabelIfInHand.Value)
 					{
 						return string.Empty;
@@ -257,7 +265,7 @@ namespace MonitorLabels
 			{
 				return itemProperties.itemName;
 			}
-			
+
 			ScanNodeProperties scanNodeProperties = item.GetComponentInChildren<ScanNodeProperties>();
 
 			if (scanNodeProperties) // If scannode is available, take the name from that
