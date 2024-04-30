@@ -1,6 +1,9 @@
 D:\Projects\MODS\Lethal Company\MonitorLabels\bin\Debug\netstandard2.1\MonitorLabels.deps.json
 D:\Projects\MODS\Lethal Company\MonitorLabels\bin\Debug\netstandard2.1\MonitorLabels.dll
 D:\Projects\MODS\Lethal Company\MonitorLabels\bin\Debug\netstandard2.1\MonitorLabels.pdb
+D:\Projects\MODS\Lethal Company\MonitorLabels\bin\Release\netstandard2.1\MonitorLabels.deps.json
+D:\Projects\MODS\Lethal Company\MonitorLabels\bin\Release\netstandard2.1\MonitorLabels.dll
+D:\Projects\MODS\Lethal Company\MonitorLabels\bin\Release\netstandard2.1\MonitorLabels.pdb
 D:\Projects\MODS\Lethal Company\MonitorLabels\obj\Debug\netstandard2.1\MonitorLabels.csproj.AssemblyReference.cache
 D:\Projects\MODS\Lethal Company\MonitorLabels\obj\Debug\netstandard2.1\MonitorLabels.IgnoresAccessChecksTo.cs
 D:\Projects\MODS\Lethal Company\MonitorLabels\obj\Debug\netstandard2.1\PluginInfo.cs
