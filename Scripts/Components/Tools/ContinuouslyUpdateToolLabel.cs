@@ -23,9 +23,6 @@ namespace MonitorLabels.Components.Tools
 
 		private void UpdateLabel()
 		{
-			//NOTE: By default the battery charge is only synced when the item is dropped, maybe sync it ourselves?
-			item.SyncBatteryServerRpc(item.insertedBattery.charge * 100);
-			
 			PlayerItemSlotsUtil.GetFirstToolAndFirstToolInUse(item.playerHeldBy, out GrabbableObject firstTool, out GrabbableObject firstToolInUse);
 			ObjectLabelManager.SetScrapLabel(item, label, firstTool, firstToolInUse);
 		}

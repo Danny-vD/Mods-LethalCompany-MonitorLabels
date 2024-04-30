@@ -128,8 +128,6 @@ namespace MonitorLabels
 					{
 						if (currentlyHoldingATool && !ConfigUtil.HideToolLabelIfInHand.Value) // If we are currently holding a tool with a visible label, we don't have to check anything else
 						{
-							//TODO: REMOVE
-							LoggerUtil.LogWarning($"Hiding {item.itemProperties.itemName} because {currentlyHeldObject.itemProperties.itemName} is already held!");
 							return string.Empty;
 						}
 
