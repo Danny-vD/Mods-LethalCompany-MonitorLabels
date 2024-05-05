@@ -61,21 +61,21 @@ namespace MonitorLabels
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		private static void PlayerControllerBSendNewPlayerValuesClientRpcPatch(PlayerControllerB __instance)
 		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)} patch run");
+			LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabels();
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.DamagePlayerClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		private static void PlayerControllerBDamagePlayerPatch(PlayerControllerB __instance)
 		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.DamagePlayer)} patch run");
+			LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.DamagePlayer)} patch run");
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.KillPlayerClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		private static void PlayerControllerBKillPlayerClientRpcPatch(PlayerControllerB __instance)
 		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerClientRpc)} patch run");
+			LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.KillPlayerClientRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 		}
 
@@ -224,12 +224,9 @@ namespace MonitorLabels
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SwitchToItemSlot)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		private static void PlayerControllerBSwitchToItemSlotPatch(PlayerControllerB __instance)
 		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SwitchToItemSlot)} patch run");
+			LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SwitchToItemSlot)} patch run");
 
-			if (!ReferenceEquals(__instance, null))
-			{
-				PlayerItemSlotsUtil.UpdateLabelsOfItemSlots(__instance);
-			}
+			PlayerItemSlotsUtil.UpdateLabelsOfItemSlots(__instance);
 		}
 
 		[HarmonyPatch(typeof(GrabbableObject), nameof(GrabbableObject.UseItemOnClient)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
@@ -264,7 +261,7 @@ namespace MonitorLabels
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.SetItemInElevator)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		private static void PlayerControllerBSetItemInElevatorPatch(PlayerControllerB __instance, GrabbableObject gObject)
 		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetItemInElevator)} patch run");
+			LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SetItemInElevator)} patch run");
 
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 
@@ -299,19 +296,47 @@ namespace MonitorLabels
 			ObjectLabelManager.UpdateScrapLabel(__instance);
 		}
 
-		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.DiscardHeldObject)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void PlayerControllerBDiscardHeldObjectPatch(PlayerControllerB __instance)
+		//[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.DiscardHeldObject)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		//private static void PlayerControllerBDiscardHeldObjectPatch(PlayerControllerB __instance)
+		//{
+		//	LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.DiscardHeldObject)} patch run");
+		//
+		//	RadarTargetLabelManager.UpdateLabel(__instance.transform);
+		//	PlayerItemSlotsUtil.UpdateLabelsOfItemSlots(__instance);
+		//}
+
+		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.PlaceObjectClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void PlayerControllerBPlaceObjectClientRpcPatch(PlayerControllerB __instance, ref NetworkObjectReference grabbedObject)
 		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.DiscardHeldObject)} patch run");
+			LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.PlaceObjectClientRpc)} patch run");
 
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 			PlayerItemSlotsUtil.UpdateLabelsOfItemSlots(__instance);
+
+			if (grabbedObject.TryGet(out NetworkObject networkObject))
+			{
+				ObjectLabelManager.UpdateScrapLabel(networkObject.GetComponent<GrabbableObject>());
+			}
+		}
+
+		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.ThrowObjectClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void PlayerControllerBThrowObjectClientRpcPatch(PlayerControllerB __instance, ref NetworkObjectReference grabbedObject)
+		{
+			LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.ThrowObjectClientRpc)} patch run");
+
+			RadarTargetLabelManager.UpdateLabel(__instance.transform);
+			PlayerItemSlotsUtil.UpdateLabelsOfItemSlots(__instance);
+
+			if (grabbedObject.TryGet(out NetworkObject networkObject))
+			{
+				ObjectLabelManager.UpdateScrapLabel(networkObject.GetComponent<GrabbableObject>());
+			}
 		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.GrabObjectClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
 		private static void PlayerControllerBGrabObjectClientRpcPatch(PlayerControllerB __instance, NetworkObjectReference grabbedObject)
 		{
-			LoggerUtil.LogDebug($"{nameof(PlayerControllerB)}.{nameof(PlayerControllerB.GrabObjectClientRpc)} patch run");
+			LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.GrabObjectClientRpc)} patch run");
 
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 
