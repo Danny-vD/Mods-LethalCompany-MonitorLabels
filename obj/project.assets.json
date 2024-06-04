@@ -2738,7 +2738,7 @@
     "C:\\IDE\\Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.0.0",
+    "version": "2.0.1",
     "restore": {
       "projectUniqueName": "D:\\Projects\\MODS\\Lethal Company\\MonitorLabels\\MonitorLabels.csproj",
       "projectName": "MonitorLabels",

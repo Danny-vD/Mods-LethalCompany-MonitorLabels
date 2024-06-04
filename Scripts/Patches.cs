@@ -6,6 +6,7 @@ using HarmonyLib;
 using MonitorLabels.Components;
 using MonitorLabels.Utils;
 using MonitorLabels.Utils.ModUtils;
+using MonitorLabels.VanillaImprovements;
 using Unity.Netcode;
 
 namespace MonitorLabels
@@ -64,11 +65,18 @@ namespace MonitorLabels
 			LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.SendNewPlayerValuesClientRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabels();
 		}
+		
+		[HarmonyPatch(typeof(StartOfRound), nameof(StartOfRound.SetShipReadyToLand)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void StartOfRoundSetShipReadyToLandPatch()
+		{
+			LoggerUtil.LogDebug($"{nameof(StartOfRound)}.{nameof(StartOfRound.SetShipReadyToLand)} patch run");
+			RadarTargetLabelManager.UpdateLabels();
+		}
 
 		[HarmonyPatch(typeof(PlayerControllerB), nameof(PlayerControllerB.DamagePlayerClientRpc)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
-		private static void PlayerControllerBDamagePlayerPatch(PlayerControllerB __instance)
+		private static void PlayerControllerBDamagePlayerClientRpcPatch(PlayerControllerB __instance)
 		{
-			LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.DamagePlayer)} patch run");
+			LoggerUtil.LogDebug($"[{__instance.playerUsername}] {nameof(PlayerControllerB)}.{nameof(PlayerControllerB.DamagePlayerClientRpc)} patch run");
 			RadarTargetLabelManager.UpdateLabel(__instance.transform);
 		}
 
@@ -160,6 +168,8 @@ namespace MonitorLabels
 		private static void GrabbableObjectStartPatch(GrabbableObject __instance)
 		{
 			LoggerUtil.LogDebug($"{nameof(GrabbableObject)}.{nameof(GrabbableObject.Start)} patch run");
+
+			__instance.gameObject.AddComponent<DestroyRadarIconOnDestroy>();
 
 			if (!__instance.itemProperties.isScrap)
 			{

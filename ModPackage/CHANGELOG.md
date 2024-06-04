@@ -1,3 +1,6 @@
+# Version 2.0.1
+Fix the labels of a dropped item not correctly updating  
+
 # Version 2.0.0
 
 Supports all new enemies from V50!  
