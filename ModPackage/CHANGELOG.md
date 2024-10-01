@@ -1,3 +1,6 @@
+# Version 2.0.2
+Support for V60!
+
 # Version 2.0.1
 Fix the labels of a dropped item not correctly updating  
 

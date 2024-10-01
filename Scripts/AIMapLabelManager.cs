@@ -58,13 +58,22 @@ namespace MonitorLabels
 				return;
 			}
 
-			if (enemyAI is SandSpiderAI) // The sand spider is weirdly scaled which causes the label to appear rotated when it crawls on a wall
+			switch (enemyAI)
 			{
-				// Prevent non-uniform scaling in the parent
-				Vector3 parentScale = mapDot.localScale;
-				float highestScale = Mathf.Max(parentScale.x, parentScale.y, parentScale.z);
+				// The sand spider is weirdly scaled which causes the label to appear rotated when it crawls on a wall
+				case SandSpiderAI:
+				{
+					// Prevent non-uniform scaling in the parent
+					Vector3 parentScale = mapDot.localScale;
+					float highestScale = Mathf.Max(parentScale.x, parentScale.y, parentScale.z);
 
-				mapDot.localScale = new Vector3(highestScale, highestScale, highestScale);
+					mapDot.localScale = new Vector3(highestScale, highestScale, highestScale);
+					break;
+				}
+				
+				// The label for the Maneater is not visible in the smaller state, so we have to scale it up
+				case CaveDwellerAI:
+					break; // TODO
 			}
 
 			TMP_Text label = MapLabelUtil.AddLabelObject(mapDot.gameObject, ConfigUtil.EnemyLabelOffset.Value);
@@ -197,7 +206,16 @@ namespace MonitorLabels
 					}
 
 					return ConfigUtil.FlowerSnakeLabel.Value;
-
+				
+				case BushWolfEnemy:
+					return ConfigUtil.BushWolfLabel.Value;
+				
+				case CaveDwellerAI:
+					return ConfigUtil.ManEaterLabel.Value;
+				
+				case ClaySurgeonAI:
+					return ConfigUtil.ClaySurgeonLabel.Value;
+				
 				default:
 					return GetUnknownAILabel(enemyAI, out showLabel);
 			}

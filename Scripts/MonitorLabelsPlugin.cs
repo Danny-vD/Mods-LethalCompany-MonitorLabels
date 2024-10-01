@@ -13,7 +13,7 @@ namespace MonitorLabels
 		//TODO: Make the icon of traps yellow when they are an immediate threat to a player
 		public const string GUID = "DannyVD.mods.LethalCompany.MonitorLabels";
 		public const string PLUGIN_NAME = "MonitorLabels";
-		public const string PLUGIN_VERSION = "2.0.1";
+		public const string PLUGIN_VERSION = "2.0.2";
 		
 		public const string DEPENDENCY_STRING = $"DannyVD-{PLUGIN_NAME}-{PLUGIN_VERSION}";
 

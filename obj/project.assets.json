@@ -2738,7 +2738,7 @@
     "C:\\IDE\\Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.0.1",
+    "version": "2.0.2",
     "restore": {
       "projectUniqueName": "D:\\Projects\\MODS\\Lethal Company\\MonitorLabels\\MonitorLabels.csproj",
       "projectName": "MonitorLabels",
@@ -2773,6 +2773,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {

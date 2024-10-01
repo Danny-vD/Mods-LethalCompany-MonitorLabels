@@ -15,6 +15,11 @@ namespace MonitorLabels.VanillaImprovements
 
 		private void OnDestroy()
 		{
+			if (ReferenceEquals(grabbableObject, null))
+			{
+				return;
+			}
+			
 			Transform radarIcon = grabbableObject.radarIcon;
 
 			if (ReferenceEquals(radarIcon, null))

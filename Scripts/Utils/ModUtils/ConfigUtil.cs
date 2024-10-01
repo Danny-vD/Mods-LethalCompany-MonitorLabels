@@ -63,6 +63,9 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<string> ButlerLabel;
 		public static ConfigEntry<string> RadMechLabel;
 		public static ConfigEntry<string> FlowerSnakeLabel;
+		public static ConfigEntry<string> ManEaterLabel;
+		public static ConfigEntry<string> ClaySurgeonLabel;
+		public static ConfigEntry<string> BushWolfLabel;
 
 		// COLOURS
 		//     PLAYERS
@@ -170,6 +173,9 @@ namespace MonitorLabels.Utils.ModUtils
 			ButlerLabel      = config.Bind("2.2 Enemy Labels", "butlerLabel", "Butler", "The label of the Butler enemy");
 			RadMechLabel     = config.Bind("2.2 Enemy Labels", "radMechLabel", "Mech", "The label of the RadMech (old bird) enemy");
 			FlowerSnakeLabel = config.Bind("2.2 Enemy Labels", "flowerSnakeLabel", "Snake", "The label of the FlowerSnake (Tulip Snake) enemy");
+			BushWolfLabel = config.Bind("2.2 Enemy Labels", "bushWolfLabel", "Fox", "The label of the BushWolf (Kidnapper Fox) enemy");
+			ManEaterLabel = config.Bind("2.2 Enemy Labels", "manEaterLabel", "Maneater", "The label of the CaveDweller (Maneater) enemy");
+			ClaySurgeonLabel = config.Bind("2.2 Enemy Labels", "claySurgeonLabel", "Barber", "The label of the ClaySurgeon (Barber) enemy");
 
 			// ITEMS
 			//    TOOLS

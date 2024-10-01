@@ -20,8 +20,8 @@ namespace MonitorLabels.Utils.ModUtils
 		}
 
 		/// <summary>
-		/// <para>Attempts to load the asset with the given name in the given bundle</para>
-		/// <para>It will load the bundle fisrt if it was not already loaded</para>
+		/// Attempts to load the asset with the given name in the given bundle.<br/>
+		/// It will load the bundle fisrt if it was not already loaded.
 		/// </summary>
 		/// <param name="bundleName">The name of the bundle to load the asset from</param>
 		/// <param name="assetPath">The relative path of the asset within the bundle</param>
@@ -41,8 +41,8 @@ namespace MonitorLabels.Utils.ModUtils
 		}
 		
 		/// <summary>
-		/// <para>Attempts to load all assets of a given type in the given bundle</para>
-		/// <para>It will load the bundle first if it was not already loaded</para>
+		/// Attempts to load all assets of a given type in the given bundle.<br/>
+		/// It will load the bundle first if it was not already loaded.
 		/// </summary>
 		/// <param name="bundleName">The name of the bundle to load the assets from</param>
 		/// <param name="assets">An array of assets that were loaded</param>

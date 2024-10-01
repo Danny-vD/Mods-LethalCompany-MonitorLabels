@@ -9,7 +9,7 @@ namespace MonitorLabels.Utils.ModUtils
 		
 		internal static void CheckDependencies()
 		{
-			if (Chainloader.PluginInfos.TryGetValue(LethalConfigUtils.LETHAL_CONFIG_GUID, out BepInEx.PluginInfo pluginInfo))
+			if (Chainloader.PluginInfos.TryGetValue(LethalConfigUtils.LETHAL_CONFIG_GUID, out BepInEx.PluginInfo pluginInfo)) // Soft dependency
 			{
 				LoggerUtil.LogInfo($"{pluginInfo.Metadata.Name} has been found!\nAdding apply button to config...");
 
