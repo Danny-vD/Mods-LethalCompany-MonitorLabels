@@ -39,7 +39,7 @@ namespace MonitorLabels
 			CustomAINames.Remove(type);
 		}
 
-		public static void AddLabelToAI(EnemyAI enemyAI)
+		public static void AddLabelToAI(EnemyAI enemyAI, Transform mapDotParent, bool checkDisabledObjectsForMapDot)
 		{
 			string aiLabel = GetAILabel(enemyAI, out bool showLabel);
 
@@ -50,7 +50,7 @@ namespace MonitorLabels
 
 			// The MapDot for enemies are inconsisently named and are not in the same position for all enemies
 			// So we check all children to find an object that contains 'MapDot' in the name
-			Transform mapDot = MapLabelUtil.GetMapDot(enemyAI.transform);
+			Transform mapDot = MapLabelUtil.GetMapDot(mapDotParent, checkDisabledObjectsForMapDot);
 
 			if (ReferenceEquals(mapDot, null))
 			{
@@ -70,10 +70,11 @@ namespace MonitorLabels
 					mapDot.localScale = new Vector3(highestScale, highestScale, highestScale);
 					break;
 				}
-				
-				// The label for the Maneater is not visible in the smaller state, so we have to scale it up
-				case CaveDwellerAI:
-					break; // TODO
+
+				//
+				// // The label for the Maneater is not visible in the smaller state, so we have to scale it up
+				// case CaveDwellerAI:
+				// 	break; // TODO
 			}
 
 			TMP_Text label = MapLabelUtil.AddLabelObject(mapDot.gameObject, ConfigUtil.EnemyLabelOffset.Value);
@@ -125,8 +126,9 @@ namespace MonitorLabels
 				case CrawlerAI:
 					return ConfigUtil.CrawlerLabel.Value;
 
+				case RedLocustBees:
 				case DocileLocustBeesAI:
-					if (true) //ConfigUtil.HideLabelOnCertainEnemies.Value) // NOTE: DocileLocustBees do not have a mapdot
+					if (true) //ConfigUtil.HideLabelOnCertainEnemies.Value) // NOTE: Bees/Locusts do not have a mapdot
 					{
 						showLabel = false;
 					}
@@ -192,7 +194,7 @@ namespace MonitorLabels
 
 				case TestEnemy:
 					return "Obunga";
-				
+
 				case ButlerEnemyAI:
 					return ConfigUtil.ButlerLabel.Value;
 
@@ -206,16 +208,17 @@ namespace MonitorLabels
 					}
 
 					return ConfigUtil.FlowerSnakeLabel.Value;
-				
+
 				case BushWolfEnemy:
 					return ConfigUtil.BushWolfLabel.Value;
-				
-				case CaveDwellerAI:
-					return ConfigUtil.ManEaterLabel.Value;
-				
+
+				case CaveDwellerAI caveDwellerAI:
+					
+					return ManeaterUtil.HasTransformed(caveDwellerAI) ? ConfigUtil.ManeaterLabel.Value : ConfigUtil.BabyManeaterLabel.Value;
+
 				case ClaySurgeonAI:
 					return ConfigUtil.ClaySurgeonLabel.Value;
-				
+
 				default:
 					return GetUnknownAILabel(enemyAI, out showLabel);
 			}

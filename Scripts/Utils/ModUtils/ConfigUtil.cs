@@ -63,7 +63,8 @@ namespace MonitorLabels.Utils.ModUtils
 		public static ConfigEntry<string> ButlerLabel;
 		public static ConfigEntry<string> RadMechLabel;
 		public static ConfigEntry<string> FlowerSnakeLabel;
-		public static ConfigEntry<string> ManEaterLabel;
+		public static ConfigEntry<string> ManeaterLabel;
+		public static ConfigEntry<string> BabyManeaterLabel;
 		public static ConfigEntry<string> ClaySurgeonLabel;
 		public static ConfigEntry<string> BushWolfLabel;
 
@@ -149,33 +150,34 @@ namespace MonitorLabels.Utils.ModUtils
 
 			// ENEMIES
 			ShowLabelOnEnemies     = config.Bind("2.1 Enemies", "showLabelOnEnemies", true, "Should enemies have labels?");
-			ShowLabelOnDeadEnemies = config.Bind("2.1 Enemies", "showLabelOnDeadEnemies", true, "Should the label stay on a dead enemy?");
-			HideLabelOnSomeEnemies = config.Bind("2.1 Enemies", "hideLabelOnSomeEnemies", false, "Don't show a label for the following enemies:\nBirds\nBees\nWorm");
+			ShowLabelOnDeadEnemies = config.Bind("2.1 Enemies", "showLabelOnDeadEnemies", false, "Should the label stay on a dead enemy?");
+			HideLabelOnSomeEnemies = config.Bind("2.1 Enemies", "hideLabelOnSomeEnemies", true, "Don't show a label for the following enemies:\nManticoil\nWorm");
 
 			//    ENEMY LABELS
-			UnknownLabel     = config.Bind("2.2 Enemy Labels", "unknownLabel", string.Empty, "The label of an unidentified enemy, leave empty to use the name");
-			BaboonHawkLabel  = config.Bind("2.2 Enemy Labels", "baboonHawkLabel", "Hawk", "The label of the BaboonBird enemy");
-			BlobLabel        = config.Bind("2.2 Enemy Labels", "blobLabel", "Blob", "The label of the Blob enemy");
-			CentipedeLabel   = config.Bind("2.2 Enemy Labels", "snareFleaLabel", "Snare", "The label of the Centipede (Snare Flea) enemy");
-			CrawlerLabel     = config.Bind("2.2 Enemy Labels", "crawlerLabel", "Half", "The label of the Crawler (Thumper) enemy");
-			ManticoilLabel   = config.Bind("2.2 Enemy Labels", "manticoilLabel", "Bird", "The label of the Doublewing (Manticoil) enemy");
-			BrackenLabel     = config.Bind("2.2 Enemy Labels", "brackenLabel", "Bracken", "The label of the FlowerMan (Bracken) enemy");
-			ForestGiantLabel = config.Bind("2.2 Enemy Labels", "forestGiantLabel", "Giant", "The label of the ForestGiant enemy");
-			HoarderBugLabel  = config.Bind("2.2 Enemy Labels", "hoarderBugLabel", "Bug", "The label of the HoarderBug enemy");
-			JesterLabel      = config.Bind("2.2 Enemy Labels", "jesterLabel", "Jester", "The label of the Jester enemy");
-			MaskedLabel      = config.Bind("2.2 Enemy Labels", "maskedPlayerLabel", "X", "The label of the MaskedPlayer enemy");
-			DogLabel         = config.Bind("2.2 Enemy Labels", "mouthDogLabel", "Dog", "The label of the MouthDog enemy");
-			NutCrackerLabel  = config.Bind("2.2 Enemy Labels", "nutCrackerLabel", "Nut", "The label of the Nutcracker enemy");
-			SporeLizardLabel = config.Bind("2.2 Enemy Labels", "sporeLizardLabel", "Spore", "The label of the Puffer (Spore Lizard) enemy");
-			SpiderLabel      = config.Bind("2.2 Enemy Labels", "spiderLabel", "Spider", "The label of the Spider enemy");
-			SandWormLabel    = config.Bind("2.2 Enemy Labels", "sandWormLabel", string.Empty, "The label of the SandWorm enemy");
-			CoilHeadLabel    = config.Bind("2.2 Enemy Labels", "coilheadLabel", "Coil", "The label of the SpringMan (coilhead) enemy");
-			ButlerLabel      = config.Bind("2.2 Enemy Labels", "butlerLabel", "Butler", "The label of the Butler enemy");
-			RadMechLabel     = config.Bind("2.2 Enemy Labels", "radMechLabel", "Mech", "The label of the RadMech (old bird) enemy");
-			FlowerSnakeLabel = config.Bind("2.2 Enemy Labels", "flowerSnakeLabel", "Snake", "The label of the FlowerSnake (Tulip Snake) enemy");
-			BushWolfLabel = config.Bind("2.2 Enemy Labels", "bushWolfLabel", "Fox", "The label of the BushWolf (Kidnapper Fox) enemy");
-			ManEaterLabel = config.Bind("2.2 Enemy Labels", "manEaterLabel", "Maneater", "The label of the CaveDweller (Maneater) enemy");
-			ClaySurgeonLabel = config.Bind("2.2 Enemy Labels", "claySurgeonLabel", "Barber", "The label of the ClaySurgeon (Barber) enemy");
+			UnknownLabel      = config.Bind("2.2 Enemy Labels", "unknownLabel", string.Empty, "The label of an unidentified enemy, leave empty to use the name");
+			BaboonHawkLabel   = config.Bind("2.2 Enemy Labels", "baboonHawkLabel", "Hawk", "The label of the BaboonBird enemy");
+			BlobLabel         = config.Bind("2.2 Enemy Labels", "blobLabel", "Blob", "The label of the Blob enemy");
+			CentipedeLabel    = config.Bind("2.2 Enemy Labels", "snareFleaLabel", "Snare", "The label of the Centipede (Snare Flea) enemy");
+			CrawlerLabel      = config.Bind("2.2 Enemy Labels", "crawlerLabel", "Half", "The label of the Crawler (Thumper) enemy");
+			ManticoilLabel    = config.Bind("2.2 Enemy Labels", "manticoilLabel", "Bird", "The label of the Doublewing (Manticoil) enemy");
+			BrackenLabel      = config.Bind("2.2 Enemy Labels", "brackenLabel", "Bracken", "The label of the FlowerMan (Bracken) enemy");
+			ForestGiantLabel  = config.Bind("2.2 Enemy Labels", "forestGiantLabel", "Giant", "The label of the ForestGiant enemy");
+			HoarderBugLabel   = config.Bind("2.2 Enemy Labels", "hoarderBugLabel", "Bug", "The label of the HoarderBug enemy");
+			JesterLabel       = config.Bind("2.2 Enemy Labels", "jesterLabel", "Jester", "The label of the Jester enemy");
+			MaskedLabel       = config.Bind("2.2 Enemy Labels", "maskedPlayerLabel", "X", "The label of the MaskedPlayer enemy");
+			DogLabel          = config.Bind("2.2 Enemy Labels", "mouthDogLabel", "Dog", "The label of the MouthDog enemy");
+			NutCrackerLabel   = config.Bind("2.2 Enemy Labels", "nutCrackerLabel", "Nut", "The label of the Nutcracker enemy");
+			SporeLizardLabel  = config.Bind("2.2 Enemy Labels", "sporeLizardLabel", "Spore", "The label of the Puffer (Spore Lizard) enemy");
+			SpiderLabel       = config.Bind("2.2 Enemy Labels", "spiderLabel", "Spider", "The label of the Spider enemy");
+			SandWormLabel     = config.Bind("2.2 Enemy Labels", "sandWormLabel", string.Empty, "The label of the SandWorm enemy");
+			CoilHeadLabel     = config.Bind("2.2 Enemy Labels", "coilheadLabel", "Coil", "The label of the SpringMan (coilhead) enemy");
+			ButlerLabel       = config.Bind("2.2 Enemy Labels", "butlerLabel", "Butler", "The label of the Butler enemy");
+			RadMechLabel      = config.Bind("2.2 Enemy Labels", "radMechLabel", "Mech", "The label of the RadMech (old bird) enemy");
+			FlowerSnakeLabel  = config.Bind("2.2 Enemy Labels", "flowerSnakeLabel", "Snake", "The label of the FlowerSnake (Tulip Snake) enemy");
+			BushWolfLabel     = config.Bind("2.2 Enemy Labels", "bushWolfLabel", "Fox", "The label of the BushWolf (Kidnapper Fox) enemy");
+			ManeaterLabel     = config.Bind("2.2 Enemy Labels", "maneaterLabel", "Maneater", "The label of the CaveDweller (Maneater) enemy");
+			BabyManeaterLabel = config.Bind("2.2 Enemy Labels", "babyManeaterLabel", "Baby", "The label of the CaveDweller (Maneater) enemy when in 'baby' state");
+			ClaySurgeonLabel  = config.Bind("2.2 Enemy Labels", "claySurgeonLabel", "Barber", "The label of the ClaySurgeon (Barber) enemy");
 
 			// ITEMS
 			//    TOOLS

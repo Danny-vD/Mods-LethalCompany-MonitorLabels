@@ -101,7 +101,20 @@ namespace MonitorLabels
 				return;
 			}
 
-			AIMapLabelManager.AddLabelToAI(__instance);
+			AIMapLabelManager.AddLabelToAI(__instance, __instance.transform, false);
+		}
+
+		[HarmonyPatch(typeof(CaveDwellerAI), nameof(CaveDwellerAI.becomeAdultAnimation)), HarmonyPostfix, HarmonyPriority(Priority.Low)]
+		private static void becomeAdultAnimationPatch(CaveDwellerAI __instance)
+		{
+			LoggerUtil.LogDebug($"{nameof(CaveDwellerAI)}.{nameof(CaveDwellerAI.becomeAdultAnimation)} patch run");
+			
+			if (!ConfigUtil.ShowLabelOnEnemies.Value)
+			{
+				return;
+			}
+
+			AIMapLabelManager.AddLabelToAI(__instance, __instance.adultContainer.transform, true);
 		}
 
 		[HarmonyPatch(typeof(MaskedPlayerEnemy), nameof(MaskedPlayerEnemy.Start)), HarmonyPostfix, HarmonyPriority(Priority.Low)] // MaskedPlayerEnemy does not call base.Start() so it has to be individually patched
@@ -114,7 +127,7 @@ namespace MonitorLabels
 				return;
 			}
 
-			AIMapLabelManager.AddLabelToAI(__instance);
+			AIMapLabelManager.AddLabelToAI(__instance, __instance.transform, false);
 		}
 
 		[HarmonyPatch(typeof(EnemyAI), nameof(EnemyAI.KillEnemy)), HarmonyPostfix, HarmonyPriority(Priority.Low)]

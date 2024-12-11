@@ -64,14 +64,17 @@ namespace MonitorLabels.Utils
 		/// <summary>
 		/// A breadth-first search for a child that has 'MapDot' in its name
 		/// </summary>
-		public static Transform GetMapDot(Transform parent)
+		public static Transform GetMapDot(Transform parent, bool checkDisabledObjects = false)
 		{
 			// A breadth-first queue to search through all the children before looking at their children
 			Queue<Transform> queue = new Queue<Transform>();
 
 			foreach (Transform child in parent)
 			{
-				queue.Enqueue(child);
+				if (checkDisabledObjects || child.gameObject.activeInHierarchy)
+				{
+					queue.Enqueue(child);
+				}
 			}
 
 			while (queue.Count > 0)
@@ -85,7 +88,10 @@ namespace MonitorLabels.Utils
 
 				foreach (Transform child in current)
 				{
-					queue.Enqueue(child);
+					if (checkDisabledObjects || child.gameObject.activeInHierarchy)
+					{
+						queue.Enqueue(child);
+					}
 				}
 			}
 

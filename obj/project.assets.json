@@ -2738,7 +2738,7 @@
     "C:\\IDE\\Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.0.2",
+    "version": "2.1.0",
     "restore": {
       "projectUniqueName": "D:\\Projects\\MODS\\Lethal Company\\MonitorLabels\\MonitorLabels.csproj",
       "projectName": "MonitorLabels",
@@ -2746,6 +2746,7 @@
       "packagesPath": "C:\\Users\\dvdui\\.nuget\\packages\\",
       "outputPath": "D:\\Projects\\MODS\\Lethal Company\\MonitorLabels\\obj\\",
       "projectStyle": "PackageReference",
+      "UsingMicrosoftNETSdk": false,
       "fallbackFolders": [
         "C:\\IDE\\Visual Studio\\Shared\\NuGetPackages"
       ],
@@ -2825,7 +2826,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

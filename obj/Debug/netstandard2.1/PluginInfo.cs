@@ -4,6 +4,6 @@ namespace MonitorLabels
     {
         public const string PLUGIN_GUID = "MonitorLabels";
         public const string PLUGIN_NAME = "MonitorLabels";
-        public const string PLUGIN_VERSION = "2.0.2";
+        public const string PLUGIN_VERSION = "2.1.0";
     }
 }
