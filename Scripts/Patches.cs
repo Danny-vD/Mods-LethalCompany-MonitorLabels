@@ -114,6 +114,8 @@ namespace MonitorLabels
 				return;
 			}
 
+			__instance.growthMeter = 1;
+			
 			AIMapLabelManager.AddLabelToAI(__instance, __instance.adultContainer.transform, true);
 		}
 
