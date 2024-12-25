@@ -1,3 +1,11 @@
+# Version 2.1.2
+
+Add support for the [Lobby Compatibility Mod](https://thunderstore.io/c/lethal-company/p/BMX/LobbyCompatibility/) by registering as a client-side mod that is compatible with everything.
+
+# Version 2.1.1
+
+Fix the Maneater not always getting the correct label when switching from baby to adult on clients
+
 # Version 2.1.0
 Support for V68!
 

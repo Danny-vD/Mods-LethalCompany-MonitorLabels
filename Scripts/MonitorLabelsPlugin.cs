@@ -10,10 +10,10 @@ namespace MonitorLabels
 	[BepInDependency(LethalConfigUtils.LETHAL_CONFIG_GUID, BepInDependency.DependencyFlags.SoftDependency)]
 	public class MonitorLabelsPlugin : BaseUnityPlugin
 	{
-		//TODO: Make the icon of traps yellow when they are an immediate threat to a player
+		//TODO: Make the icon of traps yellow when they are an immediate threat to a player or maybe when they're falling down
 		public const string GUID = "DannyVD.mods.LethalCompany.MonitorLabels";
 		public const string PLUGIN_NAME = "MonitorLabels";
-		public const string PLUGIN_VERSION = "2.1.0";
+		public const string PLUGIN_VERSION = "2.1.2";
 		
 		public const string DEPENDENCY_STRING = $"DannyVD-{PLUGIN_NAME}-{PLUGIN_VERSION}";
 
