@@ -12,10 +12,10 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("DannyVD")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyDescriptionAttribute("Adds a label to the icons on the monitor for players, radar boosters, enemies and" +
-    " scrap")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute(("Adds a label to the icons on the monitor for players, radar boosters, enemies and" +
+    " scrap"))]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.1.2.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.1.2+c2e6ee5e9976e7b2ce3a16204535a8e2fcaf33de")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.1.2+75e1458b9755cc5a05571e86c048bd3df3f97310")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonitorLabels")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonitorLabels")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.1.2.0")]
